@@ -1162,7 +1162,7 @@ function authForm(admin){
     <form class="form" id="authForm" data-admin="${admin ? "1" : ""}">
       <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
       <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
-      <button class="btn full lg" type="submit">${login ? "Se connecter" : "Créer le compte"}</button>
+      <button class="btn full lg" type="submit">${login || admin ? "Se connecter" : "Créer le compte"}</button>
     </form>
     ${admin ? "" : `<button class="ulink" style="margin-top:16px;font-size:14px" data-act="authMode">${login ? "Pas encore de compte ? Créer un compte" : "Déjà un compte ? Se connecter"}</button>
     <p class="note" style="margin-top:26px">Ton compte est enregistré sur cet appareil.</p>`}
