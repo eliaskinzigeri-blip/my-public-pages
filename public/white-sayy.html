@@ -611,6 +611,16 @@ if(draft && (!draft._dirty || (draft.version || 0) < DEFAULTS.version)){ localSt
 const pub = PUBLISHED && (PUBLISHED.version || 0) >= DEFAULTS.version ? PUBLISHED : null;
 let shop = merge(DEFAULTS, draft || pub || {});
 if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+/* Chargement des données en ligne (cloud) : elles priment sur celles intégrées à la page */
+fetch("/api/public/shop", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(row => {
+  const cloud = row && row.data;
+  if(!cloud || (cloud.version || 0) < DEFAULTS.version) return;
+  const d = read(K.draft, null);
+  if(d && d._dirty) return; // un admin a des modifs locales en cours : ne pas écraser
+  shop = merge(DEFAULTS, cloud);
+  if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+  render();
+}).catch(() => {});
 const S = () => shop.settings;
 let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
 
@@ -1151,6 +1161,7 @@ function pDone(id){
 /* ============ Comptes ============ */
 async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
 const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
+let adminPwd = null;
 function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
 let authMode = "login";
 function authForm(admin){
@@ -1175,6 +1186,7 @@ function mountAuth(){
     const email = f.email.value.trim().toLowerCase(), h = await hash(email + "|" + f.password.value);
     if(f.dataset.admin === "1"){
       if(email !== ADMIN_EMAIL || h !== ADMIN_HASH) return toast("E-mail ou mot de passe incorrect");
+      adminPwd = f.password.value;
       write(K.session, {email, admin: true}); authMode = "login"; render(); return;
     }
     const users = read(K.users, []);
@@ -1270,7 +1282,20 @@ function reviewForm(pid){
 /* ============ Admin ============ */
 const getPath = (o, p) => p.split(".").reduce((a,k) => a?.[k], o);
 function setPath(o, p, v){ const ks = p.split("."); const last = ks.pop(); const t = ks.reduce((a,k) => a[k], o); t[last] = v; }
-function saveDraft(silent){ shop._dirty = true; if(write(K.draft, shop) && !silent) flashSaved(); }
+function saveDraft(silent){ shop._dirty = true; if(write(K.draft, shop) && !silent) flashSaved(); syncCloud(); }
+let syncT = null;
+function syncCloud(){
+  if(!adminPwd) return;
+  clearTimeout(syncT);
+  syncT = setTimeout(async () => {
+    const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
+    try{
+      const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: ADMIN_EMAIL, password: adminPwd, data})});
+      if(r.ok){ shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop); const b = $("#savedTag"); if(b){ b.textContent = "En ligne"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1600); } const w = $(".warnbar"); if(w) w.remove(); }
+      else toast("Publication en ligne impossible — réessaie");
+    }catch(e){ toast("Connexion impossible — modifications gardées sur cet appareil"); }
+  }, 700);
+}
 function flashSaved(){ const b = $("#savedTag"); if(b){ b.textContent = "Enregistré"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1400); } }
 function compress(file, max = 1100, q = .82){
   return new Promise((res, rej) => {
@@ -1341,15 +1366,14 @@ function pAdmin(){
       <p class="note">Les commandes arrivent sur ton e-mail de contact. Celles passées sur cet appareil apparaissent ci-dessous.</p>
       ${orders.length ? orders.map(o => orderCard(o, true)).join("") : `<div class="card muted">Aucune commande sur cet appareil.</div>`}`;
   }
-  else body = `<div class="card"><b>Mettre en ligne tes modifications</b>
-      <p class="muted" style="font-size:14px;line-height:1.7">Tes réglages sont pour l'instant enregistrés seulement dans ce navigateur. Pour que tous les visiteurs les voient :</p>
-      <ol class="muted" style="font-size:14px;line-height:1.9;padding-left:20px;margin:0 0 16px"><li>Télécharge le site mis à jour.</li><li>Sur GitHub, dans le dossier <b style="color:var(--text)">public/</b>, remplace <b style="color:var(--text)">white-sayy.html</b> par ce fichier.</li><li>Lovable se met à jour tout seul (pense à republier si besoin).</li></ol>
-      <button class="btn full lg" data-act="export">Télécharger le site mis à jour</button></div>
+  else body = `<div class="card"><b>Publication automatique</b>
+      <p class="muted" style="font-size:14px;line-height:1.7">Tes modifications sont enregistrées en ligne automatiquement, dès que tu les fais. Tous les visiteurs les voient immédiatement — plus rien à télécharger ni à déposer sur GitHub.</p>
+      <p class="note">${shop.publishedAt ? `Dernière mise en ligne : ${new Date(shop.publishedAt).toLocaleString("fr-FR")}` : "Aucune publication pour le moment."}</p></div>
     <div class="card"><b>Sauvegarde</b><p class="note">Exporte ou restaure tous les réglages, produits, avis et photos.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" data-act="expjson">Exporter (JSON)</button><label class="btn ghost sm" style="cursor:pointer">Importer (JSON)<input type="file" accept=".json,application/json" hidden id="impjson"></label>${shop._dirty ? `<button class="btn ghost sm" style="color:#e88" data-act="discard">Annuler mes modifications</button>` : ""}</div></div>`;
   return {title:"Admin", html:`<div class="wrap adm" style="padding-bottom:100px;max-width:860px">
     <div class="pagehd" style="padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div><div class="eyebrow">${esc(u.email)}</div><h1 class="display" style="font-size:clamp(36px,6vw,60px);margin-top:10px">Admin</h1></div><span class="muted" id="savedTag" style="font-size:13px"></span></div>
-    ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Modifications enregistrées sur cet appareil, pas encore en ligne.</span><a class="btn sm" href="#/admin" data-act="tab" data-t="publier">Publier</a></div>` : ""}
+    ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Envoi des modifications en ligne…</span></div>` : ""}
     <div class="tabs">${tabs.map(([k,l]) => `<button class="${k===admTab?"on":""}" data-act="tab" data-t="${k}">${l}</button>`).join("")}<button data-act="logout">Déconnexion</button></div>
     ${body}</div>`, mount: mountAdmin};
 }
@@ -1396,18 +1420,6 @@ function mountAdmin(){
     const url = trackUrl(sf.code.value.trim(), sf.carrier.value);
     location.href = `mailto:${encodeURIComponent(sf.email.value.trim())}?subject=${encodeURIComponent(`WHITE SAYY — ta commande ${sf.order.value} est en route`)}&body=${encodeURIComponent(`Bonjour,\n\nTa commande n° ${sf.order.value} vient d'être expédiée.\nNuméro de suivi : ${sf.code.value}\nSuivre le colis : ${url}\n\nMerci pour ta confiance,\nWHITE SAYY`)}`; });
 }
-async function exportSite(){
-  const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
-  const A = "/*SHOP_" + "DATA_START*/", B = "/*SHOP_" + "DATA_END*/";
-  let src;
-  try{ const r = await fetch(location.href.split("#")[0], {cache:"no-store"}); if(!r.ok) throw 0; src = await r.text(); }catch(e){ src = null; }
-  if(!src || !src.includes(A) || !src.includes(B)){ toast("Téléchargement impossible ici : exporte le JSON et ouvre le site en ligne"); return; }
-  const json = JSON.stringify(data).replace(/</g, "\\u003c").replace(/\u2028|\u2029/g, "");
-  const out = src.slice(0, src.indexOf(A) + A.length) + json + src.slice(src.indexOf(B));
-  download("white-sayy.html", out, "text/html");
-  shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop);
-  toast("Fichier prêt : dépose-le dans public/ sur GitHub"); render();
-}
 function download(name, content, type){
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([content], {type})); a.download = name;
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
@@ -1426,7 +1438,7 @@ function searchRes(v){
 $("#q").addEventListener("input", e => searchRes(e.target.value));
 
 /* ============ Actions ============ */
-document.addEventListener("click", e => {
+document.addEventListener("click", async e => {
   const el = e.target.closest("[data-act]"); if(!el) return;
   const a = el.dataset.act;
   const p = el.dataset.id ? findP(el.dataset.id) : null;
@@ -1449,7 +1461,7 @@ document.addEventListener("click", e => {
     case "track": { const v = document.querySelector(`[data-track="${el.dataset.id}"]`).value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
       const os = read(K.orders, []); const o = os.find(x => x.id === el.dataset.id); if(o){ o.tracking = v; write(K.orders, os); } openTracking(v, "laposte"); break; }
     case "authMode": authMode = authMode === "login" ? "signup" : "login"; render(); break;
-    case "logout": localStorage.removeItem(K.session); toast("Déconnecté"); render(); break;
+    case "logout": localStorage.removeItem(K.session); adminPwd = null; toast("Déconnecté"); render(); break;
     case "tab": e.preventDefault(); admTab = el.dataset.t; render(); break;
     case "padd": shop.products.push({id:"produit-" + uid().toLowerCase(), category:"tshirt", line:"", components:[], name:"Nouveau produit", subtitle:"", tagline:"", price:0, description:"", details:[], care:"", sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}, images:[], has360:false, isNew:true, active:false, createdAt:new Date().toISOString().slice(0,10), related:[]}); saveDraft(); render(); break;
     case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
@@ -1458,9 +1470,8 @@ document.addEventListener("click", e => {
     case "revadd": shop.reviews.unshift({name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10)}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
     case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
-    case "export": exportSite(); break;
     case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
-    case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); shop = merge(DEFAULTS, PUBLISHED || {}); render(); toast("Modifications annulées"); } break;
+    case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop", {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
   }
 });
 document.addEventListener("change", e => {
