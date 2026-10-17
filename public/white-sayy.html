@@ -1157,9 +1157,9 @@ function authForm(admin){
   const login = authMode === "login";
   return `<div class="wrap auth">
     <div class="eyebrow" style="margin-bottom:12px">${admin ? "Administration" : "Espace client"}</div>
-    <h1 class="display">${login ? "Connexion" : "Créer un compte"}</h1>
+    <h1 class="display">${login || admin ? "Connexion" : "Créer un compte"}</h1>
     <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Accès réservé à l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
-    <form class="form" id="authForm">
+    <form class="form" id="authForm" data-admin="${admin ? "1" : ""}">
       <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
       <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
       <button class="btn full lg" type="submit">${login ? "Se connecter" : "Créer le compte"}</button>
@@ -1180,7 +1180,7 @@ function mountAuth(){
     const users = read(K.users, []);
     if(authMode === "signup"){
       if(users.some(u => u.email === email)) return toast("Ce compte existe déjà");
-      users.push({email, h, admin: !users.some(u => u.admin)}); write(K.users, users);
+      users.push({email, h, admin: false}); write(K.users, users);
     }else{
       const u = users.find(x => x.email === email);
       if(!u || u.h !== h) return toast("E-mail ou mot de passe incorrect");
