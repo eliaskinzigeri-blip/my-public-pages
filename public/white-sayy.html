@@ -69,6 +69,7 @@ header.solid{background:rgba(10,10,10,.86);backdrop-filter:blur(16px);-webkit-ba
 .logo img{height:34px;width:auto}
 .nav{display:none;gap:26px;font-size:14px}
 .nav a{color:var(--muted);transition:color .2s;position:relative}
+header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10,.95),0 0 4px rgba(10,10,10,.85)}
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--text);transform:scaleX(0);transition:transform .3s var(--ease);transform-origin:left}
 .nav a:hover,.nav a.on{color:var(--text)}
 .nav a.on::after,.nav a:hover::after{transform:scaleX(1)}
@@ -99,7 +100,7 @@ header.solid{background:rgba(10,10,10,.86);backdrop-filter:blur(16px);-webkit-ba
 .hero{position:relative;height:calc(100svh - var(--hd));min-height:560px;max-height:980px;margin-top:calc(var(--hd) * -1);overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
 .hero .bg{position:absolute;inset:-6% 0 0 0;z-index:-2;will-change:transform}
 .hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.5) 0%,rgba(10,10,10,.08) 26%,rgba(10,10,10,.55) 50%,rgba(10,10,10,.88) 72%,rgba(10,10,10,.98) 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.15) 24%,rgba(10,10,10,.78) 48%,rgba(10,10,10,.95) 70%,rgba(10,10,10,1) 100%)}
 .hero .inner{padding-bottom:56px;width:100%}
 .hero h1{font-size:clamp(52px,13vw,168px);margin:16px 0 30px}
 .hero h1 span{display:block}
@@ -110,7 +111,7 @@ header.solid{background:rgba(10,10,10,.86);backdrop-filter:blur(16px);-webkit-ba
 @media (min-width:900px){
   .hero .bg{left:46%}
   .hero .bg img{object-position:center 45%}
-  .hero::after{background:linear-gradient(90deg,var(--bg) 46%,rgba(10,10,10,.35) 58%,rgba(10,10,10,0) 74%),linear-gradient(180deg,rgba(10,10,10,.8) 0%,rgba(10,10,10,.55) 6%,rgba(10,10,10,0) 16%,rgba(10,10,10,0) 72%,var(--bg) 100%)}
+  .hero::after{background:linear-gradient(90deg,var(--bg) 46%,rgba(10,10,10,.35) 58%,rgba(10,10,10,0) 74%),linear-gradient(180deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 5%,rgba(10,10,10,.3) 11%,rgba(10,10,10,0) 18%,rgba(10,10,10,0) 72%,var(--bg) 100%)}
   .hero{align-items:center}
   .hero .inner{padding-bottom:0;padding-top:var(--hd)}
   .hero h1{font-size:clamp(56px,6.4vw,104px);margin:18px 0 36px}
