@@ -1420,18 +1420,6 @@ function mountAdmin(){
     const url = trackUrl(sf.code.value.trim(), sf.carrier.value);
     location.href = `mailto:${encodeURIComponent(sf.email.value.trim())}?subject=${encodeURIComponent(`WHITE SAYY — ta commande ${sf.order.value} est en route`)}&body=${encodeURIComponent(`Bonjour,\n\nTa commande n° ${sf.order.value} vient d'être expédiée.\nNuméro de suivi : ${sf.code.value}\nSuivre le colis : ${url}\n\nMerci pour ta confiance,\nWHITE SAYY`)}`; });
 }
-async function exportSite(){
-  const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
-  const A = "/*SHOP_" + "DATA_START*/", B = "/*SHOP_" + "DATA_END*/";
-  let src;
-  try{ const r = await fetch(location.href.split("#")[0], {cache:"no-store"}); if(!r.ok) throw 0; src = await r.text(); }catch(e){ src = null; }
-  if(!src || !src.includes(A) || !src.includes(B)){ toast("Téléchargement impossible ici : exporte le JSON et ouvre le site en ligne"); return; }
-  const json = JSON.stringify(data).replace(/</g, "\\u003c").replace(/\u2028|\u2029/g, "");
-  const out = src.slice(0, src.indexOf(A) + A.length) + json + src.slice(src.indexOf(B));
-  download("white-sayy.html", out, "text/html");
-  shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop);
-  toast("Fichier prêt : dépose-le dans public/ sur GitHub"); render();
-}
 function download(name, content, type){
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([content], {type})); a.download = name;
   document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
