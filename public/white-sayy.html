@@ -1151,6 +1151,7 @@ function pDone(id){
 /* ============ Comptes ============ */
 async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
 const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
+let adminPwd = null;
 function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
 let authMode = "login";
 function authForm(admin){
@@ -1175,6 +1176,7 @@ function mountAuth(){
     const email = f.email.value.trim().toLowerCase(), h = await hash(email + "|" + f.password.value);
     if(f.dataset.admin === "1"){
       if(email !== ADMIN_EMAIL || h !== ADMIN_HASH) return toast("E-mail ou mot de passe incorrect");
+      adminPwd = f.password.value;
       write(K.session, {email, admin: true}); authMode = "login"; render(); return;
     }
     const users = read(K.users, []);
@@ -1270,7 +1272,20 @@ function reviewForm(pid){
 /* ============ Admin ============ */
 const getPath = (o, p) => p.split(".").reduce((a,k) => a?.[k], o);
 function setPath(o, p, v){ const ks = p.split("."); const last = ks.pop(); const t = ks.reduce((a,k) => a[k], o); t[last] = v; }
-function saveDraft(silent){ shop._dirty = true; if(write(K.draft, shop) && !silent) flashSaved(); }
+function saveDraft(silent){ shop._dirty = true; if(write(K.draft, shop) && !silent) flashSaved(); syncCloud(); }
+let syncT = null;
+function syncCloud(){
+  if(!adminPwd) return;
+  clearTimeout(syncT);
+  syncT = setTimeout(async () => {
+    const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
+    try{
+      const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: ADMIN_EMAIL, password: adminPwd, data})});
+      if(r.ok){ shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop); const b = $("#savedTag"); if(b){ b.textContent = "En ligne"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1600); } const w = $(".warnbar"); if(w) w.remove(); }
+      else toast("Publication en ligne impossible — réessaie");
+    }catch(e){ toast("Connexion impossible — modifications gardées sur cet appareil"); }
+  }, 700);
+}
 function flashSaved(){ const b = $("#savedTag"); if(b){ b.textContent = "Enregistré"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1400); } }
 function compress(file, max = 1100, q = .82){
   return new Promise((res, rej) => {
