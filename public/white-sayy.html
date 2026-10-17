@@ -1150,21 +1150,22 @@ function pDone(id){
 
 /* ============ Comptes ============ */
 async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
-function currentUser(){ const s = read(K.session, null); return s ? read(K.users, []).find(u => u.email === s.email) || null : null; }
+const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
+function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
 let authMode = "login";
 function authForm(admin){
   const login = authMode === "login";
   return `<div class="wrap auth">
     <div class="eyebrow" style="margin-bottom:12px">${admin ? "Administration" : "Espace client"}</div>
-    <h1 class="display">${login ? "Connexion" : "Créer un compte"}</h1>
-    <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Le premier compte créé devient l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
-    <form class="form" id="authForm">
+    <h1 class="display">${login || admin ? "Connexion" : "Créer un compte"}</h1>
+    <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Accès réservé à l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
+    <form class="form" id="authForm" data-admin="${admin ? "1" : ""}">
       <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
       <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
-      <button class="btn full lg" type="submit">${login ? "Se connecter" : "Créer le compte"}</button>
+      <button class="btn full lg" type="submit">${login || admin ? "Se connecter" : "Créer le compte"}</button>
     </form>
-    <button class="ulink" style="margin-top:16px;font-size:14px" data-act="authMode">${login ? "Pas encore de compte ? Créer un compte" : "Déjà un compte ? Se connecter"}</button>
-    <p class="note" style="margin-top:26px">Ton compte est enregistré sur cet appareil.</p>
+    ${admin ? "" : `<button class="ulink" style="margin-top:16px;font-size:14px" data-act="authMode">${login ? "Pas encore de compte ? Créer un compte" : "Déjà un compte ? Se connecter"}</button>
+    <p class="note" style="margin-top:26px">Ton compte est enregistré sur cet appareil.</p>`}
   </div>`;
 }
 function mountAuth(){
@@ -1172,10 +1173,14 @@ function mountAuth(){
   f.addEventListener("submit", async e => {
     e.preventDefault(); if(!f.reportValidity()) return;
     const email = f.email.value.trim().toLowerCase(), h = await hash(email + "|" + f.password.value);
+    if(f.dataset.admin === "1"){
+      if(email !== ADMIN_EMAIL || h !== ADMIN_HASH) return toast("E-mail ou mot de passe incorrect");
+      write(K.session, {email, admin: true}); authMode = "login"; render(); return;
+    }
     const users = read(K.users, []);
     if(authMode === "signup"){
       if(users.some(u => u.email === email)) return toast("Ce compte existe déjà");
-      users.push({email, h, admin: !users.some(u => u.admin)}); write(K.users, users);
+      users.push({email, h, admin: false}); write(K.users, users);
     }else{
       const u = users.find(x => x.email === email);
       if(!u || u.h !== h) return toast("E-mail ou mot de passe incorrect");
