@@ -611,6 +611,16 @@ if(draft && (!draft._dirty || (draft.version || 0) < DEFAULTS.version)){ localSt
 const pub = PUBLISHED && (PUBLISHED.version || 0) >= DEFAULTS.version ? PUBLISHED : null;
 let shop = merge(DEFAULTS, draft || pub || {});
 if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+/* Chargement des données en ligne (cloud) : elles priment sur celles intégrées à la page */
+fetch("/api/public/shop", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(row => {
+  const cloud = row && row.data;
+  if(!cloud || (cloud.version || 0) < DEFAULTS.version) return;
+  const d = read(K.draft, null);
+  if(d && d._dirty) return; // un admin a des modifs locales en cours : ne pas écraser
+  shop = merge(DEFAULTS, cloud);
+  if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+  render();
+}).catch(() => {});
 const S = () => shop.settings;
 let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
 
@@ -1356,15 +1366,14 @@ function pAdmin(){
       <p class="note">Les commandes arrivent sur ton e-mail de contact. Celles passées sur cet appareil apparaissent ci-dessous.</p>
       ${orders.length ? orders.map(o => orderCard(o, true)).join("") : `<div class="card muted">Aucune commande sur cet appareil.</div>`}`;
   }
-  else body = `<div class="card"><b>Mettre en ligne tes modifications</b>
-      <p class="muted" style="font-size:14px;line-height:1.7">Tes réglages sont pour l'instant enregistrés seulement dans ce navigateur. Pour que tous les visiteurs les voient :</p>
-      <ol class="muted" style="font-size:14px;line-height:1.9;padding-left:20px;margin:0 0 16px"><li>Télécharge le site mis à jour.</li><li>Sur GitHub, dans le dossier <b style="color:var(--text)">public/</b>, remplace <b style="color:var(--text)">white-sayy.html</b> par ce fichier.</li><li>Lovable se met à jour tout seul (pense à republier si besoin).</li></ol>
-      <button class="btn full lg" data-act="export">Télécharger le site mis à jour</button></div>
+  else body = `<div class="card"><b>Publication automatique</b>
+      <p class="muted" style="font-size:14px;line-height:1.7">Tes modifications sont enregistrées en ligne automatiquement, dès que tu les fais. Tous les visiteurs les voient immédiatement — plus rien à télécharger ni à déposer sur GitHub.</p>
+      <p class="note">${shop.publishedAt ? `Dernière mise en ligne : ${new Date(shop.publishedAt).toLocaleString("fr-FR")}` : "Aucune publication pour le moment."}</p></div>
     <div class="card"><b>Sauvegarde</b><p class="note">Exporte ou restaure tous les réglages, produits, avis et photos.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" data-act="expjson">Exporter (JSON)</button><label class="btn ghost sm" style="cursor:pointer">Importer (JSON)<input type="file" accept=".json,application/json" hidden id="impjson"></label>${shop._dirty ? `<button class="btn ghost sm" style="color:#e88" data-act="discard">Annuler mes modifications</button>` : ""}</div></div>`;
   return {title:"Admin", html:`<div class="wrap adm" style="padding-bottom:100px;max-width:860px">
     <div class="pagehd" style="padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div><div class="eyebrow">${esc(u.email)}</div><h1 class="display" style="font-size:clamp(36px,6vw,60px);margin-top:10px">Admin</h1></div><span class="muted" id="savedTag" style="font-size:13px"></span></div>
-    ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Modifications enregistrées sur cet appareil, pas encore en ligne.</span><a class="btn sm" href="#/admin" data-act="tab" data-t="publier">Publier</a></div>` : ""}
+    ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Envoi des modifications en ligne…</span></div>` : ""}
     <div class="tabs">${tabs.map(([k,l]) => `<button class="${k===admTab?"on":""}" data-act="tab" data-t="${k}">${l}</button>`).join("")}<button data-act="logout">Déconnexion</button></div>
     ${body}</div>`, mount: mountAdmin};
 }
