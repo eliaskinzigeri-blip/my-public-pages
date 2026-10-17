@@ -1150,14 +1150,15 @@ function pDone(id){
 
 /* ============ Comptes ============ */
 async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
-function currentUser(){ const s = read(K.session, null); return s ? read(K.users, []).find(u => u.email === s.email) || null : null; }
+const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
+function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
 let authMode = "login";
 function authForm(admin){
   const login = authMode === "login";
   return `<div class="wrap auth">
     <div class="eyebrow" style="margin-bottom:12px">${admin ? "Administration" : "Espace client"}</div>
     <h1 class="display">${login ? "Connexion" : "Créer un compte"}</h1>
-    <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Le premier compte créé devient l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
+    <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Accès réservé à l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
     <form class="form" id="authForm">
       <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
       <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
