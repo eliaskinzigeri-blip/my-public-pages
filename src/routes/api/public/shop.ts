@@ -40,7 +40,7 @@ export const Route = createFileRoute("/api/public/shop")({
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { error } = await supabaseAdmin
           .from("shop_data")
-          .upsert({ id: 1, data: body.data, updated_at: new Date().toISOString() });
+          .upsert({ id: 1, data: body.data as never, updated_at: new Date().toISOString() });
         if (error) return Response.json({ error: error.message }, { status: 500 });
         return Response.json({ ok: true });
       },
