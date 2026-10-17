@@ -1450,7 +1450,7 @@ function searchRes(v){
 $("#q").addEventListener("input", e => searchRes(e.target.value));
 
 /* ============ Actions ============ */
-document.addEventListener("click", e => {
+document.addEventListener("click", async e => {
   const el = e.target.closest("[data-act]"); if(!el) return;
   const a = el.dataset.act;
   const p = el.dataset.id ? findP(el.dataset.id) : null;
