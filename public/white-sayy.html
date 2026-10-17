@@ -1473,7 +1473,7 @@ document.addEventListener("click", e => {
     case "track": { const v = document.querySelector(`[data-track="${el.dataset.id}"]`).value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
       const os = read(K.orders, []); const o = os.find(x => x.id === el.dataset.id); if(o){ o.tracking = v; write(K.orders, os); } openTracking(v, "laposte"); break; }
     case "authMode": authMode = authMode === "login" ? "signup" : "login"; render(); break;
-    case "logout": localStorage.removeItem(K.session); toast("Déconnecté"); render(); break;
+    case "logout": localStorage.removeItem(K.session); adminPwd = null; toast("Déconnecté"); render(); break;
     case "tab": e.preventDefault(); admTab = el.dataset.t; render(); break;
     case "padd": shop.products.push({id:"produit-" + uid().toLowerCase(), category:"tshirt", line:"", components:[], name:"Nouveau produit", subtitle:"", tagline:"", price:0, description:"", details:[], care:"", sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}, images:[], has360:false, isNew:true, active:false, createdAt:new Date().toISOString().slice(0,10), related:[]}); saveDraft(); render(); break;
     case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
@@ -1482,9 +1482,8 @@ document.addEventListener("click", e => {
     case "revadd": shop.reviews.unshift({name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10)}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
     case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
-    case "export": exportSite(); break;
     case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
-    case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); shop = merge(DEFAULTS, PUBLISHED || {}); render(); toast("Modifications annulées"); } break;
+    case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop", {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
   }
 });
 document.addEventListener("change", e => {
