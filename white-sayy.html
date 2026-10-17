@@ -550,7 +550,7 @@ const DEFAULTS = {
   version: 5, publishedAt: null,
   settings: {
     announcement: "", shipping: 4.99, freeFrom: 0, lowStock: 5,
-    contactEmail: "", instagram: "", paymentLink: "",
+    contactEmail: "", instagram: "l_.say", paymentLink: "",
     heroImage: "hero", heroEyebrow: "Streetwear · Est. 2026", heroLine1: "Une identité.", heroLine2: "WHITE SAYY.",
     spirit: "Un design brut, un noir profond, un nom qui s'affiche. Pensé pour être porté, pas juste regardé.",
     promises: ["Paiement sécurisé", "Toutes les tailles affichées en temps réel", "Contact direct avec la marque"],
@@ -610,6 +610,7 @@ let draft = read(K.draft, null);
 if(draft && (!draft._dirty || (draft.version || 0) < DEFAULTS.version)){ localStorage.removeItem(K.draft); draft = null; }
 const pub = PUBLISHED && (PUBLISHED.version || 0) >= DEFAULTS.version ? PUBLISHED : null;
 let shop = merge(DEFAULTS, draft || pub || {});
+if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
 const S = () => shop.settings;
 let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
 
