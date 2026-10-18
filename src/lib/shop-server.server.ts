@@ -50,7 +50,7 @@ export async function stripeApi(path: string, method: "GET" | "POST", params?: R
       Authorization: `Bearer ${key}`,
       ...(method === "POST" ? { "Content-Type": "application/x-www-form-urlencoded" } : {}),
     },
-    body: method === "POST" && params ? new URLSearchParams(params).toString() : undefined,
+    body: method === "POST" && params ? new URLSearchParams(params).toString() : null,
   });
   const json = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(json?.error?.message || `stripe_${res.status}`);
