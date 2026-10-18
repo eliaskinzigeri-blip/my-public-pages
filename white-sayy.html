@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="WHITE SAYY — marque streetwear. T-shirts oversize noirs, graphisme brut.">
+<meta name="description" content="WHITE SAYY — marque streetwear : t-shirts oversize, sweats zippés, joggings et ensembles. Noir profond, graphisme brut.">
+<meta property="og:type" content="website"><meta property="og:title" content="WHITE SAYY — Une identité."><meta property="og:description" content="Streetwear : t-shirts oversize, sweats zippés, joggings et ensembles."><meta property="og:image" content="https://lh3.googleusercontent.com/d/15H2h_u7xOi-DxDVfxPeq-ZFjxaZceBj=w1200"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='36' text-anchor='middle' fill='%23f2f0eb'%3EW%3C/text%3E%3C/svg%3E">
 <title>WHITE SAYY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +15,7 @@
 <style>
 :root{
   --bg:#0a0a0a; --bg2:#0f0f0f; --card:#121212; --card2:#171717; --line:#1f1f1f; --line2:#2b2b2b;
-  --text:#f2f0eb; --muted:#8d8b87; --muted2:#5c5b58; --white:#f2f0eb; --warn:#e8c26a;
+  --text:#f2f0eb; --muted:#8d8b87; --muted2:#7f7d79; --white:#f2f0eb; --warn:#e8c26a;
   --r:20px; --pill:999px; --max:1240px; --hd:64px;
   --ease:cubic-bezier(.2,.7,.2,1);
   --display:"Archivo",Inter,system-ui,sans-serif;
@@ -73,7 +75,7 @@ header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--text);transform:scaleX(0);transition:transform .3s var(--ease);transform-origin:left}
 .nav a:hover,.nav a.on{color:var(--text)}
 .nav a.on::after,.nav a:hover::after{transform:scaleX(1)}
-.ic{position:relative;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;transition:background .2s}
+.ic{position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;transition:background .2s}
 .ic:hover{background:rgba(255,255,255,.06)}
 .badge{position:absolute;top:4px;right:2px;min-width:17px;height:17px;padding:0 4px;border-radius:99px;background:var(--white);color:#000;font-size:10px;font-weight:600;display:grid;place-items:center}
 .badge[hidden]{display:none}
@@ -118,9 +120,9 @@ header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10
 }
 
 /* Sections */
-.sec{padding:84px 0}
+.sec{padding-block:84px}
 .sec-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}
-@media (min-width:900px){.sec{padding:120px 0}}
+@media (min-width:900px){.sec{padding-block:120px}}
 
 /* Product cards */
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px}
@@ -346,7 +348,7 @@ label.f{display:block;font-size:12.5px;color:var(--muted);margin:0 0 6px 4px}
 input,textarea,select.in{width:100%;font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;outline:none;transition:border-color .2s}
 @media (min-width:900px){input,textarea,select.in{font-size:15px}}
 textarea{min-height:110px;resize:vertical}
-input::placeholder,textarea::placeholder{color:#64625e}
+input::placeholder,textarea::placeholder{color:#7f7d79}
 input:focus,textarea:focus,select.in:focus{border-color:#bdbab3}
 input[type=checkbox],input[type=radio]{width:18px;height:18px;padding:0;accent-color:#f2f0eb}
 input[type=file]{padding:10px;font-size:13px}
@@ -389,9 +391,9 @@ legend b{display:inline-grid;place-items:center;width:24px;height:24px;border-ra
 .auth h1{font-size:40px;margin-bottom:10px}
 
 /* Prose pages */
-.prose{max-width:720px;padding:50px 0 100px}
+.prose{padding-block:50px 100px}.prose>*{max-width:720px}
 .prose p{color:var(--muted);font-size:17px;line-height:1.75}
-.about{display:grid;gap:30px;padding:30px 0 100px;align-items:center}
+.about{display:grid;gap:30px;padding-block:30px 100px;align-items:center}
 .about .ph{aspect-ratio:1/1;overflow:hidden;border-radius:4px;background:#fff}
 .about .ph img{width:100%;height:100%;object-fit:cover}
 @media (min-width:900px){.about{grid-template-columns:1fr 1fr;gap:80px}}
@@ -438,9 +440,15 @@ footer{border-top:1px solid var(--line);margin-top:auto}
 .search .res{display:flex;gap:12px;overflow-x:auto;padding-top:16px}
 .search .res a{flex:0 0 140px;font-size:13px}
 .search .res img{aspect-ratio:1/1;object-fit:cover;border-radius:4px;margin-bottom:6px;width:100%}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.narrow>*{max-width:680px}
+@media (max-width:899px){body[data-page=produit] footer{padding-bottom:84px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
+<noscript><p style="padding:60px 20px;text-align:center">Active JavaScript pour afficher la boutique WHITE SAYY.</p></noscript>
 <div id="announce"></div>
 <header id="hdr">
   <div class="wrap hd">
@@ -464,7 +472,7 @@ footer{border-top:1px solid var(--line);margin-top:auto}
     <div class="cols">
       <div><h4>Boutique</h4><a href="#/boutique">Tout voir</a><a href="#/boutique?cat=tshirt">T-shirts</a><a href="#/boutique?cat=sweat">Sweats</a><a href="#/boutique?cat=jogging">Joggings</a><a href="#/boutique?cat=ensemble">Ensembles</a></div>
       <div><h4>Aide</h4><a href="#/contact">Contact</a><a href="#/suivi">Suivre ma commande</a><a href="#/compte">Mon compte</a></div>
-      <div><h4>Marque</h4><a href="#/a-propos">À propos</a><a href="#/mentions-legales">Mentions légales</a><a href="#/admin">Admin</a><span id="ftIg"></span></div>
+      <div><h4>Marque</h4><a href="#/a-propos">À propos</a><a href="#/mentions-legales">Mentions légales</a><span id="ftIg"></span></div>
     </div>
     <div class="bt"><span>© <span id="year"></span> WHITE SAYY</span><span>WHITE SAYY Studio</span></div>
   </div>
@@ -482,7 +490,7 @@ footer{border-top:1px solid var(--line);margin-top:auto}
 <div class="ov" id="ov"></div>
 <aside class="drawer" id="drawer" aria-label="Panier"></aside>
 <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
-<div class="lb" id="lb"></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galerie photos"></div>
 <div class="mbar" id="mbar"></div>
 <div id="toast"></div>
 
@@ -628,7 +636,7 @@ let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const eur = v => new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(v || 0);
-const img = k => { if(!k) return ""; if(k.startsWith("r360:")) return IMG[{1:"worn-dos", 7:"worn-face"}[k.slice(5)]] || ""; return IMG[k] || k; };
+const img = k => { if(!k) return ""; if(k.startsWith("r360:")) return IMG[{1:"worn-dos", 7:"worn-face"}[k.slice(5)]] || ""; return esc(IMG[k] || k); };
 const products = () => shop.products.filter(p => p.active !== false);
 const findP = id => shop.products.find(p => p.id === id);
 const isSet = p => p?.category === "ensemble" && Array.isArray(p.components) && p.components.length === 2;
@@ -697,7 +705,7 @@ function closeAll(){
   $("#ov").classList.remove("open"); lock(false); openPanel = null;
 }
 function openDrawer(){ closeAll(); renderDrawer(); $("#drawer").classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "drawer"; }
-function openModal(html){ closeAll(); const m = $("#modal"); m.innerHTML = html; m.classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "modal"; }
+function openModal(html){ closeAll(); const m = $("#modal"); m.innerHTML = html; m.setAttribute("aria-label", m.querySelector("h3")?.textContent || "Fenêtre"); m.classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "modal"; }
 $("#ov").addEventListener("click", closeAll);
 document.addEventListener("keydown", e => { if(e.key === "Escape") closeAll(); });
 
@@ -810,7 +818,7 @@ function pHome(){
   const mq = ["WHITE SAYY","Une identité","Noir profond","Graphisme brut"];
   return {html:`
   <section class="hero">
-    <div class="bg"><img src="${img(s.heroImage)}" alt="T-shirt WHITE SAYY porté au dos, en cabine"></div>
+    <div class="bg"><img fetchpriority="high" decoding="async" src="${img(s.heroImage)}" alt="T-shirt WHITE SAYY porté au dos, en cabine"></div>
     <div class="wrap inner">
       <div class="eyebrow rv">${esc(s.heroEyebrow)}</div>
       <h1 class="display rv d1"><span>${esc(s.heroLine1)}</span><span>${esc(s.heroLine2)}</span></h1>
@@ -937,7 +945,7 @@ function pProduct(id){
       <div class="info">
         <div class="eyebrow" style="margin-bottom:12px">${p.isNew ? "Nouveau · " : ""}${esc(p.subtitle)}${p.tagline ? " · " + esc(p.tagline) : ""}</div>
         <h1 class="display">${esc(p.name)}</h1>
-        ${revs.length ? `<a href="#avis" style="display:inline-flex;gap:8px;align-items:center;font-size:13px" class="muted">${stars(avg(revs))} ${revs.length} avis</a>` : ""}
+        ${revs.length ? `<a href="#/produit/${p.id}" data-act="avis" style="display:inline-flex;gap:8px;align-items:center;font-size:13px" class="muted">${stars(avg(revs))} ${revs.length} avis</a>` : ""}
         <div class="prow"><span class="price">${priceHtml(p)}${c > p.price ? ` <span class="tag w" style="vertical-align:middle;margin-left:6px">−${Math.round((1 - p.price/c)*100)} %</span>` : ""}</span><button class="heart ${favs.includes(p.id)?"on":""}" data-act="fav" data-id="${p.id}" aria-label="Ajouter aux favoris">${I.heart}</button></div>
         <p class="desc">${esc(p.description)}</p>
         ${isSet(p) ? `<div class="incl">${parts(p).filter(Boolean).map(x => `<a href="#/produit/${x.id}"><img src="${img(x.images[0])}" alt=""><span><b>${esc(x.name)}</b>${esc(x.subtitle)} · ${eur(x.price)}</span></a>`).join("")}</div>` : ""}
@@ -1100,7 +1108,7 @@ function pCheckout(){
           <label class="opt"><span class="l"><input type="radio" name="method" value="standard" checked><span>Livraison standard<small>À domicile</small></span></span><span>${ship ? eur(ship) : "Offerte"}</span></label>
         </div></fieldset>
         <fieldset><legend><b>3</b>Paiement</legend>
-          <div class="box note" style="font-size:13.5px">${S().paymentLink ? "Après validation, tu es redirigé vers la page de paiement sécurisée pour régler ta commande." : "Le paiement en ligne arrive bientôt : ta commande est enregistrée et tu recevras les instructions de paiement par e-mail."}</div>
+          <div class="box note" style="font-size:13.5px">${stripeOn ? "Paiement sécurisé par Stripe : à la validation, tu es redirigé vers la page de paiement (carte, Apple Pay ou Google Pay selon ton appareil)." : S().paymentLink ? "Après validation, tu es redirigé vers la page de paiement sécurisée pour régler ta commande." : "Le paiement en ligne n'est pas encore disponible. Après validation, tu envoies ta commande à la marque (e-mail ou Instagram) et elle te donne les instructions de paiement."}</div>
           <label class="chk" style="margin-top:16px"><input type="checkbox" name="save" ${d.email ? "checked" : ""}> Mémoriser mes coordonnées sur cet appareil</label>
         </fieldset>
         <button class="btn full lg only-m" type="submit">Valider la commande — ${eur(sub+ship)}</button>
@@ -1111,7 +1119,7 @@ function pCheckout(){
     </form>
   </div>`, mount: () => {
     const f = $("#coForm");
-    f.addEventListener("submit", e => {
+    f.addEventListener("submit", async e => {
       e.preventDefault();
       for(const el of f.elements){
         if(el.required && !el.value.trim()){ el.setCustomValidity("Remplissez ce champ."); el.reportValidity(); el.setCustomValidity(""); el.focus(); return; }
@@ -1124,6 +1132,15 @@ function pCheckout(){
         items: cart.map(i => { const p = findP(i.id); return {id:i.id, name:p.name, size: isSet(p) ? sizeLabel(p, i.size) : i.size, qty:i.qty, price:p.price, image:p.images[0]}; }),
         subtotal:sub, shipping:ship, total:sub+ship, tracking:""};
       const orders = read(K.orders, []); orders.unshift(o); write(K.orders, orders);
+      const btn = f.querySelector("button[type=submit],button:not([type])");
+      if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = "Redirection vers le paiement…"; }
+      let url = null;
+      try{
+        const r = await fetch("/api/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty}))})});
+        if(r.ok) url = (await r.json()).url || null;
+      }catch(err){}
+      if(url){ o.status = "Paiement en cours"; write(K.orders, orders); location.href = url; return; }
+      if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
       cart = []; saveCart();
       location.hash = "#/commande/" + o.id;
     });
@@ -1151,11 +1168,19 @@ function pDone(id){
     </div>
     <div style="display:grid;gap:10px;margin-top:24px">
       ${S().paymentLink ? `<a class="btn full lg" href="${esc(S().paymentLink)}" target="_blank" rel="noopener">${I.lock} Payer ma commande</a>` : ""}
-      ${mail ? `<a class="btn ${S().paymentLink ? "ghost" : ""} full" href="${mail}">Envoyer ma commande à la marque</a>` : ""}
+      ${!S().paymentLink && !["Payée","Expédiée","Livrée"].includes(o.status) ? `<div class="box note" style="text-align:center">Dernière étape : envoie ta commande à la marque pour qu'elle te confirme le paiement.</div>` : ""}${["Payée","Expédiée","Livrée"].includes(o.status) ? "" : mail ? `<a class="btn ${S().paymentLink ? "ghost" : ""} full" href="${mail}">Envoyer ma commande par e-mail</a>` : (S().instagram ? `<a class="btn full" target="_blank" rel="noopener" data-act="copyorder" data-id="${o.id}" href="https://ig.me/m/${encodeURIComponent(S().instagram.replace(/^@/,""))}">Envoyer sur Instagram</a>` : "")}<button class="btn ghost full" data-act="copyorder" data-id="${o.id}">Copier le récapitulatif</button>
       <a class="btn ghost full" href="#/compte">Voir mes commandes</a>
       <a class="ulink" style="margin-top:6px" href="#/boutique">Continuer mes achats</a>
     </div>
-  </div>`};
+  </div>`, mount: () => syncOrder(o.id)};
+}
+async function syncOrder(id, n = 0){
+  try{
+    const r = await fetch("/api/order-status?id=" + encodeURIComponent(id), {cache:"no-store"}); const d = r.ok ? await r.json() : null; if(!d || !d.status) return;
+    const os = read(K.orders, []), o = os.find(x => x.id === id); if(!o) return;
+    if(o.status !== d.status){ o.status = d.status; if(d.tracking) o.tracking = d.tracking; write(K.orders, os); if(location.hash.startsWith("#/commande/" + id)) render(); }
+    if(!["Payée","Expédiée","Livrée"].includes(d.status) && n < 6 && location.hash.startsWith("#/commande/" + id)) setTimeout(() => syncOrder(id, n + 1), 3000);
+  }catch(err){}
 }
 
 /* ============ Comptes ============ */
@@ -1249,7 +1274,7 @@ function pAbout(){
 }
 function pContact(){
   const s = S();
-  return {title:"Contact", html:`<div class="wrap" style="max-width:720px;padding-top:40px;padding-bottom:100px;margin-left:0">
+  return {title:"Contact", html:`<div class="wrap narrow" style="padding-top:40px;padding-bottom:100px">
     <div class="eyebrow rv">Contact</div><h1 class="display rv d1" style="font-size:clamp(44px,8vw,96px);margin:14px 0 18px">Écris-nous.</h1>
     <p class="muted rv d2" style="font-size:17px">Une question sur une commande ou une taille ? On répond vite.</p>
     <div class="rv d3" style="display:grid;gap:10px;margin:26px 0 34px">
@@ -1431,8 +1456,8 @@ function openSearch(){
   $("#search").classList.add("open"); $("#ov").classList.add("open"); openPanel = "search"; $("#q").value = ""; searchRes(""); setTimeout(() => $("#q").focus(), 60);
 }
 function searchRes(v){
-  const t = v.trim().toLowerCase();
-  const list = products().filter(p => !t || `${p.name} ${p.subtitle} ${p.tagline} ${catName(p.category)} ${catName(p.category, 1)} ${p.description} ${p.details.join(" ")}`.toLowerCase().includes(t));
+  const t = v.trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+  const list = products().filter(p => !t || `${p.name} ${p.subtitle} ${p.tagline} ${catName(p.category)} ${catName(p.category, 1)} ${p.description} ${p.details.join(" ")}`.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(t));
   $("#qres").innerHTML = list.length ? list.map(p => `<a href="#/produit/${p.id}"><img src="${img(p.images[0])}" alt=""><b style="font-weight:500">${esc(p.name)}</b><br><span class="muted">${eur(p.price)}</span></a>`).join("") : `<span class="muted" style="padding:10px 0">Aucun résultat.</span>`;
 }
 $("#q").addEventListener("input", e => searchRes(e.target.value));
@@ -1454,6 +1479,8 @@ document.addEventListener("click", async e => {
     case "add": { const pk = findP(el.dataset.id), key = selKey(pk); if(!key){ toast(isSet(pk) ? (sel.size ? "Choisis la taille du jogging" : "Choisis la taille du sweat") : "Choisis ta taille"); $(".sizes").scrollIntoView({behavior:"smooth", block:"center"}); document.querySelectorAll(".size:not([disabled])").forEach(b => b.animate([{transform:"translateX(0)"},{transform:"translateX(-4px)"},{transform:"translateX(4px)"},{transform:"translateX(0)"}],{duration:300})); break; } addToCart(el.dataset.id, key); break; }
     case "quick": e.preventDefault(); addToCart(el.dataset.id, el.dataset.s); break;
     case "fav": { let f = read(K.favs, []); const id = el.dataset.id; f = f.includes(id) ? f.filter(x => x !== id) : [...f, id]; write(K.favs, f); el.classList.toggle("on", f.includes(id)); toast(f.includes(id) ? "Ajouté aux favoris" : "Retiré des favoris"); break; }
+    case "avis": e.preventDefault(); document.getElementById("avis")?.scrollIntoView({behavior:"smooth"}); break;
+    case "copyorder": { const o = read(K.orders, []).find(x => x.id === el.dataset.id); if(o){ try{ await navigator.clipboard.writeText(orderMail(o)); toast("Récapitulatif copié"); }catch(err){ toast("Copie impossible : sélectionne le texte à la main"); } } break; }
     case "guide": sizeGuide(); break;
     case "zoom": openLightbox(findP(sel.id), +el.dataset.i); break;
     case "lbnav": { const tr = $("#lbTrack"); tr.scrollBy({left: tr.clientWidth * +el.dataset.d, behavior:"smooth"}); break; }
@@ -1479,6 +1506,23 @@ document.addEventListener("change", e => {
   const q = {...query, [f]: e.target.value}; Object.keys(q).forEach(k => !q[k] && delete q[k]);
   const qs = new URLSearchParams(q).toString(); history.replaceState(null, "", "#/boutique" + (qs ? "?" + qs : "")); render();
 });
+
+/* Stripe : actif seulement si le serveur répond enabled:true */
+let stripeOn = false;
+fetch("/api/checkout", {cache:"no-store"}).then(r => r.ok ? r.json() : null).then(d => { stripeOn = !!(d && d.enabled === true); if(stripeOn && /^#\/(checkout|livraison)/.test(location.hash)) render(); }).catch(() => {});
+{ const q = new URLSearchParams(location.search), oid = q.get("order");
+  if(q.get("paid") === "1" && oid){ cart = []; saveCart(); history.replaceState(null, "", location.pathname + "#/commande/" + oid); } }
+addEventListener("pageshow", e => { if(e.persisted) location.reload(); });
+/* Repli si une image Drive refuse de charger */
+addEventListener("error", e => { const t = e.target; if(t.tagName !== "IMG" || t.dataset.fb) return; const m = /googleusercontent\.com\/d\/([\w-]+)/.exec(t.src); t.dataset.fb = 1; if(m) t.src = `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1400`; else t.style.visibility = "hidden"; }, true);
+/* Focus : entrée, piège clavier, retour */
+const PANELS = "#drawer.open,#modal.open,#lb.open,#search.open,#mmenu.open"; let lastFocus = null;
+new MutationObserver(() => setTimeout(() => { const p = document.querySelector(PANELS);
+  if(p && !p.contains(document.activeElement)){ lastFocus ||= document.activeElement; (p.querySelector("input,button,a[href]") || p).focus({preventScroll:true}); }
+  else if(!p && lastFocus){ lastFocus.focus?.({preventScroll:true}); lastFocus = null; } }, 60)).observe(document.body, {subtree:true, attributes:true, attributeFilter:["class"]});
+document.addEventListener("keydown", e => { if(e.key !== "Tab") return; const p = document.querySelector(PANELS); if(!p) return;
+  const f = [...p.querySelectorAll("a[href],button:not([disabled]),input,select,textarea")].filter(x => x.offsetParent !== null); if(!f.length) return;
+  if(e.shiftKey && document.activeElement === f[0]){ e.preventDefault(); f[f.length-1].focus(); } else if(!e.shiftKey && document.activeElement === f[f.length-1]){ e.preventDefault(); f[0].focus(); } });
 
 /* ============ Démarrage ============ */
 document.querySelectorAll(".logoimg").forEach(i => i.src = IMG.logo);
