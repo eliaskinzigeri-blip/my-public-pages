@@ -211,12 +211,14 @@ body.has-promo-banner .hero{height:calc(100svh - var(--sticky-top,var(--hd)));ma
 .rate-pick button:hover{transform:translateY(-2px)}
 .rate-pick button[aria-pressed="true"]{color:var(--text)}
 .review-ticker{overflow:hidden;border-block:1px solid var(--line);background:#080808;padding:23px 0 27px}
-.review-ticker-track{display:flex;width:max-content;align-items:center;gap:52px;animation:review-mq 42s linear infinite}
-.review-ticker:hover .review-ticker-track{animation-play-state:paused}
+.review-ticker-viewport{width:100%;overflow:hidden}
+.review-ticker-track{display:flex;width:max-content;align-items:center;gap:0;animation:review-mq var(--review-duration,42s) linear infinite;will-change:transform}
+.review-ticker-group{display:flex;width:max-content;flex:none;align-items:center;gap:52px;padding-right:52px}
+.review-ticker:hover .review-ticker-track,.review-ticker:focus-within .review-ticker-track{animation-play-state:paused}
 .review-quote{display:inline-flex;align-items:center;gap:14px;white-space:nowrap;font-family:var(--display);font-size:clamp(23px,4vw,42px);font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.025em;color:var(--text)}
 .review-quote .qstars{color:#a8a6a1;font-family:Inter,system-ui,sans-serif;font-size:15px;letter-spacing:.08em}
 .review-quote small{font:500 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.18em;color:var(--muted);white-space:nowrap}
-@keyframes review-mq{to{transform:translateX(-50%)}}
+@keyframes review-mq{to{transform:translate3d(-50%,0,0)}}
 @media (prefers-reduced-motion:reduce){.review-ticker-track{animation:none}}
 .rgrid{display:grid;gap:14px}
 @media (min-width:900px){.rgrid{grid-template-columns:repeat(3,1fr)}}
@@ -476,7 +478,7 @@ main{animation:pagein .45s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .scrollcue i{animation:cue 2s infinite}
 .marquee .t{animation:mq 32s linear infinite}
-.review-ticker-track{animation:review-mq 42s linear infinite}
+.review-ticker-track{animation:review-mq var(--review-duration,42s) linear infinite;will-change:transform}
 .pc .im img{transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
 @media(prefers-reduced-motion:reduce){main{animation:none}.rv{opacity:1;transform:none;transition:none}.marquee .t,.review-ticker-track{animation:none}}
 /* Seule signature visuelle conservée de la V0 : points gris sur l’image d’accueil. */
@@ -897,11 +899,43 @@ function catTiles(){
     return `<a class="cat rv d${i%3}" href="#/boutique?cat=${k}"><img src="${img(IMG[CAT_COVER[k]] ? CAT_COVER[k] : first.images[0])}" alt="${label}" loading="lazy"><span><b>${label}</b><i>${products().filter(p => p.category === k).length} pièces ${I.arrow}</i></span></a>`; }).join("")}</div>`;
 }
 
+function mountReviewTicker(){
+  const section = $("#reviewTicker"); if(!section) return;
+  const viewport = section.querySelector(".review-ticker-viewport");
+  const track = section.querySelector(".review-ticker-track");
+  const groups = track?.querySelectorAll(".review-ticker-group") || [];
+  const first = groups[0], second = groups[1];
+  if(!viewport || !track || !first || !second) return;
+  const baseItems = Array.from(first.children, item => item.cloneNode(true));
+  if(!baseItems.length) return;
+  let observer = null, frame = 0, alive = true;
+  const fill = () => {
+    if(!alive || !section.isConnected) return;
+    const viewportWidth = viewport.clientWidth;
+    first.replaceChildren(...baseItems.map(item => item.cloneNode(true)));
+    const baseWidth = first.getBoundingClientRect().width;
+    if(!viewportWidth || !baseWidth) return;
+    const repetitions = Math.min(120, Math.max(0, Math.ceil(viewportWidth / baseWidth) - 1));
+    for(let i = 0; i < repetitions; i++) baseItems.forEach(item => { const clone = item.cloneNode(true); clone.setAttribute("aria-hidden", "true"); first.appendChild(clone); });
+    second.replaceChildren(...Array.from(first.children, item => item.cloneNode(true)));
+    second.setAttribute("aria-hidden", "true");
+    const distance = first.getBoundingClientRect().width;
+    track.style.setProperty("--review-duration", `${Math.max(18, distance / 34).toFixed(1)}s`);
+  };
+  const schedule = () => { if(!alive) return; cancelAnimationFrame(frame); frame = requestAnimationFrame(fill); };
+  fill();
+  window.addEventListener("resize", schedule, {passive:true});
+  if(typeof ResizeObserver !== "undefined"){ observer = new ResizeObserver(schedule); observer.observe(viewport); }
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
+  teardown.push(() => { alive = false; window.removeEventListener("resize", schedule); observer?.disconnect(); if(frame) cancelAnimationFrame(frame); });
+}
+
 /* ============ Accueil ============ */
 function pHome(){
   const s = S(), list = products();
   const revs = shop.reviews.filter(r => r.text && r.approved !== false);
   const featuredRevs = revs.filter(r => r.featured);
+  const reviewItems = featuredRevs.map(r => `<span class="review-quote"><span class="qstars" aria-label="${+r.rating||5}">${"★".repeat(Math.max(1,Math.min(5,+r.rating||5)))}</span><span>« ${esc(r.text)} »</span><small>— ${esc(r.name || "WHITE SAYY")}</small></span>`).join("");
   const sets = list.filter(isSet);
   const mq = ["WHITE SAYY","Une identité","Noir profond","Graphisme brut"];
   return {html:`
@@ -923,7 +957,7 @@ function pHome(){
     ${list.length > 6 ? `<div style="text-align:center;margin-top:44px"><a class="btn ghost" href="#/boutique">Voir les ${list.length} pièces ${I.arrow}</a></div>` : ""}
   </section>
   <div class="marquee" aria-hidden="true"><div class="t">${[...mq,...mq].map((t,i) => `<span class="${i%2?"":"f"}">${t}</span>`).join("")}</div></div>
-  ${featuredRevs.length ? `<section class="review-ticker" aria-label="Avis clients sélectionnés"><div class="wrap" style="padding-bottom:15px"><div class="eyebrow">Leurs mots. Notre identité.</div></div><div class="review-ticker-track">${[...featuredRevs,...featuredRevs].map(r => `<span class="review-quote"><span class="qstars" aria-label="${+r.rating||5} sur 5">${"★".repeat(Math.max(1,Math.min(5,+r.rating||5)))}</span><span>« ${esc(r.text)} »</span><small>— ${esc(r.name || "WHITE SAYY")}</small></span>`).join("")}</div></section>` : ""}
+  ${featuredRevs.length ? `<section id="reviewTicker" class="review-ticker" aria-label="Avis clients sélectionnés"><div class="wrap" style="padding-bottom:15px"><div class="eyebrow">Leurs mots. Notre identité.</div></div><div class="review-ticker-viewport"><div class="review-ticker-track"><div class="review-ticker-group">${reviewItems}</div><div class="review-ticker-group" aria-hidden="true">${reviewItems}</div></div></div></section>` : ""}
   ${sets.length ? `<section class="sec wrap">
     <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Sweat + jogging</div><h2 class="h2">Les ensembles</h2></div><a class="ulink" href="#/boutique?cat=ensemble">Tout voir</a></div>
     <div class="pgrid">${sets.map(card).join("")}</div>
@@ -945,7 +979,7 @@ function pHome(){
   ${shop.ugc.length ? `<section class="sec wrap" style="padding-top:0">
     <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">${s.instagram ? "@" + esc(s.instagram.replace(/^@/,"")) : "Communauté"}</div><h2 class="h2">Vu sur vous</h2></div>${s.instagram ? `<a class="ulink" target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(s.instagram.replace(/^@/,""))}">Suivre</a>` : ""}</div>
     <div class="ugc">${shop.ugc.map((u,i) => `<a class="rv d${i%3}" ${u.link ? `href="${esc(u.link)}" target="_blank" rel="noopener"` : ""}><img src="${img(u.photo)}" alt="${esc(u.handle || "WHITE SAYY porté")}" loading="lazy">${u.handle ? `<span>@${esc(u.handle.replace(/^@/,""))}</span>` : ""}</a>`).join("")}</div>
-  </section>` : ""}`};
+  </section>` : ""}`, mount:mountReviewTicker};
 }
 const avg = rs => rs.reduce((a,r) => a + (+r.rating||5), 0) / (rs.length || 1);
 const revCard = (r,i) => `<div class="rev rv d${i%3}">${r.photo ? `<img src="${img(r.photo)}" alt="Photo de ${esc(r.name)}" loading="lazy">` : ""}${stars(+r.rating||5)}<div>${esc(r.text)}</div><div class="who"><span>${esc(r.name)}${r.size ? ` · taille ${esc(r.size)}` : ""}</span><span>${r.date ? new Date(r.date).toLocaleDateString("fr-FR",{month:"short",year:"numeric"}) : ""}</span></div></div>`;
