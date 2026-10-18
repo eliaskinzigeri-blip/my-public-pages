@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      orders: {
+        Row: {
+          created_at: string
+          customer: Json
+          id: string
+          items: Json
+          payment_intent: string | null
+          session_url: string | null
+          shipping: number
+          status: string
+          stripe_session_id: string | null
+          subtotal: number
+          total: number
+          tracking: string | null
+        }
+        Insert: {
+          created_at?: string
+          customer: Json
+          id: string
+          items: Json
+          payment_intent?: string | null
+          session_url?: string | null
+          shipping?: number
+          status?: string
+          stripe_session_id?: string | null
+          subtotal?: number
+          total?: number
+          tracking?: string | null
+        }
+        Update: {
+          created_at?: string
+          customer?: Json
+          id?: string
+          items?: Json
+          payment_intent?: string | null
+          session_url?: string | null
+          shipping?: number
+          status?: string
+          stripe_session_id?: string | null
+          subtotal?: number
+          total?: number
+          tracking?: string | null
+        }
+        Relationships: []
+      }
       shop_data: {
         Row: {
           data: Json
