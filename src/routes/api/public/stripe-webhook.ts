@@ -66,7 +66,7 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
           // Stock décrémenté une seule fois (si la commande n'était pas déjà payée).
           if (order && order.status !== "Payée" && Array.isArray(order.items)) {
             const shop = await getShopData();
-            if (shop && decrementStock(shop, order.items)) {
+            if (shop && decrementStock(shop, order.items as { id: string; size: string; qty: number }[])) {
               await supabaseAdmin.from("shop_data").upsert({ id: 1, data: shop, updated_at: new Date().toISOString() });
             }
           }
