@@ -130,7 +130,8 @@ header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10
 .pgrid.solo{grid-template-columns:1fr}
 @media (min-width:900px){.pgrid.solo{grid-template-columns:repeat(2,1fr)}}
 .pc{display:block;position:relative}
-.pc .im{position:relative;aspect-ratio:1/1;background:var(--card);overflow:hidden;border-radius:4px}
+.pc .im{position:relative;isolation:isolate;aspect-ratio:1/1;background:var(--bg);overflow:hidden;border-radius:4px}
+.pc .im::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--bg) 0%,transparent 15%,transparent 85%,var(--bg) 100%),linear-gradient(180deg,var(--bg) 0%,transparent 15%,transparent 85%,var(--bg) 100%)}
 .pc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
 .pc .im img.b{opacity:0}
 @media (hover:hover){.pc:hover .im img.a{opacity:0}.pc:hover .im img.b{opacity:1}.pc:hover .im img{transform:scale(1.035)}}
