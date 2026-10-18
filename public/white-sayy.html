@@ -63,6 +63,14 @@ h1,h2,h3,h4{margin:0;font-weight:500}
 
 /* Announcement + header */
 .announce{background:var(--white);color:#0a0a0a;text-align:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;font-weight:500}
+.announce.promo-announce{background:var(--bg2);color:var(--text);border-block:1px solid var(--line);letter-spacing:.1em}
+.promo-box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:18px 0}
+.promo-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.promo-row input{width:100%;min-width:0;border:1px solid var(--line2);background:var(--bg2);color:var(--text);border-radius:999px;padding:11px 14px;font:inherit}
+.promo-status{font-size:13px;color:var(--muted);margin:8px 0 0}
+.promo-status.ok{color:#9fd8a8}
+.promo-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media(max-width:520px){.promo-products{grid-template-columns:1fr}}
 header{position:sticky;top:0;z-index:40;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
 header.solid{background:rgba(10,10,10,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
 .hd{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--hd)}
@@ -130,8 +138,7 @@ header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10
 .pgrid.solo{grid-template-columns:1fr}
 @media (min-width:900px){.pgrid.solo{grid-template-columns:repeat(2,1fr)}}
 .pc{display:block;position:relative}
-.pc .im{position:relative;isolation:isolate;aspect-ratio:1/1;background:var(--bg);overflow:hidden;border-radius:4px}
-.pc .im::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--bg) 0%,transparent 15%,transparent 85%,var(--bg) 100%),linear-gradient(180deg,var(--bg) 0%,transparent 15%,transparent 85%,var(--bg) 100%)}
+.pc .im{position:relative;aspect-ratio:1/1;background:var(--card);overflow:hidden;border-radius:4px}
 .pc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
 .pc .im img.b{opacity:0}
 @media (hover:hover){.pc:hover .im img.a{opacity:0}.pc:hover .im img.b{opacity:1}.pc:hover .im img{transform:scale(1.035)}}
@@ -568,7 +575,7 @@ IMG.p_tb_f = DRIVE.tb_f ? pic("tb_f") : BYE_FRONT;
 const PUBLISHED = /*SHOP_DATA_START*/null/*SHOP_DATA_END*/;
 
 /* ============ Données ============ */
-const K = {draft:"ws.shop.draft", cart:"ws.cart.v2", orders:"ws.orders.v1", favs:"ws.favs.v1", users:"ws.users.v1", session:"ws.session.v1", addr:"ws.lastAddress", reviewInbox:"ws.reviews.inbox.v1"};
+const K = {draft:"ws.shop.draft", cart:"ws.cart.v2", orders:"ws.orders.v1", favs:"ws.favs.v1", users:"ws.users.v1", session:"ws.session.v1", addr:"ws.lastAddress", reviewInbox:"ws.reviews.inbox.v1", promo:"ws.promo.v1"};
 const read = (k, d) => { try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? d; }catch(e){ return d; } };
 const write = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ toast("Stockage du navigateur plein : retire des images ou exporte tes données"); return false; } };
 const SIZES = ["XS","S","M","L","XL","XXL"];
@@ -635,7 +642,7 @@ const DEFAULTS = {
       "T-shirt blanc, logo BYE, dubai noir : petit à la poitrine, en grand dans le dos.",
       ["Coupe oversize", "Coloris blanc", "Petit logo à l'avant, grand visuel au dos", "Étiquette WHITE SAYY au col"])
   ],
-  reviews: [], ugc: []
+  reviews: [], ugc: [], promos: []
 };
 function merge(base, over){
   if(Array.isArray(base) || typeof base !== "object" || base === null) return over === undefined ? structuredClone(base) : over;
@@ -659,6 +666,7 @@ fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}).then(r => r.ok ? 
 }).catch(() => {});
 const S = () => shop.settings;
 let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
+let appliedPromoCode = read(K.promo, "") || "";
 
 /* ============ Utilitaires ============ */
 const $ = s => document.querySelector(s);
@@ -715,6 +723,34 @@ const uid = () => Array.from(crypto.getRandomValues(new Uint8Array(4)), b => b.t
 const cartCount = () => cart.reduce((s,i) => s + i.qty, 0);
 const cartSub = () => cart.reduce((s,i) => { const p = findP(i.id); return s + (p ? p.price*i.qty : 0); }, 0);
 const shipFor = sub => (+S().freeFrom > 0 && sub >= +S().freeFrom) ? 0 : (+S().shipping || 0);
+const normalizePromoCode = code => String(code ?? "").trim().toUpperCase().replace(/\s+/g, "");
+function calculatePromo(code, items = cart){
+  const normalized = normalizePromoCode(code);
+  const promo = (shop.promos || []).find(x => x.active === true && normalizePromoCode(x.code) === normalized && normalized);
+  if(!promo) return {error:"Code promo invalide ou inactif."};
+  const subtotal = items.reduce((sum, item) => { const product = findP(item.id); return sum + (product ? Number(product.price || 0) * item.qty : 0); }, 0);
+  const minimum = Math.max(0, Number(promo.minSubtotal) || 0);
+  if(subtotal + 0.001 < minimum) return {error:`Ce code est valable dès ${eur(minimum)} d'achat.`};
+  const eligible = items.filter(item => promo.appliesToAll !== false || (promo.productIds || []).includes(item.id));
+  const eligibleSubtotal = eligible.reduce((sum, item) => { const product = findP(item.id); return sum + (product ? Number(product.price || 0) * item.qty : 0); }, 0);
+  if(eligibleSubtotal <= 0) return {error:"Ce code ne s'applique à aucun article de ton panier."};
+  const value = Math.max(0, Number(promo.value) || 0);
+  if(value <= 0) return {error:"Ce code promo n'est pas encore configuré."};
+  const discount = Math.round(Math.min(eligibleSubtotal, promo.discountType === "percent" ? eligibleSubtotal * Math.min(100, value) / 100 : value) * 100) / 100;
+  return {promo, code:normalizePromoCode(promo.code), discount, eligibleSubtotal};
+}
+function renderAnnouncement(){
+  const node = $("#announce"); if(!node) return;
+  const html = [];
+  if(S().announcement) html.push(`<div class="announce">${esc(S().announcement)}</div>`);
+  const promo = (shop.promos || []).find(x => x.active === true && x.showBanner && normalizePromoCode(x.code));
+  if(promo){
+    const value = promo.discountType === "percent" ? `−${Number(promo.value) || 0}%` : `−${eur(promo.value)}`;
+    const fallback = `${normalizePromoCode(promo.code)} · ${value}${Number(promo.minSubtotal) > 0 ? ` dès ${eur(promo.minSubtotal)}` : ""}`;
+    html.push(`<div class="announce promo-announce">${esc(String(promo.bannerText || "").trim() || fallback)}</div>`);
+  }
+  node.innerHTML = html.join("");
+}
 function saveCart(){ cart = cart.filter(i => findP(i.id) && i.qty > 0); write(K.cart, cart); badge(); if($("#drawer").classList.contains("open")) renderDrawer(); }
 function badge(pop){ const b = $("#cartBadge"), n = cartCount(); b.hidden = !n; b.textContent = n; if(pop){ b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); } }
 function addToCart(id, size){
@@ -771,6 +807,7 @@ const ROUTES = [
 let query = {};
 let teardown = [];
 function render(){
+  renderAnnouncement();
   teardown.forEach(f => f()); teardown = [];
   const raw = (location.hash || "#/").slice(1) || "/";
   const [path, qs] = raw.split("?"); query = Object.fromEntries(new URLSearchParams(qs || ""));
@@ -1113,23 +1150,30 @@ function openLightbox(p, start){
 function pCheckout(){
   if(!cart.length) return {title:"Commande", html:`<div class="wrap empty" style="padding:120px 0"><div class="display" style="font-size:36px">Panier vide</div><p>Ajoute un article pour passer commande.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
   const sub = cartSub(), ship = shipFor(sub), d = read(K.addr, {}), me = currentUser();
+  const promoResult = appliedPromoCode ? calculatePromo(appliedPromoCode) : null;
+  const promoValid = !!(promoResult && !promoResult.error);
+  const discount = promoValid ? promoResult.discount : 0;
+  const total = Math.max(0, sub - discount) + ship;
+  const promoStatus = promoResult ? (promoResult.error ? esc(promoResult.error) : `Code ${esc(promoResult.code)} appliqué : −${eur(discount)}`) : "La remise dépend des produits et du seuil définis par la marque.";
   const summary = `
     ${cart.map(i => { const p = findP(i.id); return `<div class="line"><img src="${img(p.images[0])}" alt=""><div class="m"><div class="n">${esc(p.name)}</div><div class="s">${esc(sizeLabel(p, i.size))} · Qté ${i.qty}</div></div><div>${eur(p.price*i.qty)}</div></div>`; }).join("")}
     <div style="border-top:1px solid var(--line);margin-top:6px;padding-top:12px">
       <div class="sline"><span>Sous-total</span><span>${eur(sub)}</span></div>
+      ${discount ? `<div class="sline"><span>Code ${esc(promoResult.code)}</span><span>−${eur(discount)}</span></div>` : ""}
       <div class="sline"><span>Livraison</span><span>${ship ? eur(ship) : "Offerte"}</span></div>
-      <div class="stotal"><span>Total</span><span>${eur(sub+ship)}</span></div><div class="note">Taxes incluses</div>
+      <div class="stotal"><span>Total</span><span>${eur(total)}</span></div><div class="note">Taxes incluses</div>
     </div>`;
   return {title:"Commande", html:`
   <div class="wrap">
-    <div class="pagehd" style="padding-bottom:16px"><h1 class="display" style="font-size:clamp(38px,7vw,72px)">Commande</h1></div>
+      <div class="pagehd" style="padding-bottom:16px"><h1 class="display" style="font-size:clamp(38px,7vw,72px)">Commande</h1></div>
     <form class="co" id="coForm" novalidate>
       <div>
-        <details class="box only-m" style="margin-bottom:26px"><summary class="msum"><span>Afficher le récapitulatif</span><b>${eur(sub+ship)}</b></summary><div style="margin-top:10px">${summary}</div></details>
+        <details class="box only-m" style="margin-bottom:26px"><summary class="msum"><span>Afficher le récapitulatif</span><b>${eur(total)}</b></summary><div style="margin-top:10px">${summary}</div></details>
         <fieldset><legend><b>1</b>Contact</legend><div class="form">
           <input name="email" type="email" placeholder="E-mail" required autocomplete="email" value="${esc(d.email || me?.email)}">
           <input name="phone" type="tel" placeholder="Téléphone (facultatif)" autocomplete="tel" value="${esc(d.phone)}">
         </div></fieldset>
+        <div class="promo-box"><div class="eyebrow">Code promo</div><div class="promo-row"><input id="promoInput" type="text" placeholder="Saisis ton code" autocomplete="off" value="${esc(appliedPromoCode)}" aria-label="Code promo"><button class="btn ghost sm" type="button" data-act="applyPromo">Appliquer</button>${appliedPromoCode ? `<button class="btn ghost sm" type="button" data-act="removePromo">Retirer</button>` : ""}</div><p id="promoMessage" class="promo-status${promoValid ? " ok" : ""}">${promoStatus}</p></div>
         <fieldset><legend><b>2</b>Livraison</legend><div class="form">
           <input name="name" placeholder="Nom complet" required autocomplete="name" value="${esc(d.name)}">
           <input name="address" placeholder="Adresse" required autocomplete="street-address" value="${esc(d.address)}">
@@ -1141,7 +1185,7 @@ function pCheckout(){
           <div class="box note" style="font-size:13.5px">${stripeOn ? "Paiement sécurisé par Stripe : à la validation, tu es redirigé vers la page de paiement (carte, Apple Pay ou Google Pay selon ton appareil)." : S().paymentLink ? "Après validation, tu es redirigé vers la page de paiement sécurisée pour régler ta commande." : "Le paiement en ligne n'est pas encore disponible. Après validation, tu envoies ta commande à la marque (e-mail ou Instagram) et elle te donne les instructions de paiement."}</div>
           <label class="chk" style="margin-top:16px"><input type="checkbox" name="save" ${d.email ? "checked" : ""}> Mémoriser mes coordonnées sur cet appareil</label>
         </fieldset>
-        <button class="btn full lg only-m" type="submit">Valider la commande — ${eur(sub+ship)}</button>
+        <button class="btn full lg only-m" type="submit">Valider la commande — ${eur(total)}</button>
       </div>
       <div class="sumcol only-d"><div class="sum"><div class="eyebrow" style="margin-bottom:8px">Récapitulatif</div>${summary}
         <button class="btn full lg" type="submit" style="margin-top:18px">Valider la commande</button>
@@ -1149,29 +1193,40 @@ function pCheckout(){
     </form>
   </div>`, mount: () => {
     const f = $("#coForm");
+    $("#promoInput")?.addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); document.querySelector('[data-act="applyPromo"]')?.click(); } });
     f.addEventListener("submit", async e => {
       e.preventDefault();
       for(const el of f.elements){
         if(el.required && !el.value.trim()){ el.setCustomValidity("Remplissez ce champ."); el.reportValidity(); el.setCustomValidity(""); el.focus(); return; }
       }
       if(!/^\S+@\S+\.\S+$/.test(f.email.value.trim())){ f.email.setCustomValidity("Saisis une adresse e-mail valide."); f.email.reportValidity(); f.email.setCustomValidity(""); return; }
+      const promoNow = appliedPromoCode ? calculatePromo(appliedPromoCode) : null;
+      if(promoNow?.error){ toast(promoNow.error); $("#promoMessage").textContent = promoNow.error; $("#promoMessage").classList.remove("ok"); return; }
       const c = {}; for(const k of ["email","phone","name","address","zip","city","country"]) c[k] = f[k].value.trim();
       if(f.save.checked) write(K.addr, c); else localStorage.removeItem(K.addr);
-      const sub = cartSub(), ship = shipFor(sub);
+      const sub = cartSub(), ship = shipFor(sub), code = promoNow?.code || "", cut = promoNow?.discount || 0;
       const o = {id:uid(), date:new Date().toISOString(), status:"En attente de paiement", customer:c,
         items: cart.map(i => { const p = findP(i.id); return {id:i.id, name:p.name, size: isSet(p) ? sizeLabel(p, i.size) : i.size, qty:i.qty, price:p.price, image:p.images[0]}; }),
-        subtotal:sub, shipping:ship, total:sub+ship, tracking:""};
+        subtotal:sub, discount:cut, promoCode:code, shipping:ship, total:Math.max(0,sub-cut)+ship, tracking:""};
       const orders = read(K.orders, []); orders.unshift(o); write(K.orders, orders);
       const btn = f.querySelector("button[type=submit],button:not([type])");
       if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = "Redirection vers le paiement…"; }
       let url = null;
       try{
-        const r = await fetch("/api/public/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty}))})});
-        if(r.ok) url = (await r.json()).url || null;
+        const r = await fetch("/api/public/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty})), promoCode:code})});
+        const data = await r.json().catch(() => ({}));
+        if(r.ok) url = data.url || null;
+        else if(data.error === "invalid_promo"){
+          const ix = orders.findIndex(x => x.id === o.id); if(ix >= 0) orders.splice(ix, 1); write(K.orders, orders);
+          if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
+          appliedPromoCode = ""; localStorage.removeItem(K.promo); render();
+          const input = $("#promoInput"), message = $("#promoMessage"); if(input) input.value = code; if(message){ message.textContent = data.message || "Ce code promo n'est plus valable."; message.classList.remove("ok"); }
+          toast(data.message || "Ce code promo n'est plus valable."); return;
+        }
       }catch(err){}
-      if(url){ o.status = "Paiement en cours"; write(K.orders, orders); location.href = url; return; }
+      if(url){ o.status = "Paiement en cours"; o.stripeCheckout = true; write(K.orders, orders); location.href = url; return; }
       if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
-      cart = []; saveCart();
+      cart = []; saveCart(); appliedPromoCode = ""; localStorage.removeItem(K.promo);
       location.hash = "#/commande/" + o.id;
     });
   }};
@@ -1179,7 +1234,7 @@ function pCheckout(){
 function orderMail(o){
   const c = o.customer;
   return `Commande n° ${o.id}\n\n` + o.items.map(i => `${i.qty} × ${i.name} (${i.size}) — ${eur(i.price*i.qty)}`).join("\n") +
-    `\nLivraison : ${eur(o.shipping)}\nTotal : ${eur(o.total)}\n\n${c.name}\n${c.email}${c.phone ? "\n"+c.phone : ""}\n${c.address}, ${c.zip} ${c.city}, ${c.country}`;
+    `${o.promoCode ? `\nCode promo ${o.promoCode} : −${eur(o.discount)}` : ""}\nLivraison : ${eur(o.shipping)}\nTotal : ${eur(o.total)}\n\n${c.name}\n${c.email}${c.phone ? "\n"+c.phone : ""}\n${c.address}, ${c.zip} ${c.city}, ${c.country}`;
 }
 function pDone(id){
   const o = read(K.orders, []).find(x => x.id === id);
@@ -1192,12 +1247,14 @@ function pDone(id){
     <p class="muted" style="margin:12px 0 30px">Commande n° <b style="color:var(--text)">${esc(o.id)}</b> — ${esc(o.status.toLowerCase())}.</p>
     <div class="box">
       ${o.items.map(i => `<div class="sline" style="color:var(--text)"><span>${i.qty} × ${esc(i.name)} (${esc(i.size)})</span><span>${eur(i.price*i.qty)}</span></div>`).join("")}
+      ${o.promoCode ? `<div class="sline"><span>Code ${esc(o.promoCode)}</span><span>−${eur(o.discount)}</span></div>` : ""}
       <div class="sline"><span>Livraison</span><span>${o.shipping ? eur(o.shipping) : "Offerte"}</span></div>
       <div class="stotal" style="border-top:1px solid var(--line);padding-top:12px"><span>Total</span><span>${eur(o.total)}</span></div>
       <div class="note" style="margin-top:12px">Livraison : ${esc(c.address)}, ${esc(c.zip)} ${esc(c.city)}, ${esc(c.country)}</div>
     </div>
     <div style="display:grid;gap:10px;margin-top:24px">
-      ${S().paymentLink ? `<a class="btn full lg" href="${esc(S().paymentLink)}" target="_blank" rel="noopener">${I.lock} Payer ma commande</a>` : ""}
+      ${S().paymentLink && !o.stripeCheckout && !o.discount && !["Payée","Expédiée","Livrée"].includes(o.status) ? `<a class="btn full lg" href="${esc(S().paymentLink)}" target="_blank" rel="noopener">${I.lock} Payer ma commande</a>` : ""}
+      ${o.discount > 0 && S().paymentLink && !o.stripeCheckout && !["Payée","Expédiée","Livrée"].includes(o.status) ? `<div class="box note" style="text-align:center">Le lien de paiement enregistré ne peut pas appliquer automatiquement cette remise. Confirme le montant remisé de ${eur(o.total)} avec WHITE SAYY avant de régler.</div>` : ""}
       ${!S().paymentLink && !["Payée","Expédiée","Livrée"].includes(o.status) ? `<div class="box note" style="text-align:center">Dernière étape : envoie ta commande à la marque pour qu'elle te confirme le paiement.</div>` : ""}${["Payée","Expédiée","Livrée"].includes(o.status) ? "" : mail ? `<a class="btn ${S().paymentLink ? "ghost" : ""} full" href="${mail}">Envoyer ma commande par e-mail</a>` : (S().instagram ? `<a class="btn full" target="_blank" rel="noopener" data-act="copyorder" data-id="${o.id}" href="https://ig.me/m/${encodeURIComponent(S().instagram.replace(/^@/,""))}">Envoyer sur Instagram</a>` : "")}<button class="btn ghost full" data-act="copyorder" data-id="${o.id}">Copier le récapitulatif</button>
       <a class="btn ghost full" href="#/compte">Voir mes commandes</a>
       <a class="ulink" style="margin-top:6px" href="#/boutique">Continuer mes achats</a>
@@ -1267,6 +1324,7 @@ function orderCard(o, admin){
   return `<details class="ord"><summary><span><b style="font-weight:500">n° ${esc(o.id)}</b><br><span class="muted" style="font-size:13px">${new Date(o.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})} · ${eur(o.total)}</span></span><span class="status ${/expédi|livr/i.test(o.status)?"ok":""}">${esc(o.status)}</span></summary>
     <div class="b">
       ${o.items.map(i => `<div class="line" style="padding:12px 0">${i.image ? `<img src="${img(i.image)}" alt="" style="width:56px;height:70px">` : ""}<div class="m"><div class="n">${esc(i.name)}</div><div class="s">${esc(i.size)} · Qté ${i.qty}</div></div><div>${eur(i.price*i.qty)}</div></div>`).join("")}
+      ${(o.promoCode || o.customer?.promoCode) ? `<div class="sline"><span>Code ${esc(o.promoCode || o.customer.promoCode)}</span><span>−${eur(o.discount ?? o.customer?.promoDiscount ?? 0)}</span></div>` : ""}
       <div class="note" style="margin:6px 0 14px">${esc(o.customer.address)}, ${esc(o.customer.zip)} ${esc(o.customer.city)}${admin ? ` · ${esc(o.customer.name)} · ${esc(o.customer.email)}` : ""}</div>
       <div style="display:flex;gap:8px"><input placeholder="N° de suivi du colis" value="${esc(o.tracking)}" data-track="${o.id}" style="padding:11px 14px"><button class="btn sm" data-act="track" data-id="${o.id}">Suivre</button></div>
     </div></details>`;
@@ -1408,7 +1466,7 @@ function pAdmin(){
     shop.reviews.unshift(...inbox.filter(r => !known.has(r.id)).map(r => ({...r, approved:false, featured:false, pending:true})));
     write(K.reviewInbox, []); saveDraft(true);
   }
-  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["avis","Avis"],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
+  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["promos","Codes promo"],["avis","Avis"],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
   const s = shop;
   let body = "";
   if(admTab === "produits") body = s.products.map((p,i) => `
@@ -1434,6 +1492,18 @@ function pAdmin(){
     <div class="card"><b>Guide des tailles</b> <span class="pill" style="color:var(--warn)">Mesures indicatives : remplace-les par les tiennes</span>${[["tshirt","T-shirts"],["sweat","Sweats"],["jogging","Joggings"]].map(([k,l]) => F(`settings.sizeGuides.${k}`,`${l} (une ligne par taille, colonnes séparées par ;)`,"area",'style="min-height:160px;font-family:ui-monospace,monospace;font-size:13px"')).join("")}${F("settings.sizeAdvice","Conseil de taille","area",'style="min-height:70px"')}</div>
     <div class="card"><b>Contact & paiement</b>${F("settings.contactEmail","E-mail de contact (reçoit commandes et avis)")}${F("settings.instagram","Compte Instagram (sans @)")}${F("settings.paymentLink","Lien de paiement (Stripe Payment Link, PayPal.me, SumUp…)")}<p class="note">Avec un lien de paiement, un bouton « Payer ma commande » apparaît après la commande.</p></div>
     <div class="card"><b>Pages</b>${F("settings.about","À propos","area")}${F("settings.legal","Mentions légales","area",'style="min-height:160px"')}</div>`;
+  else if(admTab === "promos") body = `<p class="note" style="margin-top:0">Crée des codes à pourcentage ou à montant fixe. Le minimum se calcule sur tout le panier ; la remise s'applique aux produits choisis. Une seule banderole promo active peut apparaître en haut de toutes les pages.</p>` +
+    ((s.promos || []).length ? s.promos.map((p,i) => `<details class="card"><summary><span style="flex:1"><b style="font-weight:500">${esc(normalizePromoCode(p.code) || "NOUVEAU CODE")}</b><br><span class="muted" style="font-size:13px">${p.discountType === "percent" ? `${Number(p.value)||0}%` : eur(p.value)} · ${p.active ? "Actif" : "Désactivé"}</span></span>${p.showBanner ? '<span class="pill">Bandeau</span>' : ""}</summary><div class="b">
+      <div class="grid2">${F(`promos.${i}.code`,"Code promo")}
+        <div class="fld"><label class="f">Type de remise</label><select class="in" data-bind="promos.${i}.discountType" data-type="text"><option value="percent" ${p.discountType === "percent" ? "selected" : ""}>Pourcentage</option><option value="fixed" ${p.discountType === "fixed" ? "selected" : ""}>Montant fixe (€)</option></select></div>
+      </div>
+      <div class="grid2">${F(`promos.${i}.value`,"Valeur de la remise","num",'min="0" step="0.01"')}${F(`promos.${i}.minSubtotal`,"Panier minimum (€)","num",'min="0" step="0.01"')}</div>
+      <label class="chk fld"><input type="checkbox" data-bind="promos.${i}.active" data-type="bool" ${p.active ? "checked" : ""}> Code activé</label>
+      <label class="chk fld"><input type="checkbox" data-bind="promos.${i}.appliesToAll" data-type="bool" ${p.appliesToAll !== false ? "checked" : ""}> Tous les produits</label>
+      <div class="fld"><label class="f">Produits concernés</label><div class="promo-products">${s.products.map(product => `<label class="chk"><input type="checkbox" data-promo-product="${i}" value="${esc(product.id)}" ${(p.productIds || []).includes(product.id) ? "checked" : ""} ${p.appliesToAll !== false ? "disabled" : ""}> ${esc(product.name)}</label>`).join("")}</div><p class="note">Décoche « Tous les produits » pour choisir une sélection. Si aucun produit n'est coché, le code ne s'applique à aucun article.</p></div>
+      <label class="chk fld"><input type="checkbox" data-promo-banner="${i}" ${p.showBanner ? "checked" : ""}> Afficher une banderole sur toutes les pages</label>
+      ${F(`promos.${i}.bannerText`,"Texte de la banderole (vide = texte généré)")}
+      <button class="btn ghost sm" style="color:#e88;margin-top:14px" data-act="promodel" data-i="${i}">Supprimer ce code promo</button></div></details>`).join("") : `<div class="empty"><p>Aucun code promo pour l'instant.</p></div>`) + `<button class="btn ghost full" data-act="promoadd">+ Créer un code promo</button>`;
   else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés depuis ce navigateur apparaissent ici pour modération. Coche « Afficher sur l’accueil » pour les publier dans le bandeau défilant.</p>` +
     (s.reviews.length ? s.reviews.map((r,i) => `<details class="card"><summary>${r.photo ? `<img src="${img(r.photo)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px" alt="">` : ""}<span style="flex:1">${stars(+r.rating||5)}<br><span class="muted" style="font-size:13px">${esc(r.name) || "Sans nom"} — ${esc((r.text||"").slice(0,40))}</span></span>${r.pending ? '<span class="pill">À valider</span>' : r.featured ? '<span class="pill">Accueil</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`reviews.${i}.name`,"Pseudo")}${F(`reviews.${i}.size`,"Taille portée")}</div>
@@ -1472,15 +1542,33 @@ function mountAdmin(){
     const el = e.target;
     if(el.dataset.bind){
       const t = el.dataset.type; let v = el.value;
+      const codeMatch = el.dataset.bind.match(/^promos\.(\d+)\.code$/);
+      if(codeMatch){
+        v = normalizePromoCode(v);
+        const pi = +codeMatch[1];
+        if(v && shop.promos.some((promo, j) => j !== pi && normalizePromoCode(promo.code) === v)){ toast("Ce code promo existe déjà."); el.value = shop.promos[pi].code || ""; return; }
+        el.value = v;
+      }
       if(t === "num") v = parseFloat(String(v).replace(",", ".")) || 0;
       if(t === "bool") v = el.checked;
       if(t === "lines") v = v.split("\n").map(x => x.trim()).filter(Boolean);
       setPath(shop, el.dataset.bind, v);
       const featuredMatch = el.dataset.bind.match(/^reviews\.(\d+)\.featured$/);
       if(featuredMatch && v){ shop.reviews[+featuredMatch[1]].approved = true; shop.reviews[+featuredMatch[1]].pending = false; }
-      saveDraft();
+      saveDraft(); renderAnnouncement();
       if(/\.(name|price)$/.test(el.dataset.bind)){ const sm = el.closest("details")?.querySelector("summary b"); if(sm && /name$/.test(el.dataset.bind)) sm.textContent = v; }
-      if(!$(".warnbar") || /\.category$/.test(el.dataset.bind)) render();
+      if(!$(".warnbar") || /\.category$/.test(el.dataset.bind) || /^promos\.\d+\.(code|discountType|value|active|appliesToAll)$/.test(el.dataset.bind)) render();
+    }
+    else if(el.dataset.promoProduct !== undefined){
+      const i = +el.dataset.promoProduct, promo = shop.promos[i]; if(!promo) return;
+      promo.productIds = promo.productIds || [];
+      promo.productIds = el.checked ? [...new Set([...promo.productIds, el.value])] : promo.productIds.filter(id => id !== el.value);
+      saveDraft(); render();
+    }
+    else if(el.dataset.promoBanner !== undefined){
+      const i = +el.dataset.promoBanner;
+      shop.promos.forEach((promo, j) => { promo.showBanner = j === i && el.checked; });
+      saveDraft(); renderAnnouncement(); render();
     }
     else if(el.dataset.setpart !== undefined){
       const p = shop.products[+el.dataset.setpart]; p.components = p.components || ["",""]; p.components[+el.dataset.j] = el.value; saveDraft(); render();
@@ -1552,6 +1640,16 @@ document.addEventListener("click", async e => {
     case "guide": sizeGuide(); break;
     case "zoom": openLightbox(findP(sel.id), +el.dataset.i); break;
     case "lbnav": { const tr = $("#lbTrack"); tr.scrollBy({left: tr.clientWidth * +el.dataset.d, behavior:"smooth"}); break; }
+    case "applyPromo": {
+      const input = $("#promoInput"), code = normalizePromoCode(input?.value || ""), result = code ? calculatePromo(code) : {error:"Saisis un code promo."};
+      if(result.error){
+        appliedPromoCode = ""; localStorage.removeItem(K.promo); render();
+        const field = $("#promoInput"), message = $("#promoMessage"); if(field) field.value = code; if(message){ message.textContent = result.error; message.classList.remove("ok"); }
+        toast(result.error); break;
+      }
+      appliedPromoCode = result.code; write(K.promo, appliedPromoCode); render(); toast(`Code appliqué : −${eur(result.discount)}`); break;
+    }
+    case "removePromo": appliedPromoCode = ""; localStorage.removeItem(K.promo); render(); toast("Code promo retiré"); break;
     case "review": reviewForm(el.dataset.id); break;
     case "rate": { const form = el.closest("form"); if(form){ const value = +el.dataset.rating; form.elements.rating.value = value; form.querySelectorAll('[data-act="rate"]').forEach(b => b.setAttribute("aria-pressed", +b.dataset.rating <= value ? "true" : "false")); } break; }
     case "track": { const v = document.querySelector(`[data-track="${el.dataset.id}"]`).value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
@@ -1563,6 +1661,8 @@ document.addEventListener("click", async e => {
     case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
     case "imgdel": { const cur = getPath(shop, el.dataset.path); if(Array.isArray(cur)) cur.splice(+el.dataset.i, 1); else setPath(shop, el.dataset.path, el.dataset.path === "settings.heroImage" ? "hero" : ""); saveDraft(); render(); break; }
     case "imgmove": { const cur = getPath(shop, el.dataset.path), i = +el.dataset.i; if(Array.isArray(cur) && i > 0){ [cur[i-1], cur[i]] = [cur[i], cur[i-1]]; saveDraft(); render(); } break; }
+    case "promoadd": shop.promos.unshift({id:"promo-"+uid().toLowerCase(), code:"", active:false, discountType:"percent", value:10, minSubtotal:0, appliesToAll:true, productIds:[], showBanner:false, bannerText:""}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
+    case "promodel": shop.promos.splice(+el.dataset.i, 1); saveDraft(); renderAnnouncement(); render(); break;
     case "revadd": shop.reviews.unshift({id:"avis-"+uid(), name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10), approved:true, featured:false}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
     case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
@@ -1592,7 +1692,7 @@ try{
   }
 }catch(err){ L = location; }
 { const q = new URLSearchParams(L.search), oid = q.get("order");
-  if(q.get("paid") === "1" && oid){ cart = []; saveCart(); try{ (L === location ? history : parent.history).replaceState(null, "", L.pathname + "#/commande/" + oid); }catch(err){} if(L !== location) location.hash = "#/commande/" + oid; } }
+  if(q.get("paid") === "1" && oid){ cart = []; saveCart(); appliedPromoCode = ""; localStorage.removeItem(K.promo); try{ (L === location ? history : parent.history).replaceState(null, "", L.pathname + "#/commande/" + oid); }catch(err){} if(L !== location) location.hash = "#/commande/" + oid; } }
 addEventListener("pageshow", e => { if(e.persisted) location.reload(); });
 /* Repli si une image Drive refuse de charger */
 addEventListener("error", e => { const t = e.target; if(t.tagName !== "IMG" || t.dataset.fb) return; const m = /googleusercontent\.com\/d\/([\w-]+)/.exec(t.src); t.dataset.fb = 1; if(m) t.src = `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1400`; else t.style.visibility = "hidden"; }, true);
@@ -1609,7 +1709,6 @@ document.addEventListener("keydown", e => { if(e.key !== "Tab") return; const p 
 document.querySelectorAll(".logoimg").forEach(i => i.src = IMG.logo);
 $("#year").textContent = new Date().getFullYear();
 $("#ftTag").textContent = "Une identité. Des pièces noires, un graphisme brut, rien de superflu.";
-if(S().announcement) $("#announce").innerHTML = `<div class="announce">${esc(S().announcement)}</div>`;
 if(S().instagram) $("#ftIg").innerHTML = `<a target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(S().instagram.replace(/^@/,""))}">Instagram</a>`;
 badge(); render();
 </script>
