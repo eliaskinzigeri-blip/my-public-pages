@@ -1,24 +1,37 @@
-# My Public Pages
+# WHITE SAYY — boutique en ligne
 
-Crée un nouveau projet github ou je mettrai mes fichiers html directement et que tu a acces
+Ce dépôt contient l’application WHITE SAYY reliée à Lovable et la page de boutique qu’elle affiche. La route d’accueil `/` charge `public/white-sayy.html` dans le cadre plein écran défini par `src/routes/index.tsx`.
 
-This project was built with [Lovable](https://lovable.dev).
+## Où modifier le site
 
-## Build with Lovable
+- **Page de boutique active** — `public/white-sayy.html` : catalogue, accueil, avis, administration et interactions de la boutique. C’est le fichier à modifier pour les changements visibles dans le storefront.
+- **Cadre de l’application** — `src/routes/index.tsx` : métadonnées et affichage de la page HTML active. Conserver son chemin `/white-sayy.html` si le fichier est déplacé.
+- **API et intégrations** — `src/routes/api/`, `src/integrations/supabase/` et `src/lib/` : serveur, commandes, paiement et données.
+- **Données et migrations** — `drizzle/` et `supabase/`.
+- **Ancienne page** — `archive/white-sayy-legacy.html` : copie de référence non utilisée par l’application ni incluse dans la sortie publique. La page active reste dans `public/`.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/c1ac376b-972b-44f3-87c8-763c26bb72eb).
+## Développement et vérification
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Prérequis : Node.js et npm. Depuis la racine du dépôt :
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+Avant de pousser une modification, lancer si possible :
+
+```sh
+npm test
+npm run build
+```
+
+Les sorties générées (`.output/`, `.wrangler/`, `node_modules/`) ne sont pas des fichiers source et restent ignorées par Git.
+
+## Synchronisation et publication
+
+Le dépôt est relié au projet Lovable. Les commits poussés sur `main` se synchronisent avec l’éditeur, mais la mise en ligne sur le domaine public peut encore nécessiter la publication depuis Lovable. Ne pas réécrire l’historique publié (pas de force-push, rebase ou amend de commits déjà poussés).
+
+## Variables d’environnement
+
+Les variables Supabase côté navigateur utilisent une clé **publishable**. Ne jamais ajouter de mot de passe, clé `service_role` ou autre secret privé dans le HTML, le code client ou un dépôt public ; gérer les secrets serveur dans l’environnement prévu à cet effet.

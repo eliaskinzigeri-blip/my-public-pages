@@ -211,15 +211,15 @@ body.has-promo-banner .hero{height:calc(100svh - var(--sticky-top,var(--hd)));ma
 .rate-pick button:hover{transform:translateY(-2px)}
 .rate-pick button[aria-pressed="true"]{color:var(--text)}
 .review-ticker{overflow:hidden;border-block:1px solid var(--line);background:#080808;padding:23px 0 27px}
-.review-ticker-viewport{width:100%;overflow:hidden}
+.review-ticker-viewport{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
 .review-ticker-track{display:flex;width:max-content;align-items:center;gap:0;animation:review-mq var(--review-duration,42s) linear infinite;will-change:transform}
 .review-ticker-group{display:flex;width:max-content;flex:none;align-items:center;gap:52px;padding-right:52px}
-.review-ticker:hover .review-ticker-track,.review-ticker:focus-within .review-ticker-track{animation-play-state:paused}
+@media(hover:hover) and (pointer:fine){.review-ticker:hover .review-ticker-track,.review-ticker:focus-within .review-ticker-track{animation-play-state:paused}}
 .review-quote{display:inline-flex;align-items:center;gap:14px;white-space:nowrap;font-family:var(--display);font-size:clamp(23px,4vw,42px);font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.025em;color:var(--text)}
 .review-quote .qstars{color:#a8a6a1;font-family:Inter,system-ui,sans-serif;font-size:15px;letter-spacing:.08em}
 .review-quote small{font:500 11px/1.2 Inter,system-ui,sans-serif;letter-spacing:.18em;color:var(--muted);white-space:nowrap}
 @keyframes review-mq{to{transform:translate3d(-50%,0,0)}}
-@media (prefers-reduced-motion:reduce){.review-ticker-track{animation:none}}
+@media (prefers-reduced-motion:reduce){.review-ticker-viewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;-webkit-mask-image:none;mask-image:none}.review-ticker-track{animation:none;transform:none}.review-ticker-group[aria-hidden="true"],.review-ticker-group>[aria-hidden="true"]{display:none}}
 .rgrid{display:grid;gap:14px}
 @media (min-width:900px){.rgrid{grid-template-columns:repeat(3,1fr)}}
 .rev{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px}
@@ -478,7 +478,6 @@ main{animation:pagein .45s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .scrollcue i{animation:cue 2s infinite}
 .marquee .t{animation:mq 32s linear infinite}
-.review-ticker-track{animation:review-mq var(--review-duration,42s) linear infinite;will-change:transform}
 .pc .im img{transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
 @media(prefers-reduced-motion:reduce){main{animation:none}.rv{opacity:1;transform:none;transition:none}.marquee .t,.review-ticker-track{animation:none}}
 /* Seule signature visuelle conservée de la V0 : points gris sur l’image d’accueil. */
@@ -920,7 +919,8 @@ function mountReviewTicker(){
     second.replaceChildren(...Array.from(first.children, item => item.cloneNode(true)));
     second.setAttribute("aria-hidden", "true");
     const distance = first.getBoundingClientRect().width;
-    track.style.setProperty("--review-duration", `${Math.max(18, distance / 34).toFixed(1)}s`);
+    const durationSeconds = Math.max(20, distance / 30);
+    track.style.setProperty("--review-duration", `${durationSeconds.toFixed(1)}s`);
   };
   const schedule = () => { if(!alive) return; cancelAnimationFrame(frame); frame = requestAnimationFrame(fill); };
   fill();
