@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="WHITE SAYY — marque streetwear : t-shirts oversize, sweats zippés, joggings et ensembles. Noir profond, graphisme brut.">
+<meta property="og:type" content="website"><meta property="og:title" content="WHITE SAYY — Une identité."><meta property="og:description" content="Streetwear : t-shirts oversize, sweats zippés, joggings et ensembles."><meta property="og:image" content="https://lh3.googleusercontent.com/d/15H2h_u7xOi-DxDVfxPeq-ZFjxaZceBj=w1200"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='32' y='45' font-family='Arial Black,Arial' font-weight='900' font-size='36' text-anchor='middle' fill='%23f2f0eb'%3EW%3C/text%3E%3C/svg%3E">
+<title>WHITE SAYY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a; --bg2:#0f0f0f; --card:#121212; --card2:#171717; --line:#1f1f1f; --line2:#2b2b2b;
+  --text:#f2f0eb; --muted:#8d8b87; --muted2:#7f7d79; --white:#f2f0eb; --warn:#e8c26a;
+  --r:20px; --pill:999px; --max:1240px; --hd:64px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --display:"Archivo",Inter,system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#0a0a0a;color:var(--text)}
+html{scroll-behavior:smooth}
+body{font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+img{display:block;max-width:100%}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 18px}
+@media (min-width:900px){.wrap{padding:0 40px}}
+main{flex:1;animation:pagein .45s var(--ease)}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+
+/* Typo */
+.display{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.025em;line-height:.92}
+.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+.hero .eyebrow{color:var(--text);text-shadow:0 1px 14px rgba(10,10,10,.95),0 0 3px rgba(10,10,10,.9)}
+.h2{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;letter-spacing:-.02em;font-size:clamp(26px,4.4vw,44px);line-height:1;margin:0}
+.muted{color:var(--muted)}
+h1,h2,h3,h4{margin:0;font-weight:500}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}main{animation:none}html{scroll-behavior:auto}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--white);color:#0a0a0a;font-weight:500;border-radius:var(--pill);padding:15px 28px;font-size:15px;transition:transform .2s var(--ease),opacity .2s;white-space:nowrap}
+.btn:hover{opacity:.92}.btn:active{transform:scale(.98)}
+.btn.full{width:100%}
+.btn.lg{padding:18px 28px;font-size:16px}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:#555}
+.btn.sm{padding:9px 16px;font-size:13.5px}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn .i{width:18px;height:18px}
+.ulink{text-decoration:underline;text-underline-offset:3px;color:var(--muted)}
+.ulink:hover{color:var(--text)}
+
+/* Announcement + header */
+.announce{background:var(--white);color:#0a0a0a;text-align:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;font-weight:500}
+header{position:sticky;top:0;z-index:40;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+header.solid{background:rgba(10,10,10,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+.hd{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:var(--hd)}
+.hd .left,.hd .right{display:flex;align-items:center;gap:4px}
+.hd .right{justify-content:flex-end}
+.logo img{height:34px;width:auto}
+.nav{display:none;gap:26px;font-size:14px}
+.nav a{color:var(--muted);transition:color .2s;position:relative}
+header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10,.95),0 0 4px rgba(10,10,10,.85)}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--text);transform:scaleX(0);transition:transform .3s var(--ease);transform-origin:left}
+.nav a:hover,.nav a.on{color:var(--text)}
+.nav a.on::after,.nav a:hover::after{transform:scaleX(1)}
+.ic{position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;transition:background .2s}
+.ic:hover{background:rgba(255,255,255,.06)}
+.badge{position:absolute;top:4px;right:2px;min-width:17px;height:17px;padding:0 4px;border-radius:99px;background:var(--white);color:#000;font-size:10px;font-weight:600;display:grid;place-items:center}
+.badge[hidden]{display:none}
+.badge.pop{animation:pop .45s var(--ease)}
+@keyframes pop{40%{transform:scale(1.35)}}
+.only-d{display:none}
+@media (min-width:900px){
+  .hd{grid-template-columns:auto 1fr auto;gap:40px}
+  .logo img{height:38px}
+  .nav{display:flex;justify-content:center}
+  .only-m{display:none!important}.only-d{display:grid}
+}
+
+/* Mobile menu */
+.mmenu{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;padding:18px 18px 30px;transform:translateY(-100%);transition:transform .5s var(--ease);visibility:hidden}
+.mmenu.open{transform:none;visibility:visible}
+.mmenu .top{display:flex;justify-content:space-between;align-items:center;height:46px}
+.mmenu nav{margin-top:40px;display:flex;flex-direction:column;gap:6px}
+.mmenu nav a{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:var(--muted)}
+.mmenu nav a.on,.mmenu nav a:active{color:var(--text)}
+.mmenu .bottom{margin-top:auto;display:flex;gap:20px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+
+/* Hero */
+.hero{position:relative;height:calc(100svh - var(--hd));min-height:560px;max-height:980px;margin-top:calc(var(--hd) * -1);overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
+.hero .bg{position:absolute;inset:-6% 0 0 0;z-index:-2;will-change:transform}
+.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.15) 24%,rgba(10,10,10,.78) 48%,rgba(10,10,10,.95) 70%,rgba(10,10,10,1) 100%)}
+.hero .inner{padding-bottom:56px;width:100%}
+.hero h1{font-size:clamp(52px,13vw,168px);margin:16px 0 30px}
+.hero h1 span{display:block}
+.hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.scrollcue{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--text);opacity:.85;display:flex;align-items:center;gap:10px}
+.scrollcue i{display:block;width:1px;height:38px;background:linear-gradient(var(--text),transparent);animation:cue 2s infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (min-width:900px){
+  .hero .bg{left:46%}
+  .hero .bg img{object-position:center 45%}
+  .hero::after{background:linear-gradient(90deg,var(--bg) 46%,rgba(10,10,10,.35) 58%,rgba(10,10,10,0) 74%),linear-gradient(180deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 5%,rgba(10,10,10,.3) 11%,rgba(10,10,10,0) 18%,rgba(10,10,10,0) 72%,var(--bg) 100%)}
+  .hero{align-items:center}
+  .hero .inner{padding-bottom:0;padding-top:var(--hd)}
+  .hero h1{font-size:clamp(56px,6.4vw,104px);margin:18px 0 36px}
+}
+
+/* Sections */
+.sec{padding-block:84px}
+.sec-hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}
+@media (min-width:900px){.sec{padding-block:120px}}
+
+/* Product cards */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 12px}
+@media (min-width:900px){.pgrid{grid-template-columns:repeat(3,1fr);gap:40px 22px}}
+.pgrid.solo{grid-template-columns:1fr}
+@media (min-width:900px){.pgrid.solo{grid-template-columns:repeat(2,1fr)}}
+.pc{display:block;position:relative}
+.pc .im{position:relative;aspect-ratio:1/1;background:var(--card);overflow:hidden;border-radius:4px}
+.pc .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
+.pc .im img.b{opacity:0}
+@media (hover:hover){.pc:hover .im img.a{opacity:0}.pc:hover .im img.b{opacity:1}.pc:hover .im img{transform:scale(1.035)}}
+.pc .fill{position:absolute;inset:0}
+.pc .tags{position:absolute;top:10px;left:10px;display:flex;gap:6px;z-index:2;flex-wrap:wrap}
+.tag{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;border-radius:3px;background:rgba(10,10,10,.75);color:var(--text);backdrop-filter:blur(6px)}
+.tag.w{background:var(--white);color:#000}
+.tag.warn{color:var(--warn)}
+.pc .meta{display:flex;justify-content:space-between;gap:10px;padding:12px 2px 0;font-size:14px}
+.pc .meta .n{font-weight:500;letter-spacing:.02em;text-transform:uppercase;font-size:13px}
+.pc .meta small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;text-transform:none;letter-spacing:0;font-weight:400}
+.pc .quick{position:absolute;left:10px;right:10px;bottom:10px;z-index:2;opacity:0;transform:translateY(8px);transition:all .35s var(--ease)}
+@media (hover:hover){.pc:hover .quick{opacity:1;transform:none}}
+.quick .sz{display:flex;gap:4px;justify-content:center;background:rgba(10,10,10,.82);backdrop-filter:blur(8px);border-radius:999px;padding:5px}
+.quick .sz button{flex:1;font-size:12px;padding:7px 0;border-radius:999px}
+.quick .sz button:hover:not([disabled]){background:var(--white);color:#000}
+.quick .sz button[disabled]{opacity:.3;text-decoration:line-through;cursor:default}
+
+/* Categories */
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:900px){.cats{grid-template-columns:repeat(4,1fr);gap:16px}}
+.cat{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:4px;background:#fff;display:block}
+.cat img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.cat:hover img{transform:scale(1.05)}
+.cat span{position:absolute;inset:auto 0 0 0;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(10,10,10,.85));display:flex;justify-content:space-between;align-items:flex-end;gap:8px}
+.cat b{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:clamp(18px,2.2vw,26px);letter-spacing:-.01em;line-height:1}
+.cat i{font-style:normal;font-size:12px;color:#cfccc6;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.cat i .i{width:14px;height:14px}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{border:1px solid var(--line2);border-radius:99px;padding:9px 16px;font-size:14px;white-space:nowrap;color:var(--muted);transition:all .2s}
+.chip sup{font-size:10px;margin-left:4px;color:var(--muted2)}
+.chip:hover{color:var(--text);border-color:#555}
+.chip.on{background:var(--white);color:#000;border-color:var(--white)}
+.chip.on sup{color:#555}
+.incl{display:grid;gap:8px;margin:-6px 0 24px}
+.incl a,.upsell{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:8px;font-size:13px;color:var(--muted);transition:border-color .2s}
+.incl a:hover,.upsell:hover{border-color:#444}
+.incl img,.upsell img{width:52px;height:52px;border-radius:8px;object-fit:cover;background:#fff;flex:none}
+.incl b,.upsell b{display:block;color:var(--text);font-weight:500;font-size:13.5px}
+.upsell{margin-top:14px;padding:10px 14px 10px 10px}
+.upsell span{flex:1}
+
+/* Editorial */
+.edito{display:grid;gap:28px;align-items:center}
+.edito .ph{aspect-ratio:1/1;overflow:hidden;border-radius:4px;background:#fff}
+.edito .ph img{width:100%;height:100%;object-fit:cover}
+.edito p.big{font-size:clamp(22px,2.6vw,32px);line-height:1.35;letter-spacing:-.01em;margin:18px 0 30px}
+.promises{display:grid;gap:0;border-top:1px solid var(--line)}
+.promises div{padding:16px 0;border-bottom:1px solid var(--line);color:var(--muted);display:flex;gap:14px;align-items:center;font-size:14.5px}
+.promises div::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--text);flex:none}
+@media (min-width:900px){.edito{grid-template-columns:1fr 1fr;gap:80px}}
+
+/* Marquee */
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;white-space:nowrap}
+.marquee .t{display:inline-flex;gap:48px;animation:mq 32s linear infinite;padding-right:48px}
+.marquee span{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:clamp(28px,5vw,56px);letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1px #4a4a4a}
+.marquee span.f{color:var(--text);-webkit-text-stroke:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee .t{animation:none}}
+
+/* Reviews / UGC */
+.stars{display:inline-flex;gap:2px;color:var(--text)}
+.stars svg{width:14px;height:14px;fill:currentColor}
+.stars .off{color:#3a3a3a}
+.rgrid{display:grid;gap:14px}
+@media (min-width:900px){.rgrid{grid-template-columns:repeat(3,1fr)}}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:12px}
+.rev img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}
+.rev .who{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+.ugc{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (min-width:900px){.ugc{grid-template-columns:repeat(4,1fr);gap:12px}}
+.ugc a{position:relative;aspect-ratio:1;overflow:hidden;border-radius:4px;background:var(--card)}
+.ugc img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.ugc a:hover img{transform:scale(1.05)}
+.ugc span{position:absolute;left:10px;bottom:10px;font-size:12px;background:rgba(10,10,10,.7);padding:4px 8px;border-radius:99px}
+
+/* Shop toolbar */
+.pagehd{padding:40px 0 26px}
+.pagehd h1{font-size:clamp(44px,9vw,96px)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:28px;position:sticky;top:var(--hd);background:rgba(10,10,10,.92);backdrop-filter:blur(12px);z-index:5}
+.toolbar .l{display:flex;gap:8px;flex-wrap:wrap}
+.sel{position:relative}
+.sel select{appearance:none;-webkit-appearance:none;background:var(--card);border:1px solid var(--line2);border-radius:var(--pill);color:var(--text);font:inherit;font-size:13.5px;padding:9px 34px 9px 15px;cursor:pointer}
+.sel::after{content:"";position:absolute;right:15px;top:50%;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.count{font-size:13px;color:var(--muted)}
+
+/* Product page */
+.crumb{font-size:12.5px;color:var(--muted);padding:18px 0}
+.crumb a:hover{color:var(--text)}
+.pp{display:grid;gap:26px;padding-bottom:40px}
+.gal{position:relative;margin:0 -18px}
+.gal .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gal .track::-webkit-scrollbar{display:none}
+.gal .slide{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:1/1;background:var(--card);overflow:hidden;cursor:zoom-in}
+.gal .slide img{width:100%;height:100%;object-fit:cover}
+.dots{display:flex;gap:6px;justify-content:center;position:absolute;bottom:14px;left:0;right:0}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);transition:all .3s}
+.dots i.on{background:#fff;width:18px;border-radius:3px}
+.gcount{position:absolute;top:12px;right:12px;font-size:12px;background:rgba(10,10,10,.7);padding:4px 9px;border-radius:99px}
+.info h1{font-size:clamp(34px,4.6vw,56px);margin-bottom:10px}
+.info .sub{color:var(--muted)}
+.info .prow{display:flex;align-items:center;justify-content:space-between;margin:18px 0}
+.info .price{font-size:22px}
+.heart{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:all .2s}
+.heart svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6}
+.heart.on svg{fill:currentColor}
+.heart.on{animation:pop .45s var(--ease)}
+.desc{color:var(--muted);line-height:1.7;margin:0 0 26px}
+.szhd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-size:14px}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:500px){.sizes{grid-template-columns:repeat(6,1fr)}}
+.size{position:relative;height:54px;border:1px solid var(--line2);border-radius:12px;font-size:15px;font-weight:500;transition:all .18s var(--ease);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.size small{font-size:10px;font-weight:400;color:var(--warn);margin-top:3px;letter-spacing:.02em}
+.size:hover:not([disabled]){border-color:#666}
+.size.on{background:var(--white);color:#000;border-color:var(--white)}
+.size.on small{color:#7a5a12}
+.size[disabled]{color:var(--muted2);cursor:default;background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(255,255,255,.03) 6px 7px)}
+.size[disabled]::after{content:"";position:absolute;left:16%;right:16%;top:50%;height:1px;background:var(--muted2);transform:rotate(-14deg)}
+.stockmsg{min-height:22px;margin:12px 0 14px;font-size:13.5px;color:var(--warn);display:flex;align-items:center;gap:8px}
+.stockmsg.ok{color:var(--muted)}
+.pulse{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pl 1.6s infinite}
+@keyframes pl{50%{opacity:.25}}
+.acc{border-top:1px solid var(--line);margin-top:28px}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;align-items:center;font-size:14.5px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font-size:20px;font-weight:300;transition:transform .3s var(--ease)}
+.acc details[open] summary::after{transform:rotate(45deg)}
+.acc .b{padding:0 0 20px;color:var(--muted);font-size:14.5px;line-height:1.7}
+.acc ul{margin:0;padding-left:18px}
+.v360l{display:flex;justify-content:space-between;align-items:baseline;margin:34px 0 12px;font-size:14px}
+.v360{position:relative;border-radius:4px;overflow:hidden;background:var(--card);aspect-ratio:480/565;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.spin{position:relative;aspect-ratio:1/1;background:#fff;border-radius:4px;overflow:hidden;perspective:1600px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.spin-in{position:absolute;inset:4%;transform-style:preserve-3d;will-change:transform}
+.spin-in img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;backface-visibility:hidden;-webkit-backface-visibility:hidden;pointer-events:none}
+.spin-in img.b{transform:rotateY(180deg)}
+.spin .hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,.8);backdrop-filter:blur(6px);font-size:12.5px;padding:8px 14px;border-radius:99px;display:flex;gap:8px;align-items:center;white-space:nowrap;color:var(--text)}
+.spin .hint .i{width:15px;height:15px}
+.v360 .sprite{width:100%;height:100%;background-size:600% 400%;background-position:0 0;background-repeat:no-repeat;pointer-events:none}
+.v360 .hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(10,10,10,.75);backdrop-filter:blur(6px);font-size:12.5px;padding:8px 14px;border-radius:99px;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.v360 .hint .i{width:15px;height:15px}
+.v360 .bar{position:absolute;left:0;bottom:0;height:2px;background:var(--text);transition:width .1s}
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(10,10,10,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;transform:translateY(110%);transition:transform .35s var(--ease)}
+.mbar.show{transform:none}
+.mbar .t{flex:1;min-width:0;font-size:13px;line-height:1.3}
+.mbar .t b{display:block;font-weight:500;font-size:14px}
+@media (min-width:900px){
+  .gal{margin:0}
+  .gal .track{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible}
+  .gal .slide{border-radius:4px}
+  .gal .slide:first-child{grid-column:1/-1}
+  .dots,.gcount{display:none}
+  .pp{grid-template-columns:1.25fr 1fr;gap:64px;align-items:start}
+  .info{position:sticky;top:calc(var(--hd) + 24px)}
+  .mbar{display:none}
+}
+
+/* Modal / drawer */
+.ov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;backdrop-filter:blur(3px)}
+.ov.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:81;width:min(440px,100vw);background:var(--bg2);border-left:1px solid var(--line);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .5s var(--ease);visibility:hidden}
+.drawer.open{transform:none;visibility:visible}
+.dhd{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
+.dhd h3{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:22px;letter-spacing:-.01em}
+.dbody{flex:1;overflow-y:auto;padding:6px 18px}
+.dft{padding:18px;border-top:1px solid var(--line);padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.ship{font-size:13px;color:var(--muted);margin:14px 0 4px}
+.ship .tr{height:3px;background:var(--line2);border-radius:3px;margin-top:8px;overflow:hidden}
+.ship .tr i{display:block;height:100%;background:var(--text);transition:width .6s var(--ease)}
+.line{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border-bottom:0}
+.line img{width:84px;height:84px;object-fit:cover;border-radius:4px;background:var(--card);flex:none}
+.line .m{flex:1;min-width:0;display:flex;flex-direction:column}
+.line .n{font-size:13.5px;font-weight:500;text-transform:uppercase;letter-spacing:.03em}
+.line .s{font-size:13px;color:var(--muted)}
+.line .bt{margin-top:auto;display:flex;justify-content:space-between;align-items:center}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line2);border-radius:99px;height:34px}
+.stepper button{width:32px;height:32px;display:grid;place-items:center;color:var(--muted);font-size:16px}
+.stepper button:hover{color:var(--text)}
+.stepper span{min-width:20px;text-align:center;font-size:13.5px}
+.rm{font-size:12px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.sline{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin:5px 0}
+.sline span:last-child{color:var(--text)}
+.stotal{display:flex;justify-content:space-between;align-items:baseline;font-size:18px;margin:14px 0 4px}
+.empty{text-align:center;padding:70px 10px}
+.empty p{color:var(--muted);margin:10px 0 24px}
+.modal{position:fixed;z-index:81;left:50%;top:50%;width:min(560px,calc(100vw - 24px));max-height:calc(100vh - 40px);overflow:auto;background:var(--bg2);border:1px solid var(--line2);border-radius:var(--r);transform:translate(-50%,-46%);opacity:0;visibility:hidden;transition:all .35s var(--ease)}
+.modal.open{transform:translate(-50%,-50%);opacity:1;visibility:visible}
+.modal .mb{padding:4px 22px 24px}
+table.st{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 16px}
+table.st th,table.st td{padding:11px 8px;text-align:center;border-bottom:1px solid var(--line)}
+table.st th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+table.st td:first-child,table.st th:first-child{text-align:left}
+.how{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;font-size:13.5px;color:var(--muted);margin-top:8px}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:90;background:#000;opacity:0;visibility:hidden;transition:opacity .3s}
+.lb.open{opacity:1;visibility:visible}
+.lb .track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb .track::-webkit-scrollbar{display:none}
+.lb .sl{flex:0 0 100%;height:100%;scroll-snap-align:center;display:grid;place-items:center;overflow:hidden}
+.lb .sl img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .35s var(--ease);cursor:zoom-in;touch-action:pan-x}
+.lb .sl.z img{transform:scale(2.3);cursor:zoom-out;touch-action:none}
+.lb .x{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:2;width:44px;height:44px;border-radius:50%;background:rgba(30,30,30,.8);display:grid;place-items:center}
+.lb .c{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);font-size:12.5px;color:var(--muted)}
+.lb .nv{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(30,30,30,.8);display:none;place-items:center}
+.lb .nv.p{left:18px}.lb .nv.n{right:18px}
+@media (hover:hover){.lb .nv{display:grid}}
+
+/* Forms */
+.form{display:grid;gap:10px}
+.row2{display:grid;grid-template-columns:1fr 1.6fr;gap:10px}
+label.f{display:block;font-size:12.5px;color:var(--muted);margin:0 0 6px 4px}
+input,textarea,select.in{width:100%;font:inherit;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;outline:none;transition:border-color .2s}
+@media (min-width:900px){input,textarea,select.in{font-size:15px}}
+textarea{min-height:110px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#7f7d79}
+input:focus,textarea:focus,select.in:focus{border-color:#bdbab3}
+input[type=checkbox],input[type=radio]{width:18px;height:18px;padding:0;accent-color:#f2f0eb}
+input[type=file]{padding:10px;font-size:13px}
+.chk{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+fieldset{border:0;margin:0 0 30px;padding:0}
+legend{font-family:var(--display);font-weight:800;font-stretch:112%;text-transform:uppercase;font-size:18px;margin-bottom:14px;padding:0;display:flex;gap:10px;align-items:center}
+legend b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--white);color:#000;font-size:12px;font-family:Inter;font-stretch:100%}
+.opt{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px solid var(--line2);border-radius:14px;padding:15px 16px;font-size:14.5px;cursor:pointer}
+.opt:has(input:checked){border-color:var(--text)}
+.opt .l{display:flex;gap:12px;align-items:center}
+.opt small{display:block;color:var(--muted);font-size:12.5px}
+
+/* Checkout */
+.co{display:grid;gap:28px;padding:10px 0 80px}
+.co .sum{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.co .sum .line img{width:64px;height:80px}
+.co summary.msum{list-style:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding:2px 0;font-size:14.5px}
+.co summary.msum::-webkit-details-marker{display:none}
+.note{font-size:12.5px;color:var(--muted);line-height:1.55}
+.secure{display:flex;gap:8px;align-items:center;justify-content:center;font-size:12px;color:var(--muted);margin-top:12px}
+.secure .i{width:14px;height:14px}
+@media (min-width:900px){.co{grid-template-columns:1fr 420px;gap:60px;align-items:start}.co .sumcol{position:sticky;top:calc(var(--hd) + 20px)}}
+
+/* Confirmation / account */
+.done{max-width:520px;margin:50px auto 90px;text-align:center}
+.check{width:64px;height:64px;border-radius:50%;background:var(--white);display:grid;place-items:center;margin:0 auto 26px;animation:pop .6s var(--ease)}
+.check .i{width:26px;height:26px;stroke:#000;stroke-width:2}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;text-align:left}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:24px;border-bottom:1px solid var(--line)}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a,.tabs button{padding:12px 4px;margin-right:16px;font-size:14px;color:var(--muted);border-bottom:1px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs .on{color:var(--text);border-color:var(--text)}
+.ord{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px}
+.ord summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.ord summary::-webkit-details-marker{display:none}
+.ord .b{padding:0 18px 18px;border-top:1px solid var(--line)}
+.status{font-size:11.5px;padding:4px 9px;border-radius:99px;border:1px solid var(--line2);color:var(--muted);white-space:nowrap}
+.status.ok{color:#9fd8a8;border-color:#2c4a31}
+.auth{max-width:400px;margin:50px auto 90px}
+.auth h1{font-size:40px;margin-bottom:10px}
+
+/* Prose pages */
+.prose{padding-block:50px 100px}.prose>*{max-width:720px}
+.prose p{color:var(--muted);font-size:17px;line-height:1.75}
+.about{display:grid;gap:30px;padding-block:30px 100px;align-items:center}
+.about .ph{aspect-ratio:1/1;overflow:hidden;border-radius:4px;background:#fff}
+.about .ph img{width:100%;height:100%;object-fit:cover}
+@media (min-width:900px){.about{grid-template-columns:1fr 1fr;gap:80px}}
+
+/* Admin */
+.adm .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px}
+.adm details.card{padding:0}
+.adm details.card>summary{list-style:none;cursor:pointer;padding:16px 18px;display:flex;gap:12px;align-items:center}
+.adm details.card>summary::-webkit-details-marker{display:none}
+.adm details.card>.b{padding:4px 18px 18px;border-top:1px solid var(--line)}
+.adm .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.adm .th{position:relative;width:76px;height:95px;border-radius:6px;overflow:hidden;background:#000}
+.adm .th img{width:100%;height:100%;object-fit:cover}
+.adm .th .ctl{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;background:rgba(0,0,0,.7)}
+.adm .th .ctl button{flex:1;font-size:12px;padding:3px 0}
+.adm .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adm .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (min-width:700px){.adm .grid6{grid-template-columns:repeat(6,1fr)}}
+.adm .fld{margin-top:12px}
+.adm input,.adm textarea{font-size:15px;padding:11px 13px;border-radius:10px}
+.adm .warnbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:#1d1a12;border:1px solid #3d3420;color:var(--warn);border-radius:14px;padding:12px 16px;margin-bottom:20px;font-size:14px}
+.adm .pill{font-size:11px;padding:3px 8px;border-radius:99px;background:var(--card2);color:var(--muted)}
+
+/* Footer */
+footer{border-top:1px solid var(--line);margin-top:auto}
+.ft{display:grid;gap:34px;padding:56px 0 30px}
+.ft .big img{height:72px;width:auto}
+.ft .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:14px}
+.ft .cols h4{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted2);margin-bottom:12px;font-weight:500}
+.ft .cols a{display:block;color:var(--muted);padding:4px 0}
+.ft .cols a:hover{color:var(--text)}
+.ft .bt{display:flex;justify-content:space-between;color:var(--muted2);font-size:12.5px;border-top:1px solid var(--line);padding-top:20px;flex-wrap:wrap;gap:10px}
+@media (min-width:900px){.ft{grid-template-columns:1.2fr 1fr}.ft .bt{grid-column:1/-1}.ft .cols{grid-template-columns:repeat(3,1fr)}}
+
+/* Toast / search */
+#toast{position:fixed;top:12px;left:50%;transform:translate(-50%,-24px);opacity:0;pointer-events:none;transition:all .35s var(--ease);z-index:100;background:#000;border:1px solid var(--line2);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:18px;font-size:14px;box-shadow:0 14px 40px rgba(0,0,0,.6);max-width:calc(100vw - 24px)}
+#toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#toast .t{display:flex;gap:10px;align-items:center}
+#toast .act{background:var(--white);color:#000;font-size:12.5px;font-weight:500;border-radius:7px;padding:5px 9px;white-space:nowrap}
+.search{position:fixed;left:0;right:0;top:0;z-index:81;background:var(--bg2);border-bottom:1px solid var(--line);padding:18px 0 22px;transform:translateY(-102%);transition:transform .45s var(--ease);visibility:hidden}
+.search.open{transform:none;visibility:visible}
+.search .in{display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line2);padding-bottom:10px}
+.search .in input{background:none;border:0;padding:8px 0;font-size:24px;font-family:var(--display);font-weight:700;font-stretch:110%;text-transform:uppercase;border-radius:0}
+.search .res{display:flex;gap:12px;overflow-x:auto;padding-top:16px}
+.search .res a{flex:0 0 140px;font-size:13px}
+.search .res img{aspect-ratio:1/1;object-fit:cover;border-radius:4px;margin-bottom:6px;width:100%}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.narrow>*{max-width:680px}
+@media (max-width:899px){body[data-page=produit] footer{padding-bottom:84px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<noscript><p style="padding:60px 20px;text-align:center">Active JavaScript pour afficher la boutique WHITE SAYY.</p></noscript>
+<div id="announce"></div>
+<header id="hdr">
+  <div class="wrap hd">
+    <div class="left">
+      <button class="ic only-m" data-act="menu" aria-label="Menu"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+      <a class="logo only-d" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
+    </div>
+    <a class="logo only-m" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
+    <nav class="nav" id="nav"></nav>
+    <div class="right">
+      <button class="ic" data-act="search" aria-label="Rechercher"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="ic only-d" href="#/compte" aria-label="Mon compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
+      <button class="ic" data-act="cart" aria-label="Panier"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="cartBadge" hidden></span></button>
+    </div>
+  </div>
+</header>
+<main id="app"></main>
+<footer>
+  <div class="wrap ft">
+    <div class="big"><img class="logoimg" alt="WHITE SAYY"><p class="muted" style="max-width:320px;font-size:14px;margin-top:18px" id="ftTag"></p></div>
+    <div class="cols">
+      <div><h4>Boutique</h4><a href="#/boutique">Tout voir</a><a href="#/boutique?cat=tshirt">T-shirts</a><a href="#/boutique?cat=sweat">Sweats</a><a href="#/boutique?cat=jogging">Joggings</a><a href="#/boutique?cat=ensemble">Ensembles</a></div>
+      <div><h4>Aide</h4><a href="#/contact">Contact</a><a href="#/suivi">Suivre ma commande</a><a href="#/compte">Mon compte</a></div>
+      <div><h4>Marque</h4><a href="#/a-propos">À propos</a><a href="#/mentions-legales">Mentions légales</a><span id="ftIg"></span></div>
+    </div>
+    <div class="bt"><span>© <span id="year"></span> WHITE SAYY</span><span>WHITE SAYY Studio</span></div>
+  </div>
+</footer>
+
+<div class="mmenu" id="mmenu">
+  <div class="top"><img class="logoimg" style="height:32px" alt="WHITE SAYY"><button class="ic" data-act="menu" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <nav id="mnav"></nav>
+  <div class="bottom"><a href="#/compte">Mon compte</a><a href="#/suivi">Suivre ma commande</a><a href="#/contact">Contact</a></div>
+</div>
+<div class="search" id="search"><div class="wrap">
+  <div class="in"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" placeholder="Rechercher" autocomplete="off" aria-label="Rechercher"><button class="ic" data-act="search" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="res" id="qres"></div>
+</div></div>
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="drawer" aria-label="Panier"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galerie photos"></div>
+<div class="mbar" id="mbar"></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* Images : hébergées sur Google Drive (dossier « WHITE SAYY — images du site », partagé « Tous les utilisateurs disposant du lien »).
+   Pour changer une image : remplace son identifiant Drive ci-dessous. Sans identifiant, le site cherche le fichier dans public/img/. */
+const DRIVE = {
+  "back": "16j6oIjHHux2V761TXWSq-yKSrAuk3bjC",
+  "front": "1v7ZnK4oOJGqj-goET7J1f_SGTvQfji7p",
+  "ha_b": "1qVOxIM_Te6Edr7ByGgjHLrlZbO6gjSAx",
+  "ha_f": "1cN6mh7aqMyHBh_IlVWr7lLYhP2T_sEbS",
+  "hd_b": "1JhoJAdIC0luFroZ5l9EiJNZJPWadkTic",
+  "hd_f": "15eOr3tjrAjuAa9jQAvKCiBScSxftLC0c",
+  "hero": "15H2h_u7xpOi-DxDVfxPeq-ZFjxaZceBj",
+  "hs_b": "1w8V1JCQkBj16juth6RBTq-FVmlP7ozrC",
+  "hs_f": "1tkDBYwALpgcHo9flyR_X8oG991j-Eu8j",
+  "hw_b": "1ZjscRazddFchgHCp1ccaQFpIK5dviEJI",
+  "hw_f": "1h3JhIIiMqd7I-YvEZlkIkELrQDp8auKO",
+  "ja_b": "1DuQusCMzAs74q9tDNEZG-zY2fNFuVYzI",
+  "ja_f": "1LhHNRihU20FlnDgOz6L4KMc3_KtPnVdc",
+  "jd_b": "12uMeluqiLW5FU-wCiz5fwX126KxeLHil",
+  "jd_f": "1KQUYDQ0_yHD4Ntnd0kW01Popq1uVue_S",
+  "js_b": "1jXbAH825mzkWYzZSiJ17QxyHT1y0dwqa",
+  "js_f": "1xGc4eWLuD83UebDP2K0_VrefRc2_i9Xq",
+  "set_a_b": "1s4y89nNTM_VTYG-hjHNWVX8ALHB76X2V",
+  "set_a_f": "1jFCtoCGawOOE2loGwagqG18xfzufMNfZ",
+  "set_d_b": "1umbn6ayfx5uY0fshdGohIGik8c-kRsOP",
+  "set_d_f": "1rVcuJz3WCxAU2zY2gfC8BUmN9BDIKJ0X",
+  "set_s_b": "1Ra3Npl0RAwjlInplcTcJrOviOiCtAalu",
+  "set_s_f": "1rE83rKMtvNXJFocNKyioQHvbb27slR7V",
+  "tb_b": "1Et6MRELAw9SytYAaT4VCO82MkbEWz3m7",
+  "tp_b": "1IFCP4FqqFmU57aV5d2C70HPkMaZl3gnH",
+  "tp_f": "1YHw-7IQUPKz55z8pe3-dt4Z4-vn3xQHg",
+  "tw_b": "111uQvnc6oKJALx4KGRDOznDc9sb8994N",
+  "tw_f": "1sK8MR-HSszPjVe9rs9rrgiAujNlJ_ZI3",
+  "vue-360": "1UI4svwrcR5UIVKFyj80LHp7TNwatRMMB",
+  "worn-dos": "1Mf_Xm486a96VHUwahDSeMCCA528Rw_SY",
+  "worn-face": "19oz-AD-zPqieZVsurOPJ3byqetp1VNlf"
+};
+const pic = n => DRIVE[n] ? `https://lh3.googleusercontent.com/d/${DRIVE[n]}=w1400` : `img/${n}.webp`;
+const BYE_FRONT = "data:image/webp;base64,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";
+const HERO = "data:image/webp;base64,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";
+const IMG = {logo: "data:image/png;base64,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", sprite: pic("vue-360"), hero: "/__l5e/assets-v1/975c7a5b-f302-425d-8acb-e297e2bd46cc/white-sayy-barber.jpeg", front: pic("front"), back: pic("back"), "worn-dos": pic("worn-dos"), "worn-face": pic("worn-face")};
+["ha_b", "ha_f", "hd_b", "hd_f", "hs_b", "hs_f", "hw_b", "hw_f", "ja_b", "ja_f", "jd_b", "jd_f", "js_b", "js_f", "set_a_b", "set_a_f", "set_d_b", "set_d_f", "set_s_b", "set_s_f", "tb_b", "tp_b", "tp_f", "tw_b", "tw_f"].forEach(k => IMG["p_" + k] = pic(k));
+IMG.p_tb_f = DRIVE.tb_f ? pic("tb_f") : BYE_FRONT;
+const PUBLISHED = /*SHOP_DATA_START*/null/*SHOP_DATA_END*/;
+
+/* ============ Données ============ */
+const K = {draft:"ws.shop.draft", cart:"ws.cart.v2", orders:"ws.orders.v1", favs:"ws.favs.v1", users:"ws.users.v1", session:"ws.session.v1", addr:"ws.lastAddress"};
+const read = (k, d) => { try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? d; }catch(e){ return d; } };
+const write = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ toast("Stockage du navigateur plein : retire des images ou exporte tes données"); return false; } };
+const SIZES = ["XS","S","M","L","XL","XXL"];
+const CATS = [["tshirt","T-shirts","T-shirt"],["sweat","Sweats","Sweat"],["jogging","Joggings","Jogging"],["ensemble","Ensembles","Ensemble"]];
+const catName = (c, one) => (CATS.find(x => x[0] === c) || [c,c,c])[one ? 2 : 1];
+const ST = () => ({XS:99, S:99, M:99, L:99, XL:99, XXL:99});
+const CARE_TEE = "Lavage à 30 °C sur l'envers. Ne pas sécher en machine. Repassage sur l'envers, sans passer sur l'impression.";
+const CARE_FLEECE = "Lavage à 30 °C sur l'envers, avec des couleurs similaires. Ne pas sécher en machine. Ne pas repasser sur l'impression.";
+const tee = (id, name, color, line, images, description, details, extra = {}) => ({id, category:"tshirt", line, name, subtitle:"T-shirt oversize", tagline:color, price:29.99, description, details, care:CARE_TEE, sizes:ST(), images, has360:false, isNew:false, active:true, createdAt:"2026-10-17", related:[], ...extra});
+const sweat = (id, name, color, line, images, description, details) => ({id, category:"sweat", line, name, subtitle:"Sweat zippé à capuche", tagline:color, price:49.99, description, details, care:CARE_FLEECE, sizes:ST(), images, has360:false, isNew:false, active:true, createdAt:"2026-10-17", related:[]});
+const jog = (id, name, color, line, images, description, details) => ({id, category:"jogging", line, name, subtitle:"Jogging coupe ballon", tagline:color, price:39.99, description, details, care:CARE_FLEECE, sizes:ST(), images, has360:false, isNew:false, active:true, createdAt:"2026-10-17", related:[]});
+const set = (id, name, color, line, images, components, description) => ({id, category:"ensemble", line, name, subtitle:"Ensemble sweat + jogging", tagline:color, price:76.99, description, details:["Sweat zippé à capuche + jogging coupe ballon", "Choisis une taille pour chaque pièce", "Prix de l'ensemble inférieur à l'achat séparé"], care:CARE_FLEECE, sizes:{}, images, components, has360:false, isNew:false, active:true, createdAt:"2026-10-17", related:[]});
+const JOG_DETAILS = (logo) => ["Coupe ballon, jambe large et arrondie", "Taille élastiquée", "Poches latérales", "Deux poches passepoilées au dos", logo];
+const DEFAULTS = {
+  version: 5, publishedAt: null,
+  settings: {
+    announcement: "", shipping: 4.99, freeFrom: 0, lowStock: 5,
+    contactEmail: "", instagram: "l_.say", paymentLink: "",
+    heroImage: "hero", heroEyebrow: "Streetwear · Est. 2026", heroLine1: "Une identité.", heroLine2: "WHITE SAYY.",
+    spirit: "Un design brut, un noir profond, un nom qui s'affiche. Pensé pour être porté, pas juste regardé.",
+    promises: ["Paiement sécurisé", "Toutes les tailles affichées en temps réel", "Contact direct avec la marque"],
+    about: "WHITE SAYY est une marque streetwear née d'une envie simple : porter un nom, une attitude. Des pièces noires, un graphisme brut, rien de superflu.",
+    legal: "Éditeur du site : WHITE SAYY.\nContact : voir la page Contact.\nHébergement : Lovable.\n\nLes informations saisies lors d'une commande servent uniquement à la traiter et à la livrer.",
+    shippingInfo: "Les frais de livraison sont affichés avant validation de la commande. Pour un échange de taille, contacte-nous avec ton numéro de commande.",
+    sizeGuides: {
+      tshirt: "Taille;Longueur (cm);Largeur (cm)\nXS;68;54\nS;70;56\nM;72;58\nL;74;60\nXL;76;62\nXXL;78;64",
+      sweat: "Taille;Longueur (cm);Largeur (cm);Manche (cm)\nXS;64;60;56\nS;66;62;57\nM;68;64;58\nL;70;66;59\nXL;72;68;60\nXXL;74;70;61",
+      jogging: "Taille;Tour de taille (cm);Longueur (cm)\nXS;64-70;96\nS;68-74;98\nM;72-78;100\nL;76-84;102\nXL;82-90;104\nXXL;88-96;106"
+    },
+    sizeAdvice: "Coupe oversize : prends ta taille habituelle pour un tombé ample, une taille en dessous pour un effet plus ajusté."
+  },
+  products: [
+    set("ensemble-art-of-rich", "ENSEMBLE ART OF RICH", "Marron chocolat", "art-of-rich", ["p_set_a_f","p_set_a_b","p_ha_f","p_ha_b","p_ja_f","p_ja_b"], ["sweat-art-of-rich","jogging-art-of-rich"],
+      "Le sweat zippé et le jogging ART OF RICH réunis, en marron chocolat. Logo blanc à la poitrine et sur la cuisse, grand lettrage ART OF RICH au dos du sweat."),
+    sweat("sweat-sayy-studio", "SAYY STUDIO AMSTERDAM", "Gris anthracite", "sayy-studio", ["p_hs_f","p_hs_b"],
+      "Sweat zippé gris anthracite, signé Sayy Studio Amsterdam 2026 en noir ton sur ton : discret à la poitrine, en grand au dos.",
+      ["Coupe oversize", "Fermeture zippée double curseur", "Poche kangourou", "Bords-côtes aux poignets et à la taille", "Inscription poitrine, grand visuel au dos"]),
+    tee("wsayy", "WSAYY", "Noir", "wsayy", ["p_tw_f","p_tw_b"],
+      "T-shirt noir au grand visuel bleu électrique dans le dos : logo WSAYY, Netherland Made · Est. 2026 · White Sayy Studio. Petit carré bleu à la poitrine.",
+      ["Coupe oversize", "Coloris noir", "Petit visuel bleu à l'avant", "Grand visuel WSAYY au dos", "Étiquette WHITE SAYY au col"]),
+    jog("jogging-drip", "DRIP WHITESAYY", "Noir", "drip", ["p_jd_f","p_jd_b"],
+      "Jogging noir coupe ballon, logo Drip WHITESAYY Netherland Made en blanc sur la cuisse.", JOG_DETAILS("Logo blanc sur la cuisse")),
+    sweat("sweat-drip", "DRIP WHITESAYY", "Noir", "drip", ["p_hd_f","p_hd_b"],
+      "Sweat zippé noir, logo Drip WHITESAYY Netherland Made en blanc : petit à la poitrine, en grand au dos.",
+      ["Coupe oversize", "Fermeture zippée", "Poche kangourou", "Bords-côtes aux poignets et à la taille", "Logo poitrine, grand visuel au dos"]),
+    tee("piece-of-art", "PIECE OF ART", "Blanc", "piece-of-art", ["p_tp_f","p_tp_b"],
+      "T-shirt blanc au lettrage PIECE OF ART effet denim effiloché, petit à la poitrine et en grand dans le dos.",
+      ["Coupe oversize", "Coloris blanc", "Lettrage effet denim effiloché", "Petit logo avant, grand visuel au dos", "Étiquette WHITE SAYY au col"]),
+    set("ensemble-sayy-studio", "ENSEMBLE SAYY STUDIO", "Gris anthracite", "sayy-studio", ["p_set_s_f","p_set_s_b","p_hs_f","p_hs_b","p_js_f","p_js_b"], ["sweat-sayy-studio","jogging-sayy-studio"],
+      "Le sweat zippé et le jogging Sayy Studio Amsterdam 2026 réunis, en gris anthracite avec inscriptions noires ton sur ton."),
+    sweat("sweat-white-sayy", "WHITE SAYY ZIP", "Noir", "white-sayy", ["p_hw_f","p_hw_b"],
+      "Sweat zippé noir à la coupe courte et carrée. Zip jusqu'en haut de la capuche, grand lettrage WHITE SAYY gris au dos.",
+      ["Coupe boxy courte", "Zip intégral jusqu'à la capuche", "Poche kangourou", "Bords-côtes aux poignets et à la taille", "Grand lettrage gris au dos"]),
+    jog("jogging-art-of-rich", "ART OF RICH", "Marron chocolat", "art-of-rich", ["p_ja_f","p_ja_b"],
+      "Jogging marron chocolat coupe ballon, logo ART OF RICH blanc sur la cuisse.", JOG_DETAILS("Logo blanc sur la cuisse")),
+    sweat("sweat-art-of-rich", "ART OF RICH", "Marron chocolat", "art-of-rich", ["p_ha_f","p_ha_b"],
+      "Sweat zippé marron chocolat, logo ART OF RICH blanc à la poitrine et lettrage géant au dos.",
+      ["Coupe oversize", "Fermeture zippée double curseur", "Poche kangourou", "Bords-côtes aux poignets et à la taille", "Logo poitrine, grand visuel au dos"]),
+    set("ensemble-drip", "ENSEMBLE DRIP WHITESAYY", "Noir", "drip", ["p_set_d_f","p_set_d_b","p_hd_f","p_hd_b","p_jd_f","p_jd_b"], ["sweat-drip","jogging-drip"],
+      "Le sweat zippé et le jogging Drip WHITESAYY réunis, en noir avec logo blanc Netherland Made."),
+    jog("jogging-sayy-studio", "SAYY STUDIO AMSTERDAM", "Gris anthracite", "sayy-studio", ["p_js_f","p_js_b"],
+      "Jogging gris anthracite coupe ballon, inscription Sayy Studio Amsterdam 2026 en noir sur la cuisse.", JOG_DETAILS("Inscription noire sur la cuisse")),
+    tee("bye-dubai", "BYE, DUBAI", "Blanc", "bye-dubai", ["p_tb_f","p_tb_b"],
+      "T-shirt blanc, logo BYE, dubai noir : petit à la poitrine, en grand dans le dos.",
+      ["Coupe oversize", "Coloris blanc", "Petit logo à l'avant, grand visuel au dos", "Étiquette WHITE SAYY au col"])
+  ],
+  reviews: [], ugc: []
+};
+function merge(base, over){
+  if(Array.isArray(base) || typeof base !== "object" || base === null) return over === undefined ? structuredClone(base) : over;
+  const o = {}; for(const k of new Set([...Object.keys(base), ...Object.keys(over || {})])) o[k] = k in base ? merge(base[k], (over || {})[k]) : over[k];
+  return o;
+}
+let draft = read(K.draft, null);
+if(draft && (!draft._dirty || (draft.version || 0) < DEFAULTS.version)){ localStorage.removeItem(K.draft); draft = null; }
+const pub = PUBLISHED && (PUBLISHED.version || 0) >= DEFAULTS.version ? PUBLISHED : null;
+let shop = merge(DEFAULTS, ((currentUser() || {}).admin ? draft : null) || pub || {});
+if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+/* Chargement des données en ligne (cloud) : elles priment sur celles intégrées à la page */
+fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(row => {
+  const cloud = row && row.data;
+  if(!cloud || (cloud.version || 0) < DEFAULTS.version) return;
+  const d = read(K.draft, null);
+  if(d && d._dirty && (currentUser() || {}).admin) return; // un admin a des modifs locales en cours : ne pas écraser
+  shop = merge(DEFAULTS, cloud);
+  if(!shop.settings.instagram) shop.settings.instagram = DEFAULTS.settings.instagram;
+  render();
+}).catch(() => {});
+const S = () => shop.settings;
+let cart = read(K.cart, null) || (read("ws.cart.v1", []) || []);
+
+/* ============ Utilitaires ============ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const eur = v => new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR"}).format(v || 0);
+const img = k => { if(!k) return ""; if(k.startsWith("r360:")) return IMG[{1:"worn-dos", 7:"worn-face"}[k.slice(5)]] || ""; return esc(IMG[k] || k); };
+const products = () => shop.products.filter(p => p.active !== false);
+const findP = id => shop.products.find(p => p.id === id);
+const isSet = p => p?.category === "ensemble" && Array.isArray(p.components) && p.components.length === 2;
+const parts = p => isSet(p) ? p.components.map(findP) : [];
+const stockOf = (p, s) => {
+  if(isSet(p)){ const [a, b] = String(s).split(" / "); const [x, y] = parts(p); return x && y ? Math.min(stockOf(x, a), stockOf(y, b)) : 0; }
+  return Math.max(0, +(p.sizes?.[s] ?? 0));
+};
+const totalStock = p => isSet(p) ? Math.min(...parts(p).map(c => c ? totalStock(c) : 0)) : Object.values(p.sizes || {}).reduce((a,b) => a + Math.max(0,+b||0), 0);
+const canSpin = p => false;
+const sizesOf = p => SIZES.filter(s => s in (p.sizes || {}));
+const compareAt = p => isSet(p) ? parts(p).reduce((a,c) => a + (c ? +c.price : 0), 0) : 0;
+const priceHtml = p => { const c = compareAt(p); return c > p.price ? `<span>${eur(p.price)}</span> <s class="muted" style="font-size:.85em;margin-left:6px">${eur(c)}</s>` : eur(p.price); };
+const sizeLabel = (p, s) => isSet(p) ? (() => { const [a,b] = String(s).split(" / "); return `Sweat ${a} · Jogging ${b}`; })() : `Taille ${s}`;
+function relatedOf(p){
+  if(p.related?.length) return p.related.map(findP).filter(x => x && x.active !== false);
+  const all = products().filter(x => x.id !== p.id && !(isSet(p) && p.components.includes(x.id)));
+  const same = all.filter(x => x.line && x.line === p.line);
+  const comp = all.filter(x => !same.includes(x) && (p.category === "tshirt" ? x.category === "tshirt" : x.category !== p.category && x.category !== "tshirt"));
+  const rest = all.filter(x => !same.includes(x) && !comp.includes(x));
+  return [...same, ...comp, ...rest].slice(0, 4);
+}
+const isLow = n => n > 0 && n <= (+S().lowStock || 0);
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const I = {
+  arrow:'<svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  bag:'<svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  x:'<svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  heart:'<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+  rotate:'<svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg>',
+  check:'<svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  lock:'<svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  left:'<svg class="i" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>',
+  right:'<svg class="i" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>',
+  ruler:'<svg class="i" viewBox="0 0 24 24"><path d="M3 15 15 3l6 6L9 21z"/><path d="M7 11l2 2M10 8l2 2M13 5l2 2"/></svg>',
+  ok:'<svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="10" fill="#f2f0eb"/><path d="M7.5 12.3l3 3 6-6.3" stroke="#000" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+const star = on => `<svg viewBox="0 0 24 24" class="${on?"":"off"}"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>`;
+const stars = n => `<span class="stars" aria-label="${n} sur 5">${[1,2,3,4,5].map(i => star(i <= Math.round(n))).join("")}</span>`;
+function toast(msg, action){
+  const t = $("#toast");
+  t.innerHTML = `<span class="t">${I.ok}${esc(msg)}</span>` + (action ? `<button class="act" data-act="${action.act}">${esc(action.label)}</button>` : "");
+  t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 3200);
+}
+const uid = () => Array.from(crypto.getRandomValues(new Uint8Array(4)), b => b.toString(16).padStart(2,"0")).join("").toUpperCase();
+
+/* ============ Panier ============ */
+const cartCount = () => cart.reduce((s,i) => s + i.qty, 0);
+const cartSub = () => cart.reduce((s,i) => { const p = findP(i.id); return s + (p ? p.price*i.qty : 0); }, 0);
+const shipFor = sub => (+S().freeFrom > 0 && sub >= +S().freeFrom) ? 0 : (+S().shipping || 0);
+function saveCart(){ cart = cart.filter(i => findP(i.id) && i.qty > 0); write(K.cart, cart); badge(); if($("#drawer").classList.contains("open")) renderDrawer(); }
+function badge(pop){ const b = $("#cartBadge"), n = cartCount(); b.hidden = !n; b.textContent = n; if(pop){ b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); } }
+function addToCart(id, size){
+  const p = findP(id); if(!p) return;
+  const st = stockOf(p, size); const ex = cart.find(i => i.id === id && i.size === size);
+  if((ex ? ex.qty : 0) + 1 > st){ toast(st ? `Plus que ${st} exemplaire${st>1?"s":""} (${sizeLabel(p, size)})` : `${sizeLabel(p, size)} : épuisé`); return; }
+  ex ? ex.qty++ : cart.push({id, size, qty:1});
+  saveCart(); badge(true); openDrawer();
+}
+
+/* ============ Overlays ============ */
+let openPanel = null;
+function lock(on){ document.body.classList.toggle("lock", on); }
+function closeAll(){
+  ["#drawer","#modal","#lb","#search","#mmenu"].forEach(s => $(s).classList.remove("open"));
+  $("#ov").classList.remove("open"); lock(false); openPanel = null;
+}
+function openDrawer(){ closeAll(); renderDrawer(); $("#drawer").classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "drawer"; }
+function openModal(html){ closeAll(); const m = $("#modal"); m.innerHTML = html; m.setAttribute("aria-label", m.querySelector("h3")?.textContent || "Fenêtre"); m.classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "modal"; }
+$("#ov").addEventListener("click", closeAll);
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeAll(); });
+
+function renderDrawer(){
+  const sub = cartSub(), free = +S().freeFrom;
+  const d = $("#drawer");
+  d.innerHTML = `
+    <div class="dhd"><h3>Panier${cart.length ? ` (${cartCount()})` : ""}</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div>
+    <div class="dbody">${cart.length ? `
+      ${free > 0 ? `<div class="ship">${sub >= free ? "Livraison offerte" : `Plus que <b style="color:var(--text)">${eur(free - sub)}</b> pour la livraison offerte`}<div class="tr"><i style="width:${Math.min(100, sub/free*100)}%"></i></div></div>` : ""}
+      ${cart.map((i,k) => { const p = findP(i.id); return `
+      <div class="line">
+        <a href="#/produit/${p.id}" data-act="close"><img src="${img(p.images[0])}" alt=""></a>
+        <div class="m"><div class="n">${esc(p.name)}</div><div class="s">${isSet(p) ? esc(sizeLabel(p, i.size)) : esc(p.subtitle) + " · " + esc(i.size)}</div><div class="s" style="color:var(--text);margin-top:4px">${eur(p.price)}</div>
+          <div class="bt"><div class="stepper"><button data-act="qty" data-k="${k}" data-d="-1" aria-label="Retirer un">−</button><span>${i.qty}</span><button data-act="qty" data-k="${k}" data-d="1" aria-label="Ajouter un">+</button></div>
+          <button class="rm" data-act="rm" data-k="${k}">Retirer</button></div></div>
+      </div>`; }).join("")}` : `<div class="empty"><div class="display" style="font-size:30px">Panier vide</div><p>Le noir te va bien. Commence par là.</p><a class="btn" href="#/boutique" data-act="close">Voir la boutique</a></div>`}
+    </div>
+    ${cart.length ? `<div class="dft">
+      <div class="sline"><span>Sous-total</span><span>${eur(sub)}</span></div>
+      <div class="sline"><span>Livraison</span><span>${shipFor(sub) ? eur(shipFor(sub)) : "Offerte"}</span></div>
+      <div class="stotal"><span>Total</span><span>${eur(sub + shipFor(sub))}</span></div>
+      <div class="note" style="margin-bottom:14px">Taxes incluses</div>
+      <a class="btn full lg" href="#/checkout" data-act="close">Commander ${I.arrow}</a>
+    </div>` : ""}`;
+}
+
+/* ============ Routeur ============ */
+const NAV = [["#/boutique","Boutique"],["#/boutique?cat=tshirt","T-shirts"],["#/boutique?cat=sweat","Sweats"],["#/boutique?cat=jogging","Joggings"],["#/boutique?cat=ensemble","Ensembles"],["#/a-propos","À propos"]];
+const ROUTES = [
+  [/^\/?$/, pHome], [/^\/boutique$/, pShop], [/^\/produit\/([\w-]+)$/, pProduct], [/^\/panier$/, () => { setTimeout(openDrawer, 50); return pShop(); }],
+  [/^\/checkout$/, pCheckout], [/^\/livraison$/, pCheckout], [/^\/commande\/(\w+)$/, pDone], [/^\/compte$/, pAccount], [/^\/suivi$/, pTrack],
+  [/^\/a-propos$/, pAbout], [/^\/contact$/, pContact], [/^\/mentions-legales$/, pLegal], [/^\/admin$/, pAdmin]
+];
+let query = {};
+let teardown = [];
+function render(){
+  teardown.forEach(f => f()); teardown = [];
+  const raw = (location.hash || "#/").slice(1) || "/";
+  const [path, qs] = raw.split("?"); query = Object.fromEntries(new URLSearchParams(qs || ""));
+  let r = null;
+  for(const [re, fn] of ROUTES){ const m = path.match(re); if(m){ r = fn(...m.slice(1)); break; } }
+  if(!r) r = {html:`<div class="wrap empty" style="padding:120px 0"><div class="display" style="font-size:48px">404</div><p>Page introuvable.</p><a class="btn" href="#/">Retour à l'accueil</a></div>`, title:"Page introuvable"};
+  if(typeof r === "string") r = {html:r};
+  const app = $("#app"); app.style.animation = "none"; void app.offsetWidth; app.style.animation = "";
+  app.innerHTML = r.html;
+  document.title = r.title ? `${r.title} — WHITE SAYY` : "WHITE SAYY — Une identité.";
+  const cur = "#" + (path === "/" ? "/" : "/" + path.split("/")[1]) + (path === "/boutique" && query.cat ? "?cat=" + query.cat : "");
+  const nav = NAV.map(([h,l]) => `<a href="${h}" class="${h===cur?"on":""}">${l}</a>`).join("");
+  $("#nav").innerHTML = nav; $("#mnav").innerHTML = nav + `<a href="#/contact" class="${cur==="#/contact"?"on":""}">Contact</a>`;
+  document.body.dataset.page = path === "/" ? "home" : path.split("/")[1];
+  $("#mbar").classList.remove("show"); $("#mbar").innerHTML = "";
+  if(r.mount) r.mount();
+  observe(); headerState();
+}
+window.addEventListener("hashchange", () => { closeAll(); render(); window.scrollTo({top:0, behavior:"instant"}); });
+
+/* Apparition au scroll */
+let io = null;
+function observe(){
+  const els = document.querySelectorAll(".rv:not(.in)");
+  if(reduceMotion || !("IntersectionObserver" in window)){ els.forEach(e => e.classList.add("in")); return; }
+  io ??= new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }), {rootMargin:"0px 0px -8% 0px", threshold:.08});
+  els.forEach(e => io.observe(e));
+}
+function headerState(){
+  const onHero = document.body.dataset.page === "home" && scrollY < 40;
+  $("#hdr").classList.toggle("solid", !onHero);
+}
+let ticking = false;
+addEventListener("scroll", () => {
+  if(ticking) return; ticking = true;
+  requestAnimationFrame(() => {
+    headerState();
+    const bg = document.querySelector(".hero .bg");
+    if(bg && !reduceMotion && scrollY < innerHeight * 1.2) bg.style.transform = `translate3d(0,${scrollY*0.28}px,0) scale(${1 + scrollY*0.00015})`;
+    ticking = false;
+  });
+}, {passive:true});
+
+/* ============ Cartes produit ============ */
+function card(p, i = 0){
+  const total = totalStock(p), c = compareAt(p);
+  const tags = [isSet(p) ? `<span class="tag w">Ensemble${c > p.price ? ` −${Math.round((1 - p.price/c)*100)} %` : ""}</span>` : "", p.isNew ? `<span class="tag w">Nouveau</span>` : "", 
+    total === 0 ? `<span class="tag">Épuisé</span>` : isLow(total) ? `<span class="tag warn">Derniers exemplaires</span>` : ""].join("");
+  return `<div class="pc rv d${i%3}">
+    <div class="im">
+      <a href="#/produit/${p.id}" aria-label="${esc(p.name)}" class="fill">
+        <img class="a" src="${img(p.images[0])}" alt="${esc(p.name)}" loading="lazy">
+        ${p.images[1] ? `<img class="b" src="${img(p.images[1])}" alt="" loading="lazy">` : ""}
+      </a>
+      <div class="tags">${tags}</div>
+      ${total && !isSet(p) ? `<div class="quick"><div class="sz">${sizesOf(p).map(s => `<button data-act="quick" data-id="${p.id}" data-s="${s}" ${stockOf(p,s)?"":"disabled"} aria-label="Ajouter taille ${s}">${s}</button>`).join("")}</div></div>` : ""}
+    </div>
+    <a href="#/produit/${p.id}" class="meta"><span class="n">${esc(p.name)}<small>${esc(p.subtitle)}${p.tagline ? " · " + esc(p.tagline) : ""}</small></span><span style="text-align:right;white-space:nowrap">${eur(p.price)}${c > p.price ? `<small style="text-decoration:line-through">${eur(c)}</small>` : ""}</span></a>
+  </div>`;
+}
+const CAT_COVER = {tshirt:"p_tw_b", sweat:"p_ha_b", jogging:"p_jd_f", ensemble:"p_set_s_f"};
+function catTiles(){
+  const cats = CATS.filter(([k]) => products().some(p => p.category === k));
+  return `<div class="cats">${cats.map(([k, label], i) => { const first = products().find(p => p.category === k);
+    return `<a class="cat rv d${i%3}" href="#/boutique?cat=${k}"><img src="${img(IMG[CAT_COVER[k]] ? CAT_COVER[k] : first.images[0])}" alt="${label}" loading="lazy"><span><b>${label}</b><i>${products().filter(p => p.category === k).length} pièces ${I.arrow}</i></span></a>`; }).join("")}</div>`;
+}
+
+/* ============ Accueil ============ */
+function pHome(){
+  const s = S(), list = products();
+  const revs = shop.reviews.filter(r => r.text);
+  const sets = list.filter(isSet);
+  const mq = ["WHITE SAYY","Une identité","Noir profond","Graphisme brut"];
+  return {html:`
+  <section class="hero">
+    <div class="bg"><img fetchpriority="high" decoding="async" src="${img(s.heroImage)}" alt="T-shirt WHITE SAYY porté au dos, en cabine"></div>
+    <div class="wrap inner">
+      <div class="eyebrow rv">${esc(s.heroEyebrow)}</div>
+      <h1 class="display rv d1"><span>${esc(s.heroLine1)}</span><span>${esc(s.heroLine2)}</span></h1>
+      <div class="row rv d2"><a class="btn lg" href="#/boutique">Découvrir la collection ${I.arrow}</a><span class="scrollcue only-d"><i></i>Défiler</span></div>
+    </div>
+  </section>
+  <section class="sec wrap" style="padding-bottom:0">
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Catégories</div><h2 class="h2">Shop</h2></div><a class="ulink" href="#/boutique">Tout voir</a></div>
+    ${catTiles()}
+  </section>
+  <section class="sec wrap">
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Disponible</div><h2 class="h2">La collection</h2></div><a class="ulink" href="#/boutique">Tout voir (${list.length})</a></div>
+    <div class="pgrid">${list.slice(0, 6).map(card).join("")}</div>
+    ${list.length > 6 ? `<div style="text-align:center;margin-top:44px"><a class="btn ghost" href="#/boutique">Voir les ${list.length} pièces ${I.arrow}</a></div>` : ""}
+  </section>
+  <div class="marquee" aria-hidden="true"><div class="t">${[...mq,...mq].map((t,i) => `<span class="${i%2?"":"f"}">${t}</span>`).join("")}</div></div>
+  ${sets.length ? `<section class="sec wrap">
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Sweat + jogging</div><h2 class="h2">Les ensembles</h2></div><a class="ulink" href="#/boutique?cat=ensemble">Tout voir</a></div>
+    <div class="pgrid">${sets.map(card).join("")}</div>
+  </section>` : ""}
+  <section class="sec wrap edito" ${sets.length ? 'style="padding-top:0"' : ""}>
+    <div class="ph rv"><img src="${img("p_ha_b")}" alt="Sweat ART OF RICH, dos" loading="lazy"></div>
+    <div>
+      <div class="eyebrow rv">L'esprit WHITE SAYY</div>
+      <p class="big rv d1">${esc(s.spirit)}</p>
+      <div class="promises rv d2">${s.promises.filter(Boolean).map(t => `<div>${esc(t)}</div>`).join("")}</div>
+      <a class="btn ghost rv d3" style="margin-top:30px" href="#/a-propos">Notre histoire ${I.arrow}</a>
+    </div>
+  </section>
+  ${revs.length ? `<section class="sec wrap" style="padding-top:0">
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Avis clients</div><h2 class="h2">Ils le portent</h2></div>
+    <div style="text-align:right">${stars(avg(revs))}<div class="muted" style="font-size:13px">${avg(revs).toFixed(1).replace(".",",")}/5 · ${revs.length} avis</div></div></div>
+    <div class="rgrid">${revs.slice(0,6).map(revCard).join("")}</div>
+  </section>` : ""}
+  ${shop.ugc.length ? `<section class="sec wrap" style="padding-top:0">
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">${s.instagram ? "@" + esc(s.instagram.replace(/^@/,"")) : "Communauté"}</div><h2 class="h2">Vu sur vous</h2></div>${s.instagram ? `<a class="ulink" target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(s.instagram.replace(/^@/,""))}">Suivre</a>` : ""}</div>
+    <div class="ugc">${shop.ugc.map((u,i) => `<a class="rv d${i%3}" ${u.link ? `href="${esc(u.link)}" target="_blank" rel="noopener"` : ""}><img src="${img(u.photo)}" alt="${esc(u.handle || "WHITE SAYY porté")}" loading="lazy">${u.handle ? `<span>@${esc(u.handle.replace(/^@/,""))}</span>` : ""}</a>`).join("")}</div>
+  </section>` : ""}`};
+}
+const avg = rs => rs.reduce((a,r) => a + (+r.rating||5), 0) / (rs.length || 1);
+const revCard = (r,i) => `<div class="rev rv d${i%3}">${r.photo ? `<img src="${img(r.photo)}" alt="Photo de ${esc(r.name)}" loading="lazy">` : ""}${stars(+r.rating||5)}<div>${esc(r.text)}</div><div class="who"><span>${esc(r.name)}${r.size ? ` · taille ${esc(r.size)}` : ""}</span><span>${r.date ? new Date(r.date).toLocaleDateString("fr-FR",{month:"short",year:"numeric"}) : ""}</span></div></div>`;
+
+/* ============ Boutique ============ */
+function pShop(){
+  const cat = query.cat || "", sort = query.tri || "nouveautes", size = query.taille || "", price = query.prix || "";
+  let list = products();
+  if(cat) list = list.filter(p => p.category === cat);
+  if(size) list = list.filter(p => isSet(p) ? parts(p).every(c => c && stockOf(c, size) > 0) : stockOf(p, size) > 0);
+  if(price === "lt40") list = list.filter(p => p.price < 40);
+  if(price === "40-60") list = list.filter(p => p.price >= 40 && p.price <= 60);
+  if(price === "gt60") list = list.filter(p => p.price > 60);
+  const order = shop.products.map(p => p.id);
+  list = [...list].sort({
+    nouveautes:(a,b) => (b.isNew - a.isNew) || String(b.createdAt).localeCompare(String(a.createdAt)) || order.indexOf(a.id) - order.indexOf(b.id),
+    "prix-asc":(a,b) => a.price - b.price, "prix-desc":(a,b) => b.price - a.price
+  }[sort] || (() => 0));
+  const opt = (v, l, cur) => `<option value="${v}" ${v===cur?"selected":""}>${l}</option>`;
+  const link = c => { const q = {...query, cat:c}; if(!c) delete q.cat; const qs = new URLSearchParams(q).toString(); return "#/boutique" + (qs ? "?" + qs : ""); };
+  const cats = CATS.filter(([k]) => products().some(p => p.category === k));
+  return {title: cat ? catName(cat) : "Boutique", html:`
+  <div class="wrap">
+    <div class="pagehd"><div class="eyebrow rv">${cat ? "Boutique" : "Collection"}</div><h1 class="display rv d1" style="margin-top:12px">${cat ? catName(cat) : "Boutique"}</h1></div>
+    <div class="chips rv">${[["", "Tout", products().length], ...cats.map(([k,l]) => [k, l, products().filter(p => p.category === k).length])].map(([k,l,n]) => `<a href="${link(k)}" class="chip ${k===cat?"on":""}">${l}<sup>${n}</sup></a>`).join("")}</div>
+    <div class="toolbar">
+      <div class="l">
+        <div class="sel"><select data-filter="tri" aria-label="Trier">${opt("nouveautes","Nouveautés",sort)}${opt("prix-asc","Prix croissant",sort)}${opt("prix-desc","Prix décroissant",sort)}</select></div>
+        <div class="sel"><select data-filter="taille" aria-label="Taille"><option value="">Toutes tailles</option>${SIZES.map(s => opt(s, "Taille " + s, size)).join("")}</select></div>
+        <div class="sel"><select data-filter="prix" aria-label="Prix"><option value="">Tous les prix</option>${opt("lt40","Moins de 40 €",price)}${opt("40-60","40 à 60 €",price)}${opt("gt60","Plus de 60 €",price)}</select></div>
+      </div>
+      <span class="count">${list.length} article${list.length>1?"s":""}</span>
+    </div>
+    ${list.length ? `<div class="pgrid" style="margin-bottom:100px">${list.map(card).join("")}</div>`
+      : `<div class="empty" style="margin-bottom:60px"><p>Aucun article ne correspond à ces filtres.</p><a class="btn ghost" href="#/boutique${cat ? "?cat=" + cat : ""}">Réinitialiser</a></div>`}
+  </div>`};
+}
+
+/* ============ Produit ============ */
+let sel = {id:null, size:null, size2:null};
+const selKey = p => isSet(p) ? (sel.size && sel.size2 ? `${sel.size} / ${sel.size2}` : null) : sel.size;
+function sizeButtons(src, which, current){
+  return `<div class="sizes" role="radiogroup" aria-label="Taille">${sizesOf(src).map(s => { const n = stockOf(src, s); return `<button class="size ${s===current?"on":""}" role="radio" aria-checked="${s===current}" data-act="size" data-w="${which}" data-s="${s}" ${n?"":"disabled"} aria-label="Taille ${s}${n?"":", épuisée"}">${s}${isLow(n) ? `<small>Plus que ${n}</small>` : ""}</button>`; }).join("")}</div>`;
+}
+function sizeSection(p){
+  const guide = `<button class="ulink" data-act="guide" style="display:inline-flex;gap:6px;align-items:center;font-size:13px">${I.ruler.replace('class="i"','class="i" style="width:15px;height:15px"')} Guide des tailles</button>`;
+  if(isSet(p)){
+    const [a, b] = parts(p);
+    return `<div class="szhd"><span id="szl1">Taille du sweat${sel.size ? ` : <b>${sel.size}</b>` : ""}</span>${guide}</div>${sizeButtons(a, 1, sel.size)}
+      <div class="szhd" style="margin-top:18px"><span id="szl2">Taille du jogging${sel.size2 ? ` : <b>${sel.size2}</b>` : ""}</span></div>${sizeButtons(b, 2, sel.size2)}`;
+  }
+  return `<div class="szhd"><span id="szl1">Taille${sel.size ? ` : <b>${sel.size}</b>` : ""}</span>${guide}</div>${sizeButtons(p, 1, sel.size)}`;
+}
+function addLabel(p){
+  if(!totalStock(p)) return "Épuisé";
+  if(isSet(p)){ if(!sel.size) return "Choisis la taille du sweat"; if(!sel.size2) return "Choisis la taille du jogging"; }
+  else if(!sel.size) return "Choisis ta taille";
+  return `${I.bag} Ajouter au panier — ${eur(p.price)}`;
+}
+function pProduct(id){
+  const p = findP(id);
+  if(!p || p.active === false) return {title:"Produit introuvable", html:`<div class="wrap empty" style="padding:120px 0"><p>Ce produit n'existe plus.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
+  if(sel.id !== id) sel = {id, size:null, size2:null};
+  const favs = read(K.favs, []);
+  const frames = p.has360 && IMG.sprite ? Array.from({length:24}, (_, i) => i) : [];
+  const revs = shop.reviews.filter(r => r.text && (!r.productId || r.productId === p.id));
+  const related = relatedOf(p);
+  const total = totalStock(p), c = compareAt(p);
+  const inSet = !isSet(p) && products().find(x => isSet(x) && x.components.includes(p.id));
+  return {title:p.name, html:`
+  <div class="wrap">
+    <div class="crumb"><a href="#/">Accueil</a> / <a href="#/boutique?cat=${p.category}">${catName(p.category)}</a> / <span style="color:var(--text)">${esc(p.name)}</span></div>
+    <div class="pp">
+      <div>
+        <div class="gal" id="gal">
+          <div class="track" id="galTrack">${p.images.map((k,i) => `<div class="slide" data-act="zoom" data-i="${i}"><img src="${img(k)}" alt="${esc(p.name)} — vue ${i+1}" ${i?'loading="lazy"':""}></div>`).join("")}</div>
+          ${p.images.length > 1 ? `<div class="dots" id="galDots">${p.images.map((_,i) => `<i class="${i?"":"on"}"></i>`).join("")}</div><div class="gcount" id="galCount">1/${p.images.length}</div>` : ""}
+        </div>
+        ${frames.length ? `<div class="v360l"><span>Vue 360° portée</span><span class="muted" style="font-size:12.5px">Glisse pour tourner</span></div>
+          <div class="v360" id="v360" tabindex="0" aria-label="Vue 360°, utilise les flèches pour tourner"><div id="v360img" class="sprite" role="img" aria-label="${esc(p.name)} porté — vue 360°" style="background-image:url('${IMG.sprite}')"></div>
+          <div class="hint">${I.rotate}<span>Glissez pour tourner · <span id="v360n">1</span>/${frames.length}</span></div><div class="bar" id="v360bar" style="width:${100/frames.length}%"></div></div>` : ""}
+        ${!frames.length && canSpin(p) ? `<div class="v360l"><span>Vue 360°</span><span class="muted" style="font-size:12.5px">Glisse pour tourner</span></div>
+          <div class="spin" id="spin" tabindex="0" aria-label="Vue 360°, utilise les flèches pour tourner"><div class="spin-in" id="spinIn"><img class="f" src="${img(p.images[0])}" alt="${esc(p.name)} — face" draggable="false"><img class="b" src="${img(p.images[1])}" alt="${esc(p.name)} — dos" draggable="false"></div>
+          <div class="hint">${I.rotate}<span>Glissez pour tourner · <span id="spinSide">Face</span></span></div></div>` : ""}
+      </div>
+      <div class="info">
+        <div class="eyebrow" style="margin-bottom:12px">${p.isNew ? "Nouveau · " : ""}${esc(p.subtitle)}${p.tagline ? " · " + esc(p.tagline) : ""}</div>
+        <h1 class="display">${esc(p.name)}</h1>
+        ${revs.length ? `<a href="#/produit/${p.id}" data-act="avis" style="display:inline-flex;gap:8px;align-items:center;font-size:13px" class="muted">${stars(avg(revs))} ${revs.length} avis</a>` : ""}
+        <div class="prow"><span class="price">${priceHtml(p)}${c > p.price ? ` <span class="tag w" style="vertical-align:middle;margin-left:6px">−${Math.round((1 - p.price/c)*100)} %</span>` : ""}</span><button class="heart ${favs.includes(p.id)?"on":""}" data-act="fav" data-id="${p.id}" aria-label="Ajouter aux favoris">${I.heart}</button></div>
+        <p class="desc">${esc(p.description)}</p>
+        ${isSet(p) ? `<div class="incl">${parts(p).filter(Boolean).map(x => `<a href="#/produit/${x.id}"><img src="${img(x.images[0])}" alt=""><span><b>${esc(x.name)}</b>${esc(x.subtitle)} · ${eur(x.price)}</span></a>`).join("")}</div>` : ""}
+        <div id="sizeSec">${sizeSection(p)}</div>
+        <div class="stockmsg" id="stockmsg">${stockMsg(p)}</div>
+        <button class="btn full lg" id="addBtn" data-act="add" data-id="${p.id}" ${total ? "" : "disabled"}>${addLabel(p)}</button>
+        ${inSet ? `<a class="upsell" href="#/produit/${inSet.id}"><img src="${img(inSet.images[0])}" alt=""><span><b>Existe en ensemble</b>Sweat + jogging pour ${eur(inSet.price)} au lieu de ${eur(compareAt(inSet))}</span>${I.arrow}</a>` : ""}
+        <div class="acc">
+          <details open><summary>Détails &amp; matières</summary><div class="b"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join("")}</ul></div></details>
+          <details><summary>Taille &amp; coupe</summary><div class="b">${esc(S().sizeAdvice)} <button class="ulink" data-act="guide">Voir le guide</button></div></details>
+          ${p.care ? `<details><summary>Entretien</summary><div class="b">${esc(p.care)}</div></details>` : ""}
+          <details><summary>Livraison &amp; échanges</summary><div class="b">${esc(S().shippingInfo)}${+S().freeFrom ? ` Livraison offerte dès ${eur(+S().freeFrom)}.` : ""}</div></details>
+        </div>
+      </div>
+    </div>
+    ${related.length ? `<section class="sec" style="padding-top:60px"><div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Compléter le look</div><h2 class="h2">Style avec</h2></div></div><div class="pgrid">${related.map(card).join("")}</div></section>` : ""}
+    ${revs.length ? `<section class="sec" id="avis" style="padding-top:40px"><div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">${avg(revs).toFixed(1).replace(".",",")}/5 · ${revs.length} avis</div><h2 class="h2">Avis clients</h2></div><button class="btn ghost sm" data-act="review" data-id="${p.id}">Laisser un avis</button></div><div class="rgrid">${revs.map(revCard).join("")}</div></section>`
+      : `<section style="padding:40px 0 90px;border-top:1px solid var(--line);margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><span class="muted">Tu l'as déjà porté ? Partage ton avis et ta photo.</span><button class="btn ghost sm" data-act="review" data-id="${p.id}">Laisser un avis</button></section>`}
+  </div>`, mount: () => mountProduct(p, frames)};
+}
+function stockMsg(p){
+  const key = selKey(p);
+  if(!key){ const t = totalStock(p); return isLow(t) ? `<span class="pulse"></span>Derniers exemplaires disponibles` : ""; }
+  const n = stockOf(p, key);
+  return isLow(n) ? `<span class="pulse"></span>Plus que ${n} exemplaire${n>1?"s":""} ${isSet(p) ? "dans ces tailles" : "en taille " + sel.size}` : `<span class="stockmsg ok" style="margin:0">En stock · prêt à être expédié</span>`;
+}
+function updateSizeUI(p){
+  $("#sizeSec").innerHTML = sizeSection(p);
+  $("#stockmsg").innerHTML = stockMsg(p);
+  if(totalStock(p)) $("#addBtn").innerHTML = addLabel(p);
+  renderMbar(p);
+}
+function renderMbar(p){
+  const total = totalStock(p), key = selKey(p);
+  $("#mbar").innerHTML = `<div class="t"><b>${esc(p.name)}</b>${eur(p.price)}${key ? " · " + key : ""}</div><button class="btn" data-act="${key ? "add" : "scrollsize"}" data-id="${p.id}" ${total ? "" : "disabled"}>${total ? (key ? "Ajouter" : "Choisir la taille") : "Épuisé"}</button>`;
+}
+function mountProduct(p, frames){
+  renderMbar(p);
+  const add = $("#addBtn");
+  if("IntersectionObserver" in window){
+    const o = new IntersectionObserver(([e]) => $("#mbar").classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0));
+    o.observe(add); teardown.push(() => o.disconnect());
+  }
+  const tr = $("#galTrack"), dots = document.querySelectorAll("#galDots i"), cnt = $("#galCount");
+  if(tr && dots.length) tr.addEventListener("scroll", () => {
+    const i = Math.round(tr.scrollLeft / tr.clientWidth); dots.forEach((d,k) => d.classList.toggle("on", k === i)); if(cnt) cnt.textContent = `${i+1}/${dots.length}`;
+  }, {passive:true});
+  if(frames.length) mount360(frames); else if($("#spin")) mountSpin();
+}
+function mountSpin(){
+  const box = $("#spin"), inner = $("#spinIn"), side = $("#spinSide");
+  let ang = 0, sx = 0, sa = 0, drag = false, raf = null;
+  const draw = () => {
+    const a = ((ang % 360) + 360) % 360, s = Math.abs(Math.sin(ang * Math.PI / 180));
+    inner.style.transform = `rotateY(${ang}deg) scale(${1 - s * .06})`;
+    side.textContent = a > 90 && a < 270 ? "Dos" : "Face";
+  };
+  const stop = () => { cancelAnimationFrame(raf); raf = null; };
+  box.addEventListener("pointerdown", e => { stop(); drag = true; sx = e.clientX; sa = ang; box.style.cursor = "grabbing"; box.setPointerCapture?.(e.pointerId); });
+  box.addEventListener("pointermove", e => { if(drag){ ang = sa + (e.clientX - sx) * 360 / Math.max(260, box.clientWidth); draw(); } });
+  const up = () => { if(!drag) return; drag = false; box.style.cursor = "";
+    const target = Math.round(ang / 180) * 180, from = ang, t0 = performance.now();
+    const ease = now => { const k = Math.min(1, (now - t0) / 380); ang = from + (target - from) * (1 - Math.pow(1 - k, 3)); draw(); if(k < 1) raf = requestAnimationFrame(ease); };
+    raf = requestAnimationFrame(ease); };
+  box.addEventListener("pointerup", up); box.addEventListener("pointercancel", up);
+  box.addEventListener("keydown", e => { if(e.key === "ArrowLeft" || e.key === "ArrowRight"){ stop(); ang += e.key === "ArrowLeft" ? -180 : 180; inner.style.transition = "transform .6s var(--ease)"; draw(); setTimeout(() => inner.style.transition = "", 650); } });
+  draw();
+  if(!reduceMotion && "IntersectionObserver" in window){
+    let played = false;
+    const o = new IntersectionObserver(([e]) => { if(e.isIntersecting && !played){ played = true; const t0 = performance.now();
+      const turn = now => { const k = Math.min(1, (now - t0) / 2600); ang = 360 * (k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2); draw(); if(k < 1) raf = requestAnimationFrame(turn); else { ang = 0; draw(); } };
+      raf = requestAnimationFrame(turn); } }, {threshold:.6});
+    o.observe(box); teardown.push(() => { o.disconnect(); stop(); });
+  }
+}
+function mount360(frames){
+  const box = $("#v360"), im = $("#v360img"), n = $("#v360n"), bar = $("#v360bar");
+  const pre = () => {};
+  let idx = 0, sx = 0, si = 0, drag = false, auto = null;
+  const step = () => Math.max(6, box.clientWidth / frames.length / 1.1);
+  const go = i => { idx = ((i % frames.length) + frames.length) % frames.length; im.style.backgroundPosition = `${(idx % 6) * 20}% ${Math.floor(idx / 6) * 100 / 3}%`; n.textContent = idx + 1; bar.style.width = ((idx+1)/frames.length*100) + "%"; };
+  box.addEventListener("pointerdown", e => { pre(); stopAuto(); drag = true; sx = e.clientX; si = idx; box.style.cursor = "grabbing"; box.setPointerCapture?.(e.pointerId); });
+  box.addEventListener("pointermove", e => { if(drag) go(si + Math.round((sx - e.clientX) / step())); });
+  const up = () => { drag = false; box.style.cursor = ""; };
+  box.addEventListener("pointerup", up); box.addEventListener("pointercancel", up);
+  box.addEventListener("keydown", e => { if(e.key === "ArrowLeft"){ stopAuto(); go(idx-1); } if(e.key === "ArrowRight"){ stopAuto(); go(idx+1); } });
+  const stopAuto = () => { clearInterval(auto); auto = null; };
+  if(!reduceMotion && "IntersectionObserver" in window){
+    let played = false;
+    const o = new IntersectionObserver(([e]) => { if(e.isIntersecting && !played){ played = true; pre(); let c = 0; auto = setInterval(() => { go(idx+1); if(++c >= frames.length - 1) stopAuto(); }, 110); } }, {threshold:.6});
+    o.observe(box); teardown.push(() => { o.disconnect(); stopAuto(); });
+  }
+}
+function guideTable(key, title){
+  const src = (S().sizeGuides || {})[key] || "";
+  const rows = src.split(/\n/).map(l => l.split(/[;\t]/).map(c => c.trim())).filter(r => r.some(Boolean));
+  const [h, ...b] = rows; if(!h) return "";
+  return `${title ? `<div class="eyebrow" style="margin:18px 0 4px">${title}</div>` : ""}<table class="st"><tr>${h.map(c => `<th>${esc(c)}</th>`).join("")}</tr>${b.map(r => `<tr>${r.map((c,i) => i ? `<td>${esc(c)}</td>` : `<td><b>${esc(c)}</b></td>`).join("")}</tr>`).join("")}</table>`;
+}
+function sizeGuide(){
+  const p = findP(sel.id), cat = p?.category || "tshirt";
+  const tables = cat === "ensemble" ? guideTable("sweat", "Sweat") + guideTable("jogging", "Jogging") : guideTable(cat);
+  const how = cat === "jogging" || cat === "ensemble"
+    ? "Tour de taille : mesure au niveau du nombril, sans serrer. Longueur : de la taille jusqu'en bas de la jambe, pantalon posé à plat."
+    : "Pose une pièce qui te va bien à plat. Largeur : d'une aisselle à l'autre. Longueur : du haut de l'épaule jusqu'en bas.";
+  openModal(`<div class="dhd"><h3>Guide des tailles</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div><div class="mb">
+    <p class="muted" style="font-size:14px">${esc(S().sizeAdvice)}</p>${tables}
+    <div class="how"><svg viewBox="0 0 80 80" width="80" height="80" fill="none" stroke="#8d8b87" stroke-width="1.4"><path d="M24 10l-14 10 6 12 8-4v42h32V28l8 4 6-12-14-10c-2 6-8 9-14 9s-12-3-14-9z"/><path d="M24 40h32" stroke-dasharray="3 3" stroke="#f2f0eb"/><path d="M62 28v42" stroke-dasharray="3 3" stroke="#f2f0eb"/></svg>
+    <div><b style="color:var(--text)">Comment mesurer</b><br>${how}</div></div>
+  </div>`);
+}
+
+/* Lightbox */
+function openLightbox(p, start){
+  closeAll();
+  const lb = $("#lb");
+  lb.innerHTML = `<button class="x" data-act="close" aria-label="Fermer">${I.x}</button>
+    <div class="track" id="lbTrack">${p.images.map((k,i) => `<div class="sl"><img src="${img(k)}" alt="${esc(p.name)} — vue ${i+1}" draggable="false"></div>`).join("")}</div>
+    ${p.images.length > 1 ? `<button class="nv p" data-act="lbnav" data-d="-1" aria-label="Précédente">${I.left}</button><button class="nv n" data-act="lbnav" data-d="1" aria-label="Suivante">${I.right}</button>` : ""}
+    <div class="c" id="lbc">${start+1} / ${p.images.length} · Touche pour zoomer</div>`;
+  lb.classList.add("open"); lock(true); openPanel = "lb";
+  const tr = $("#lbTrack");
+  requestAnimationFrame(() => { tr.scrollLeft = start * tr.clientWidth; });
+  tr.addEventListener("scroll", () => { $("#lbc").textContent = `${Math.round(tr.scrollLeft/tr.clientWidth)+1} / ${p.images.length}`; tr.querySelectorAll(".sl.z").forEach(s => s.classList.remove("z")); }, {passive:true});
+  tr.querySelectorAll(".sl").forEach(sl => {
+    const im = sl.querySelector("img"); let down = false, moved = false;
+    const origin = e => { const r = im.getBoundingClientRect(); im.style.transformOrigin = `${(e.clientX - r.left)/r.width*100}% ${(e.clientY - r.top)/r.height*100}%`; };
+    im.addEventListener("pointerdown", e => { down = true; moved = false; });
+    im.addEventListener("pointermove", e => { if(sl.classList.contains("z") && (down || e.pointerType === "mouse")){ moved = true; origin(e); } });
+    im.addEventListener("pointerup", e => { down = false; if(moved && sl.classList.contains("z") && e.pointerType !== "mouse") return; if(!sl.classList.contains("z")) origin(e); sl.classList.toggle("z"); tr.style.overflowX = sl.classList.contains("z") ? "hidden" : ""; });
+  });
+}
+
+/* ============ Checkout (une page) ============ */
+function pCheckout(){
+  if(!cart.length) return {title:"Commande", html:`<div class="wrap empty" style="padding:120px 0"><div class="display" style="font-size:36px">Panier vide</div><p>Ajoute un article pour passer commande.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
+  const sub = cartSub(), ship = shipFor(sub), d = read(K.addr, {}), me = currentUser();
+  const summary = `
+    ${cart.map(i => { const p = findP(i.id); return `<div class="line"><img src="${img(p.images[0])}" alt=""><div class="m"><div class="n">${esc(p.name)}</div><div class="s">${esc(sizeLabel(p, i.size))} · Qté ${i.qty}</div></div><div>${eur(p.price*i.qty)}</div></div>`; }).join("")}
+    <div style="border-top:1px solid var(--line);margin-top:6px;padding-top:12px">
+      <div class="sline"><span>Sous-total</span><span>${eur(sub)}</span></div>
+      <div class="sline"><span>Livraison</span><span>${ship ? eur(ship) : "Offerte"}</span></div>
+      <div class="stotal"><span>Total</span><span>${eur(sub+ship)}</span></div><div class="note">Taxes incluses</div>
+    </div>`;
+  return {title:"Commande", html:`
+  <div class="wrap">
+    <div class="pagehd" style="padding-bottom:16px"><h1 class="display" style="font-size:clamp(38px,7vw,72px)">Commande</h1></div>
+    <form class="co" id="coForm" novalidate>
+      <div>
+        <details class="box only-m" style="margin-bottom:26px"><summary class="msum"><span>Afficher le récapitulatif</span><b>${eur(sub+ship)}</b></summary><div style="margin-top:10px">${summary}</div></details>
+        <fieldset><legend><b>1</b>Contact</legend><div class="form">
+          <input name="email" type="email" placeholder="E-mail" required autocomplete="email" value="${esc(d.email || me?.email)}">
+          <input name="phone" type="tel" placeholder="Téléphone (facultatif)" autocomplete="tel" value="${esc(d.phone)}">
+        </div></fieldset>
+        <fieldset><legend><b>2</b>Livraison</legend><div class="form">
+          <input name="name" placeholder="Nom complet" required autocomplete="name" value="${esc(d.name)}">
+          <input name="address" placeholder="Adresse" required autocomplete="street-address" value="${esc(d.address)}">
+          <div class="row2"><input name="zip" placeholder="Code postal" required autocomplete="postal-code" inputmode="numeric" value="${esc(d.zip)}"><input name="city" placeholder="Ville" required autocomplete="address-level2" value="${esc(d.city)}"></div>
+          <input name="country" placeholder="Pays" required autocomplete="country-name" value="${esc(d.country || "France")}">
+          <label class="opt"><span class="l"><input type="radio" name="method" value="standard" checked><span>Livraison standard<small>À domicile</small></span></span><span>${ship ? eur(ship) : "Offerte"}</span></label>
+        </div></fieldset>
+        <fieldset><legend><b>3</b>Paiement</legend>
+          <div class="box note" style="font-size:13.5px">${stripeOn ? "Paiement sécurisé par Stripe : à la validation, tu es redirigé vers la page de paiement (carte, Apple Pay ou Google Pay selon ton appareil)." : S().paymentLink ? "Après validation, tu es redirigé vers la page de paiement sécurisée pour régler ta commande." : "Le paiement en ligne n'est pas encore disponible. Après validation, tu envoies ta commande à la marque (e-mail ou Instagram) et elle te donne les instructions de paiement."}</div>
+          <label class="chk" style="margin-top:16px"><input type="checkbox" name="save" ${d.email ? "checked" : ""}> Mémoriser mes coordonnées sur cet appareil</label>
+        </fieldset>
+        <button class="btn full lg only-m" type="submit">Valider la commande — ${eur(sub+ship)}</button>
+      </div>
+      <div class="sumcol only-d"><div class="sum"><div class="eyebrow" style="margin-bottom:8px">Récapitulatif</div>${summary}
+        <button class="btn full lg" type="submit" style="margin-top:18px">Valider la commande</button>
+        <div class="secure">${I.lock} Données utilisées uniquement pour ta commande</div></div></div>
+    </form>
+  </div>`, mount: () => {
+    const f = $("#coForm");
+    f.addEventListener("submit", async e => {
+      e.preventDefault();
+      for(const el of f.elements){
+        if(el.required && !el.value.trim()){ el.setCustomValidity("Remplissez ce champ."); el.reportValidity(); el.setCustomValidity(""); el.focus(); return; }
+      }
+      if(!/^\S+@\S+\.\S+$/.test(f.email.value.trim())){ f.email.setCustomValidity("Saisis une adresse e-mail valide."); f.email.reportValidity(); f.email.setCustomValidity(""); return; }
+      const c = {}; for(const k of ["email","phone","name","address","zip","city","country"]) c[k] = f[k].value.trim();
+      if(f.save.checked) write(K.addr, c); else localStorage.removeItem(K.addr);
+      const sub = cartSub(), ship = shipFor(sub);
+      const o = {id:uid(), date:new Date().toISOString(), status:"En attente de paiement", customer:c,
+        items: cart.map(i => { const p = findP(i.id); return {id:i.id, name:p.name, size: isSet(p) ? sizeLabel(p, i.size) : i.size, qty:i.qty, price:p.price, image:p.images[0]}; }),
+        subtotal:sub, shipping:ship, total:sub+ship, tracking:""};
+      const orders = read(K.orders, []); orders.unshift(o); write(K.orders, orders);
+      const btn = f.querySelector("button[type=submit],button:not([type])");
+      if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = "Redirection vers le paiement…"; }
+      let url = null;
+      try{
+        const r = await fetch("/api/public/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty}))})});
+        if(r.ok) url = (await r.json()).url || null;
+      }catch(err){}
+      if(url){ o.status = "Paiement en cours"; write(K.orders, orders); location.href = url; return; }
+      if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
+      cart = []; saveCart();
+      location.hash = "#/commande/" + o.id;
+    });
+  }};
+}
+function orderMail(o){
+  const c = o.customer;
+  return `Commande n° ${o.id}\n\n` + o.items.map(i => `${i.qty} × ${i.name} (${i.size}) — ${eur(i.price*i.qty)}`).join("\n") +
+    `\nLivraison : ${eur(o.shipping)}\nTotal : ${eur(o.total)}\n\n${c.name}\n${c.email}${c.phone ? "\n"+c.phone : ""}\n${c.address}, ${c.zip} ${c.city}, ${c.country}`;
+}
+function pDone(id){
+  const o = read(K.orders, []).find(x => x.id === id);
+  if(!o) return {html:`<div class="wrap empty" style="padding:120px 0"><p>Commande introuvable sur cet appareil.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
+  const c = o.customer, first = (c.name || "").split(/\s+/)[0];
+  const mail = S().contactEmail ? `mailto:${encodeURIComponent(S().contactEmail)}?subject=${encodeURIComponent("Commande " + o.id)}&body=${encodeURIComponent(orderMail(o))}` : "";
+  return {title:"Commande confirmée", html:`<div class="wrap done">
+    <div class="check">${I.check}</div>
+    <h1 class="display" style="font-size:clamp(34px,6vw,52px)">Merci ${esc(first)} !</h1>
+    <p class="muted" style="margin:12px 0 30px">Commande n° <b style="color:var(--text)">${esc(o.id)}</b> — ${esc(o.status.toLowerCase())}.</p>
+    <div class="box">
+      ${o.items.map(i => `<div class="sline" style="color:var(--text)"><span>${i.qty} × ${esc(i.name)} (${esc(i.size)})</span><span>${eur(i.price*i.qty)}</span></div>`).join("")}
+      <div class="sline"><span>Livraison</span><span>${o.shipping ? eur(o.shipping) : "Offerte"}</span></div>
+      <div class="stotal" style="border-top:1px solid var(--line);padding-top:12px"><span>Total</span><span>${eur(o.total)}</span></div>
+      <div class="note" style="margin-top:12px">Livraison : ${esc(c.address)}, ${esc(c.zip)} ${esc(c.city)}, ${esc(c.country)}</div>
+    </div>
+    <div style="display:grid;gap:10px;margin-top:24px">
+      ${S().paymentLink ? `<a class="btn full lg" href="${esc(S().paymentLink)}" target="_blank" rel="noopener">${I.lock} Payer ma commande</a>` : ""}
+      ${!S().paymentLink && !["Payée","Expédiée","Livrée"].includes(o.status) ? `<div class="box note" style="text-align:center">Dernière étape : envoie ta commande à la marque pour qu'elle te confirme le paiement.</div>` : ""}${["Payée","Expédiée","Livrée"].includes(o.status) ? "" : mail ? `<a class="btn ${S().paymentLink ? "ghost" : ""} full" href="${mail}">Envoyer ma commande par e-mail</a>` : (S().instagram ? `<a class="btn full" target="_blank" rel="noopener" data-act="copyorder" data-id="${o.id}" href="https://ig.me/m/${encodeURIComponent(S().instagram.replace(/^@/,""))}">Envoyer sur Instagram</a>` : "")}<button class="btn ghost full" data-act="copyorder" data-id="${o.id}">Copier le récapitulatif</button>
+      <a class="btn ghost full" href="#/compte">Voir mes commandes</a>
+      <a class="ulink" style="margin-top:6px" href="#/boutique">Continuer mes achats</a>
+    </div>
+  </div>`, mount: () => syncOrder(o.id)};
+}
+let srvOrders = null;
+async function loadSrvOrders(){
+  try{
+    const r = await fetch("/api/public/admin/orders", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:ADMIN_EMAIL, password:adminPwd})});
+    const d = r.ok ? await r.json() : null; srvOrders = Array.isArray(d) ? d : ((d && d.orders) || []);
+  }catch(err){ srvOrders = []; }
+  if(/^#\/admin/.test(location.hash)) render();
+}
+async function syncOrder(id, n = 0){
+  try{
+    const r = await fetch("/api/public/order-status?id=" + encodeURIComponent(id), {cache:"no-store"}); const d = r.ok ? await r.json() : null; if(!d || !d.status) return;
+    const os = read(K.orders, []), o = os.find(x => x.id === id); if(!o) return;
+    if(o.status !== d.status){ o.status = d.status; if(d.tracking) o.tracking = d.tracking; write(K.orders, os); if(location.hash.startsWith("#/commande/" + id)) render(); }
+    if(!["Payée","Expédiée","Livrée"].includes(d.status) && n < 6 && location.hash.startsWith("#/commande/" + id)) setTimeout(() => syncOrder(id, n + 1), 3000);
+  }catch(err){}
+}
+
+/* ============ Comptes ============ */
+async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
+const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
+let adminPwd = null;
+function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
+let authMode = "login";
+function authForm(admin){
+  const login = authMode === "login";
+  return `<div class="wrap auth">
+    <div class="eyebrow" style="margin-bottom:12px">${admin ? "Administration" : "Espace client"}</div>
+    <h1 class="display">${login || admin ? "Connexion" : "Créer un compte"}</h1>
+    <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Accès réservé à l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
+    <form class="form" id="authForm" data-admin="${admin ? "1" : ""}">
+      <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
+      <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
+      <button class="btn full lg" type="submit">${login || admin ? "Se connecter" : "Créer le compte"}</button>
+    </form>
+    ${admin ? "" : `<button class="ulink" style="margin-top:16px;font-size:14px" data-act="authMode">${login ? "Pas encore de compte ? Créer un compte" : "Déjà un compte ? Se connecter"}</button>
+    <p class="note" style="margin-top:26px">Ton compte est enregistré sur cet appareil.</p>`}
+  </div>`;
+}
+function mountAuth(){
+  const f = $("#authForm"); if(!f) return;
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); if(!f.reportValidity()) return;
+    const email = f.email.value.trim().toLowerCase(), h = await hash(email + "|" + f.password.value);
+    if(f.dataset.admin === "1"){
+      if(email !== ADMIN_EMAIL || h !== ADMIN_HASH) return toast("E-mail ou mot de passe incorrect");
+      adminPwd = f.password.value;
+      write(K.session, {email, admin: true}); authMode = "login"; srvOrders = null; if(shop._dirty) syncCloud(); render(); return;
+    }
+    const users = read(K.users, []);
+    if(authMode === "signup"){
+      if(users.some(u => u.email === email)) return toast("Ce compte existe déjà");
+      users.push({email, h, admin: false}); write(K.users, users);
+    }else{
+      const u = users.find(x => x.email === email);
+      if(!u || u.h !== h) return toast("E-mail ou mot de passe incorrect");
+    }
+    write(K.session, {email}); authMode = "login"; render();
+  });
+}
+function orderCard(o, admin){
+  return `<details class="ord"><summary><span><b style="font-weight:500">n° ${esc(o.id)}</b><br><span class="muted" style="font-size:13px">${new Date(o.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})} · ${eur(o.total)}</span></span><span class="status ${/expédi|livr/i.test(o.status)?"ok":""}">${esc(o.status)}</span></summary>
+    <div class="b">
+      ${o.items.map(i => `<div class="line" style="padding:12px 0">${i.image ? `<img src="${img(i.image)}" alt="" style="width:56px;height:70px">` : ""}<div class="m"><div class="n">${esc(i.name)}</div><div class="s">${esc(i.size)} · Qté ${i.qty}</div></div><div>${eur(i.price*i.qty)}</div></div>`).join("")}
+      <div class="note" style="margin:6px 0 14px">${esc(o.customer.address)}, ${esc(o.customer.zip)} ${esc(o.customer.city)}${admin ? ` · ${esc(o.customer.name)} · ${esc(o.customer.email)}` : ""}</div>
+      <div style="display:flex;gap:8px"><input placeholder="N° de suivi du colis" value="${esc(o.tracking)}" data-track="${o.id}" style="padding:11px 14px"><button class="btn sm" data-act="track" data-id="${o.id}">Suivre</button></div>
+    </div></details>`;
+}
+function pAccount(){
+  const u = currentUser();
+  if(!u) return {title:"Mon compte", html:authForm(false), mount:mountAuth};
+  const orders = read(K.orders, []).filter(o => o.customer.email.toLowerCase() === u.email);
+  const favs = read(K.favs, []).map(findP).filter(Boolean);
+  const tab = query.onglet || "commandes";
+  return {title:"Mon compte", html:`<div class="wrap" style="padding-bottom:90px">
+    <div class="pagehd"><div class="eyebrow">Espace client</div><h1 class="display" style="font-size:clamp(38px,7vw,72px);margin-top:12px">Mon compte</h1><p class="muted" style="margin:10px 0 0">${esc(u.email)}${u.admin ? ` · <a class="ulink" href="#/admin">Administration</a>` : ""}</p></div>
+    <div class="tabs"><a href="#/compte?onglet=commandes" class="${tab==="commandes"?"on":""}">Commandes (${orders.length})</a><a href="#/compte?onglet=favoris" class="${tab==="favoris"?"on":""}">Favoris (${favs.length})</a><button data-act="logout">Se déconnecter</button></div>
+    ${tab === "favoris" ? (favs.length ? `<div class="pgrid">${favs.map(card).join("")}</div>` : `<div class="empty"><p>Aucun favori pour l'instant.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`)
+      : (orders.length ? orders.map(o => orderCard(o)).join("") : `<div class="empty"><p>Aucune commande avec cet e-mail sur cet appareil.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`)}
+  </div>`};
+}
+function pTrack(){
+  return {title:"Suivre ma commande", html:`<div class="wrap auth">
+    <div class="eyebrow" style="margin-bottom:12px">Aide</div><h1 class="display">Suivi</h1>
+    <p class="muted" style="font-size:14px;margin:0 0 24px">Saisis le numéro de suivi reçu par e-mail lors de l'expédition.</p>
+    <form class="form" id="trackForm">
+      <input name="code" placeholder="Numéro de suivi" required autocomplete="off">
+      <div class="sel"><select class="in" name="carrier" style="appearance:none;border-radius:14px"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre transporteur</option></select></div>
+      <button class="btn full lg" type="submit">Suivre mon colis</button>
+    </form>
+    <p class="note" style="margin-top:22px">Pas de numéro ? <a class="ulink" href="#/contact">Contacte-nous</a> avec ton numéro de commande.</p>
+  </div>`, mount: () => $("#trackForm").addEventListener("submit", e => { e.preventDefault(); const f = e.target; if(!f.reportValidity()) return; openTracking(f.code.value.trim(), f.carrier.value); })};
+}
+function trackUrl(code, carrier = "laposte"){
+  const c = encodeURIComponent(code);
+  return {laposte:`https://www.laposte.fr/outils/suivre-vos-envois?code=${c}`, chronopost:`https://www.chronopost.fr/tracking-no-cms/suivi-page?listeNumerosLT=${c}`, other:`https://t.17track.net/fr#nums=${c}`}[carrier];
+}
+function openTracking(code, carrier){ window.open(trackUrl(code, carrier), "_blank", "noopener"); }
+
+/* ============ Pages éditoriales ============ */
+function pAbout(){
+  return {title:"À propos", html:`<div class="wrap about">
+    <div><div class="eyebrow rv">À propos</div><h1 class="display rv d1" style="font-size:clamp(44px,8vw,96px);margin:14px 0 26px">Plus qu'un t-shirt.</h1><p class="muted rv d2" style="font-size:18px;line-height:1.75;max-width:520px">${esc(S().about)}</p>
+    <a class="btn rv d3" style="margin-top:20px" href="#/boutique">Voir la collection ${I.arrow}</a></div>
+    <div class="ph rv"><img src="${img("p_hd_b")}" alt="Sweat DRIP WHITESAYY, dos" loading="lazy"></div>
+  </div>`};
+}
+function pContact(){
+  const s = S();
+  return {title:"Contact", html:`<div class="wrap narrow" style="padding-top:40px;padding-bottom:100px">
+    <div class="eyebrow rv">Contact</div><h1 class="display rv d1" style="font-size:clamp(44px,8vw,96px);margin:14px 0 18px">Écris-nous.</h1>
+    <p class="muted rv d2" style="font-size:17px">Une question sur une commande ou une taille ? On répond vite.</p>
+    <div class="rv d3" style="display:grid;gap:10px;margin:26px 0 34px">
+      ${s.contactEmail ? `<a class="box" style="display:flex;justify-content:space-between" href="mailto:${esc(s.contactEmail)}"><span>${esc(s.contactEmail)}</span>${I.arrow}</a>` : `<div class="box muted">Adresse e-mail de contact à renseigner.</div>`}
+      ${s.instagram ? `<a class="box" style="display:flex;justify-content:space-between" target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(s.instagram.replace(/^@/,""))}"><span>Instagram · @${esc(s.instagram.replace(/^@/,""))}</span>${I.arrow}</a>` : ""}
+    </div>
+    ${s.contactEmail ? `<form class="form rv" id="ctForm"><input name="name" placeholder="Nom" required><input name="order" placeholder="N° de commande (facultatif)"><textarea name="msg" placeholder="Ton message" required></textarea><button class="btn lg" type="submit">Envoyer</button></form>` : ""}
+  </div>`, mount: () => { const f = $("#ctForm"); f && f.addEventListener("submit", e => { e.preventDefault(); if(!f.reportValidity()) return;
+    location.href = `mailto:${encodeURIComponent(s.contactEmail)}?subject=${encodeURIComponent("Contact" + (f.order.value ? " — commande " + f.order.value : ""))}&body=${encodeURIComponent(f.msg.value + "\n\n" + f.name.value)}`; }); }};
+}
+function pLegal(){
+  return {title:"Mentions légales", html:`<div class="wrap prose"><h1 class="display" style="font-size:clamp(38px,7vw,72px);margin-bottom:26px">Mentions légales</h1>${S().legal.split(/\n{2,}/).map(b => `<p>${esc(b).replace(/\n/g,"<br>")}</p>`).join("")}</div>`};
+}
+function reviewForm(pid){
+  const p = findP(pid);
+  openModal(`<div class="dhd"><h3>Ton avis</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div><div class="mb">
+    <form class="form" id="revForm"><div class="sel"><select class="in" name="rating" style="appearance:none">${[5,4,3,2,1].map(n => `<option value="${n}">${"★".repeat(n)}${"☆".repeat(5-n)} — ${n}/5</option>`).join("")}</select></div>
+    <div class="row2"><input name="name" placeholder="Prénom" required><input name="size" placeholder="Taille portée (ex. M)"></div>
+    <textarea name="text" placeholder="Coupe, qualité, impression…" required></textarea>
+    <p class="note">Ton avis est envoyé à la marque par e-mail. Tu peux y joindre ta photo portée.</p>
+    <button class="btn full lg" type="submit">Envoyer mon avis</button></form></div>`);
+  $("#revForm").addEventListener("submit", e => {
+    e.preventDefault(); const f = e.target; if(!f.reportValidity()) return;
+    if(!S().contactEmail){ toast("Les avis seront bientôt ouverts"); closeAll(); return; }
+    location.href = `mailto:${encodeURIComponent(S().contactEmail)}?subject=${encodeURIComponent("Avis — " + (p?.name || "WHITE SAYY"))}&body=${encodeURIComponent(`Note : ${f.rating.value}/5\nPrénom : ${f.name.value}\nTaille : ${f.size.value}\n\n${f.text.value}\n\n(Joins ta photo à cet e-mail)`)}`;
+    closeAll(); toast("Merci pour ton avis !");
+  });
+}
+
+/* ============ Admin ============ */
+const getPath = (o, p) => p.split(".").reduce((a,k) => a?.[k], o);
+function setPath(o, p, v){ const ks = p.split("."); const last = ks.pop(); const t = ks.reduce((a,k) => a[k], o); t[last] = v; }
+function saveDraft(silent){ shop._dirty = true; if(write(K.draft, shop) && !silent) flashSaved(); syncCloud(); }
+let syncT = null;
+async function cloudHas(stamp){ try{ const r = await fetch("/api/public/shop?t=" + Date.now(), {cache:"no-store"}); const d = r.ok ? await r.json() : null; return !!(d && d.data && d.data.publishedAt === stamp); }catch(e){ return false; } }
+function syncCloud(){
+  if(!adminPwd) return;
+  clearTimeout(syncT);
+  syncT = setTimeout(async () => {
+    const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
+    try{
+      const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: ADMIN_EMAIL, password: adminPwd, data})});
+      if(r.ok && await cloudHas(data.publishedAt)){ shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop); const b = $("#savedTag"); if(b){ b.textContent = "En ligne"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1600); } const w = $(".warnbar"); if(w) w.remove(); }
+      else toast(r.ok ? "Le serveur n'a pas gardé la modification (elle reste sur cet appareil)" : "Publication en ligne impossible — réessaie");
+    }catch(e){ toast("Connexion impossible — modifications gardées sur cet appareil"); }
+  }, 700);
+}
+function flashSaved(){ const b = $("#savedTag"); if(b){ b.textContent = "Enregistré"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1400); } }
+function compress(file, max = 1100, q = .82){
+  return new Promise((res, rej) => {
+    const r = new FileReader(); r.onerror = rej;
+    r.onload = () => { const im = new Image(); im.onerror = () => rej(new Error("Image illisible")); im.onload = () => {
+      const k = Math.min(1, max / Math.max(im.width, im.height)); const c = document.createElement("canvas");
+      c.width = Math.round(im.width*k); c.height = Math.round(im.height*k); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+      res(c.toDataURL("image/jpeg", q)); }; im.src = r.result; };
+    r.readAsDataURL(file);
+  });
+}
+const F = (path, label, type = "text", extra = "") => {
+  const v = getPath(shop, path);
+  const val = type === "lines" ? (v || []).join("\n") : (v ?? "");
+  if(type === "area" || type === "lines") return `<div class="fld"><label class="f">${label}</label><textarea data-bind="${path}" data-type="${type}" ${extra}>${esc(val)}</textarea></div>`;
+  if(type === "bool") return `<label class="chk fld"><input type="checkbox" data-bind="${path}" data-type="bool" ${v ? "checked" : ""}> ${label}</label>`;
+  return `<div class="fld"><label class="f">${label}</label><input data-bind="${path}" data-type="${type}" type="${type === "num" ? "number" : "text"}" ${type === "num" ? 'step="any" inputmode="decimal"' : ""} value="${esc(val)}" ${extra}></div>`;
+};
+const thumbs = (path, arr) => `<div class="thumbs">${arr.map((k,i) => `<div class="th"><img src="${img(k)}" alt=""><div class="ctl"><button data-act="imgmove" data-path="${path}" data-i="${i}" title="Avancer">◀</button><button data-act="imgdel" data-path="${path}" data-i="${i}" title="Retirer">✕</button></div></div>`).join("")}
+  <label class="th" style="display:grid;place-items:center;border:1px dashed var(--line2);background:none;cursor:pointer;font-size:26px;color:var(--muted)">+<input type="file" accept="image/*" multiple hidden data-upload="${path}"></label></div>`;
+let admTab = "produits";
+function pAdmin(){
+  const u = currentUser();
+  if(!u || (u.admin && !adminPwd)) return {title:"Connexion admin", html:(u ? `<p class="note" style="text-align:center;padding:30px 20px 0">Pour publier tes modifications en ligne, entre à nouveau ton mot de passe.</p>` : "") + authForm(true), mount:mountAuth};
+  if(!u.admin) return {title:"Admin", html:`<div class="wrap empty" style="padding:120px 0"><p>Ce compte n'a pas accès à l'administration.</p><button class="btn ghost" data-act="logout">Se déconnecter</button></div>`};
+  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["avis","Avis"],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
+  const s = shop;
+  let body = "";
+  if(admTab === "produits") body = s.products.map((p,i) => `
+    <details class="card" ${s.products.length === 1 ? "open" : ""}><summary><img src="${img(p.images[0])}" alt="" style="width:44px;height:55px;object-fit:cover;border-radius:6px"><span style="flex:1"><b style="font-weight:500">${esc(p.name)}</b><br><span class="muted" style="font-size:13px">${catName(p.category, 1)} · ${eur(p.price)} · stock ${totalStock(p)}</span></span>${p.active === false ? '<span class="pill">Masqué</span>' : ""}</summary><div class="b">
+      <div class="grid2">${F(`products.${i}.name`,"Nom")}${F(`products.${i}.price`,"Prix (€)","num")}</div>
+      <div class="grid2">${F(`products.${i}.subtitle`,"Sous-titre")}${F(`products.${i}.tagline`,"Coloris")}</div>
+      <div class="grid2"><div class="fld"><label class="f">Catégorie</label><select class="in" data-bind="products.${i}.category" data-type="text">${CATS.map(([k,l]) => `<option value="${k}" ${p.category===k?"selected":""}>${l}</option>`).join("")}</select></div>${F(`products.${i}.line`,"Collection (même nom = articles assortis)")}</div>
+      ${p.category === "ensemble" ? `<div class="grid2">${[0,1].map(j => `<div class="fld"><label class="f">${j ? "Jogging" : "Sweat"} de l'ensemble</label><select class="in" data-setpart="${i}" data-j="${j}"><option value="">—</option>${s.products.filter(x => x.category === (j ? "jogging" : "sweat")).map(x => `<option value="${x.id}" ${(p.components||[])[j]===x.id?"selected":""}>${esc(x.name)} · ${esc(x.tagline)}</option>`).join("")}</select></div>`).join("")}</div>${isSet(p) ? `<p class="note">Prix séparé : ${eur(compareAt(p))}. Le stock de l'ensemble suit celui du sweat et du jogging.</p>` : ""}` : ""}
+      ${F(`products.${i}.description`,"Description","area")}
+      ${F(`products.${i}.details`,"Détails & matières (une ligne par point)","lines")}
+      ${F(`products.${i}.care`,"Entretien","area",'style="min-height:70px"')}
+      ${p.category === "ensemble" ? "" : `<div class="fld"><label class="f">Stock par taille (0 = épuisé, vide = taille non proposée)</label><div class="grid6">${SIZES.map(z => `<div><label class="f" style="margin:0 0 4px 2px">${z}</label><input type="number" min="0" inputmode="numeric" data-stock="${i}" data-s="${z}" value="${z in p.sizes ? p.sizes[z] : ""}"></div>`).join("")}</div></div>`}
+      <div class="fld"><label class="f">Photos (la 1re s'affiche sur la carte, la 2e au survol)</label>${thumbs(`products.${i}.images`, p.images)}</div>
+      ${F(`products.${i}.isNew`,"Badge « Nouveau »","bool")}${F(`products.${i}.active`,"Visible dans la boutique","bool")}
+      <div class="btns" style="display:flex;gap:8px;margin-top:16px"><a class="btn ghost sm" href="#/produit/${p.id}">Voir la fiche</a>${s.products.length > 1 ? `<button class="btn ghost sm" style="color:#e88" data-act="pdel" data-i="${i}">Supprimer</button>` : ""}</div>
+    </div></details>`).join("") + `<button class="btn ghost full" data-act="padd">+ Ajouter un produit</button>`;
+  else if(admTab === "boutique") body = `
+    <div class="card"><b>Accueil</b>${F("settings.announcement","Bandeau d'annonce (vide = masqué)")}${F("settings.heroEyebrow","Surtitre")}<div class="grid2">${F("settings.heroLine1","Titre ligne 1")}${F("settings.heroLine2","Titre ligne 2")}</div>
+      <div class="fld"><label class="f">Image d'accueil</label>${thumbs("settings.heroImage", [s.settings.heroImage])}</div>
+      ${F("settings.spirit","Texte « L'esprit WHITE SAYY »","area")}${F("settings.promises","Engagements (une ligne chacun)","lines")}</div>
+    <div class="card"><b>Livraison & stock</b><div class="grid2">${F("settings.shipping","Frais de livraison (€)","num")}${F("settings.freeFrom","Livraison offerte dès (€, 0 = jamais)","num")}</div>
+      ${F("settings.lowStock","Afficher « Plus que X » à partir de","num")}${F("settings.shippingInfo","Texte livraison & échanges","area")}</div>
+    <div class="card"><b>Guide des tailles</b> <span class="pill" style="color:var(--warn)">Mesures indicatives : remplace-les par les tiennes</span>${[["tshirt","T-shirts"],["sweat","Sweats"],["jogging","Joggings"]].map(([k,l]) => F(`settings.sizeGuides.${k}`,`${l} (une ligne par taille, colonnes séparées par ;)`,"area",'style="min-height:160px;font-family:ui-monospace,monospace;font-size:13px"')).join("")}${F("settings.sizeAdvice","Conseil de taille","area",'style="min-height:70px"')}</div>
+    <div class="card"><b>Contact & paiement</b>${F("settings.contactEmail","E-mail de contact (reçoit commandes et avis)")}${F("settings.instagram","Compte Instagram (sans @)")}${F("settings.paymentLink","Lien de paiement (Stripe Payment Link, PayPal.me, SumUp…)")}<p class="note">Avec un lien de paiement, un bouton « Payer ma commande » apparaît après la commande.</p></div>
+    <div class="card"><b>Pages</b>${F("settings.about","À propos","area")}${F("settings.legal","Mentions légales","area",'style="min-height:160px"')}</div>`;
+  else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Ajoute ici les avis que tes clients t'envoient (formulaire « Laisser un avis » → ton e-mail). Ils s'affichent sur l'accueil et la fiche produit.</p>` +
+    s.reviews.map((r,i) => `<details class="card"><summary>${r.photo ? `<img src="${img(r.photo)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px" alt="">` : ""}<span style="flex:1">${stars(+r.rating||5)}<br><span class="muted" style="font-size:13px">${esc(r.name) || "Sans nom"} — ${esc((r.text||"").slice(0,40))}</span></span></summary><div class="b">
+      <div class="grid2">${F(`reviews.${i}.name`,"Prénom")}${F(`reviews.${i}.size`,"Taille portée")}</div>
+      <div class="grid2"><div class="fld"><label class="f">Note</label><select class="in" data-bind="reviews.${i}.rating" data-type="num">${[5,4,3,2,1].map(n => `<option ${+r.rating===n?"selected":""}>${n}</option>`).join("")}</select></div>
+      <div class="fld"><label class="f">Produit</label><select class="in" data-bind="reviews.${i}.productId" data-type="text"><option value="">Tous</option>${s.products.map(p => `<option value="${p.id}" ${r.productId===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}</select></div></div>
+      ${F(`reviews.${i}.text`,"Avis","area")}<div class="fld"><label class="f">Photo (facultatif)</label>${thumbs(`reviews.${i}.photo`, r.photo ? [r.photo] : [])}</div>
+      <button class="btn ghost sm" style="color:#e88;margin-top:12px" data-act="revdel" data-i="${i}">Supprimer</button></div></details>`).join("") + `<button class="btn ghost full" data-act="revadd">+ Ajouter un avis reçu</button>`;
+  else if(admTab === "ugc") body = `<p class="note" style="margin-top:0">Photos de clients qui portent WHITE SAYY (avec leur accord). La section s'affiche sur l'accueil dès qu'il y a une photo.</p>` +
+    s.ugc.map((g,i) => `<div class="card" style="display:flex;gap:14px;align-items:flex-start"><img src="${img(g.photo)}" style="width:80px;height:80px;object-fit:cover;border-radius:8px" alt=""><div style="flex:1">${F(`ugc.${i}.handle`,"Pseudo Instagram")}${F(`ugc.${i}.link`,"Lien vers la publication (facultatif)")}<button class="btn ghost sm" style="color:#e88;margin-top:10px" data-act="ugcdel" data-i="${i}">Retirer</button></div></div>`).join("") +
+    `<label class="btn ghost full" style="cursor:pointer">+ Ajouter des photos<input type="file" accept="image/*" multiple hidden data-upload="ugc"></label>`;
+  else if(admTab === "commandes"){
+    if(srvOrders === null && adminPwd){ srvOrders = []; loadSrvOrders(); }
+    const orders = [...(srvOrders || []), ...read(K.orders, []).filter(l => !(srvOrders || []).some(x => x.id === l.id))];
+    body = `<div class="card"><b>Envoyer un suivi de colis</b><p class="note">Prépare l'e-mail d'expédition pour ton client avec le lien de suivi.</p>
+      <form class="form" id="shipForm"><div class="grid2"><input name="email" type="email" placeholder="E-mail du client" required><input name="order" placeholder="N° de commande" required></div>
+      <div class="grid2"><input name="code" placeholder="N° de suivi" required><select class="in" name="carrier"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre</option></select></div>
+      <button class="btn" type="submit">Préparer l'e-mail</button></form></div>
+      <p class="note">Les commandes payées par Stripe apparaissent ci-dessous (recharge la page pour actualiser). Celles passées sur cet appareil y figurent aussi.</p>
+      ${orders.length ? orders.map(o => orderCard(o, true)).join("") : `<div class="card muted">Aucune commande pour le moment.</div>`}`;
+  }
+  else body = `<div class="card"><b>Publication automatique</b>
+      <p class="muted" style="font-size:14px;line-height:1.7">Tes modifications sont enregistrées en ligne automatiquement, dès que tu les fais. Tous les visiteurs les voient immédiatement — plus rien à télécharger ni à déposer sur GitHub.</p>
+      <p class="note">${shop.publishedAt ? `Dernière mise en ligne : ${new Date(shop.publishedAt).toLocaleString("fr-FR")}` : "Aucune publication pour le moment."}</p></div>
+    <div class="card"><b>Sauvegarde</b><p class="note">Exporte ou restaure tous les réglages, produits, avis et photos.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" data-act="expjson">Exporter (JSON)</button><label class="btn ghost sm" style="cursor:pointer">Importer (JSON)<input type="file" accept=".json,application/json" hidden id="impjson"></label>${shop._dirty ? `<button class="btn ghost sm" style="color:#e88" data-act="discard">Annuler mes modifications</button>` : ""}</div></div>`;
+  return {title:"Admin", html:`<div class="wrap adm" style="padding-bottom:100px;max-width:860px">
+    <div class="pagehd" style="padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div><div class="eyebrow">${esc(u.email)}</div><h1 class="display" style="font-size:clamp(36px,6vw,60px);margin-top:10px">Admin</h1></div><span class="muted" id="savedTag" style="font-size:13px"></span></div>
+    ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Envoi des modifications en ligne…</span></div>` : ""}
+    <div class="tabs">${tabs.map(([k,l]) => `<button class="${k===admTab?"on":""}" data-act="tab" data-t="${k}">${l}</button>`).join("")}<button data-act="logout">Déconnexion</button></div>
+    ${body}</div>`, mount: mountAdmin};
+}
+function mountAdmin(){
+  const root = $(".adm"); if(!root) return;
+  root.addEventListener("change", async e => {
+    const el = e.target;
+    if(el.dataset.bind){
+      const t = el.dataset.type; let v = el.value;
+      if(t === "num") v = parseFloat(String(v).replace(",", ".")) || 0;
+      if(t === "bool") v = el.checked;
+      if(t === "lines") v = v.split("\n").map(x => x.trim()).filter(Boolean);
+      setPath(shop, el.dataset.bind, v); saveDraft();
+      if(/\.(name|price)$/.test(el.dataset.bind)){ const sm = el.closest("details")?.querySelector("summary b"); if(sm && /name$/.test(el.dataset.bind)) sm.textContent = v; }
+      if(!$(".warnbar") || /\.category$/.test(el.dataset.bind)) render();
+    }
+    else if(el.dataset.setpart !== undefined){
+      const p = shop.products[+el.dataset.setpart]; p.components = p.components || ["",""]; p.components[+el.dataset.j] = el.value; saveDraft(); render();
+    }
+    else if(el.dataset.stock !== undefined){
+      const p = shop.products[+el.dataset.stock];
+      if(el.value === "") delete p.sizes[el.dataset.s]; else p.sizes[el.dataset.s] = Math.max(0, parseInt(el.value) || 0);
+      saveDraft();
+    }
+    else if(el.dataset.upload){
+      const files = [...el.files]; if(!files.length) return;
+      toast("Optimisation des images…");
+      try{
+        const urls = []; for(const f of files) urls.push(await compress(f, el.dataset.upload === "ugc" ? 900 : 1200));
+        const path = el.dataset.upload;
+        if(path === "ugc") urls.forEach(u => shop.ugc.push({photo:u, handle:"", link:""}));
+        else{ const cur = getPath(shop, path); if(Array.isArray(cur)) cur.push(...urls); else setPath(shop, path, urls[0]); }
+        saveDraft(); render(); toast(`${urls.length} image(s) ajoutée(s)`);
+      }catch(err){ toast(err.message || "Image illisible"); }
+    }
+    else if(el.id === "impjson"){
+      const f = el.files[0]; if(!f) return;
+      try{ const d = JSON.parse(await f.text()); if(!d.products || !d.settings) throw 0; shop = merge(DEFAULTS, d); saveDraft(); render(); toast("Données importées"); }
+      catch(err){ toast("Ce fichier n'est pas une sauvegarde WHITE SAYY"); }
+    }
+  });
+  const sf = $("#shipForm");
+  sf && sf.addEventListener("submit", async e => { e.preventDefault(); if(!sf.reportValidity()) return;
+    try{ await fetch("/api/public/admin/orders/update", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:ADMIN_EMAIL, password:adminPwd, id:sf.order.value.trim(), status:"Expédiée", tracking:sf.code.value.trim()})}); }catch(err){}
+    const url = trackUrl(sf.code.value.trim(), sf.carrier.value);
+    location.href = `mailto:${encodeURIComponent(sf.email.value.trim())}?subject=${encodeURIComponent(`WHITE SAYY — ta commande ${sf.order.value} est en route`)}&body=${encodeURIComponent(`Bonjour,\n\nTa commande n° ${sf.order.value} vient d'être expédiée.\nNuméro de suivi : ${sf.code.value}\nSuivre le colis : ${url}\n\nMerci pour ta confiance,\nWHITE SAYY`)}`; });
+}
+function download(name, content, type){
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([content], {type})); a.download = name;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800);
+}
+
+/* ============ Recherche ============ */
+function openSearch(){
+  const was = $("#search").classList.contains("open"); closeAll(); if(was) return;
+  $("#search").classList.add("open"); $("#ov").classList.add("open"); openPanel = "search"; $("#q").value = ""; searchRes(""); setTimeout(() => $("#q").focus(), 60);
+}
+function searchRes(v){
+  const t = v.trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+  const list = products().filter(p => !t || `${p.name} ${p.subtitle} ${p.tagline} ${catName(p.category)} ${catName(p.category, 1)} ${p.description} ${p.details.join(" ")}`.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().includes(t));
+  $("#qres").innerHTML = list.length ? list.map(p => `<a href="#/produit/${p.id}"><img src="${img(p.images[0])}" alt=""><b style="font-weight:500">${esc(p.name)}</b><br><span class="muted">${eur(p.price)}</span></a>`).join("") : `<span class="muted" style="padding:10px 0">Aucun résultat.</span>`;
+}
+$("#q").addEventListener("input", e => searchRes(e.target.value));
+
+/* ============ Actions ============ */
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-act]"); if(!el) return;
+  const a = el.dataset.act;
+  const p = el.dataset.id ? findP(el.dataset.id) : null;
+  switch(a){
+    case "menu": { const m = $("#mmenu"), o = m.classList.contains("open"); closeAll(); if(!o){ m.classList.add("open"); lock(true); } break; }
+    case "search": openSearch(); break;
+    case "cart": openDrawer(); break;
+    case "close": closeAll(); break;
+    case "qty": { const i = cart[+el.dataset.k], pp = findP(i.id); const n = i.qty + +el.dataset.d; if(n > stockOf(pp, i.size)){ toast(`Plus que ${stockOf(pp,i.size)} (${sizeLabel(pp, i.size)})`); break; } i.qty = n; saveCart(); break; }
+    case "rm": cart.splice(+el.dataset.k, 1); saveCart(); break;
+    case "size": { if(el.dataset.w === "2") sel.size2 = el.dataset.s; else sel.size = el.dataset.s; updateSizeUI(findP(sel.id)); break; }
+    case "scrollsize": $(".sizes").scrollIntoView({behavior:"smooth", block:"center"}); break;
+    case "add": { const pk = findP(el.dataset.id), key = selKey(pk); if(!key){ toast(isSet(pk) ? (sel.size ? "Choisis la taille du jogging" : "Choisis la taille du sweat") : "Choisis ta taille"); $(".sizes").scrollIntoView({behavior:"smooth", block:"center"}); document.querySelectorAll(".size:not([disabled])").forEach(b => b.animate([{transform:"translateX(0)"},{transform:"translateX(-4px)"},{transform:"translateX(4px)"},{transform:"translateX(0)"}],{duration:300})); break; } addToCart(el.dataset.id, key); break; }
+    case "quick": e.preventDefault(); addToCart(el.dataset.id, el.dataset.s); break;
+    case "fav": { let f = read(K.favs, []); const id = el.dataset.id; f = f.includes(id) ? f.filter(x => x !== id) : [...f, id]; write(K.favs, f); el.classList.toggle("on", f.includes(id)); toast(f.includes(id) ? "Ajouté aux favoris" : "Retiré des favoris"); break; }
+    case "avis": e.preventDefault(); document.getElementById("avis")?.scrollIntoView({behavior:"smooth"}); break;
+    case "copyorder": { const o = read(K.orders, []).find(x => x.id === el.dataset.id); if(o){ try{ await navigator.clipboard.writeText(orderMail(o)); toast("Récapitulatif copié"); }catch(err){ toast("Copie impossible : sélectionne le texte à la main"); } } break; }
+    case "guide": sizeGuide(); break;
+    case "zoom": openLightbox(findP(sel.id), +el.dataset.i); break;
+    case "lbnav": { const tr = $("#lbTrack"); tr.scrollBy({left: tr.clientWidth * +el.dataset.d, behavior:"smooth"}); break; }
+    case "review": reviewForm(el.dataset.id); break;
+    case "track": { const v = document.querySelector(`[data-track="${el.dataset.id}"]`).value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
+      const os = read(K.orders, []); const o = os.find(x => x.id === el.dataset.id); if(o){ o.tracking = v; write(K.orders, os); } openTracking(v, "laposte"); break; }
+    case "authMode": authMode = authMode === "login" ? "signup" : "login"; render(); break;
+    case "logout": localStorage.removeItem(K.session); adminPwd = null; toast("Déconnecté"); render(); break;
+    case "tab": e.preventDefault(); admTab = el.dataset.t; render(); break;
+    case "padd": shop.products.push({id:"produit-" + uid().toLowerCase(), category:"tshirt", line:"", components:[], name:"Nouveau produit", subtitle:"", tagline:"", price:0, description:"", details:[], care:"", sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}, images:[], has360:false, isNew:true, active:false, createdAt:new Date().toISOString().slice(0,10), related:[]}); saveDraft(); render(); break;
+    case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
+    case "imgdel": { const cur = getPath(shop, el.dataset.path); if(Array.isArray(cur)) cur.splice(+el.dataset.i, 1); else setPath(shop, el.dataset.path, el.dataset.path === "settings.heroImage" ? "hero" : ""); saveDraft(); render(); break; }
+    case "imgmove": { const cur = getPath(shop, el.dataset.path), i = +el.dataset.i; if(Array.isArray(cur) && i > 0){ [cur[i-1], cur[i]] = [cur[i], cur[i-1]]; saveDraft(); render(); } break; }
+    case "revadd": shop.reviews.unshift({name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10)}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
+    case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
+    case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
+    case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
+    case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
+  }
+});
+document.addEventListener("change", e => {
+  const f = e.target.dataset?.filter; if(!f) return;
+  const q = {...query, [f]: e.target.value}; Object.keys(q).forEach(k => !q[k] && delete q[k]);
+  const qs = new URLSearchParams(q).toString(); history.replaceState(null, "", "#/boutique" + (qs ? "?" + qs : "")); render();
+});
+
+/* Stripe : actif seulement si le serveur répond enabled:true */
+let stripeOn = false;
+fetch("/api/public/checkout", {cache:"no-store"}).then(r => r.ok ? r.json() : null).then(d => { stripeOn = !!(d && d.enabled === true); if(stripeOn && /^#\/(checkout|livraison)/.test(location.hash)) render(); }).catch(() => {});
+/* Affichée dans un cadre (iframe) du même site : le # suit l'adresse du navigateur, dans les deux sens */
+let L = location;
+try{
+  if(window.parent !== window){
+    const P = window.parent; L = P.location;
+    const toP = () => { if(P.location.hash !== location.hash) P.history.replaceState(null, "", P.location.pathname + P.location.search + location.hash); };
+    if(P.location.hash && P.location.hash !== location.hash) location.hash = P.location.hash;
+    addEventListener("hashchange", toP);
+    document.addEventListener("click", e => { const a = e.target.closest && e.target.closest('a[href^="#"]'); if(!a || e.defaultPrevented || e.ctrlKey || e.metaKey) return; const h = a.getAttribute("href"); if(h.length > 1){ e.preventDefault(); if(location.hash !== h) location.hash = h; } });
+    P.addEventListener("hashchange", () => { if(P.location.hash !== location.hash) location.hash = P.location.hash; });
+  }
+}catch(err){ L = location; }
+{ const q = new URLSearchParams(L.search), oid = q.get("order");
+  if(q.get("paid") === "1" && oid){ cart = []; saveCart(); try{ (L === location ? history : parent.history).replaceState(null, "", L.pathname + "#/commande/" + oid); }catch(err){} if(L !== location) location.hash = "#/commande/" + oid; } }
+addEventListener("pageshow", e => { if(e.persisted) location.reload(); });
+/* Repli si une image Drive refuse de charger */
+addEventListener("error", e => { const t = e.target; if(t.tagName !== "IMG" || t.dataset.fb) return; const m = /googleusercontent\.com\/d\/([\w-]+)/.exec(t.src); t.dataset.fb = 1; if(m) t.src = `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1400`; else t.style.visibility = "hidden"; }, true);
+/* Focus : entrée, piège clavier, retour */
+const PANELS = "#drawer.open,#modal.open,#lb.open,#search.open,#mmenu.open"; let lastFocus = null;
+new MutationObserver(() => setTimeout(() => { const p = document.querySelector(PANELS);
+  if(p && !p.contains(document.activeElement)){ lastFocus ||= document.activeElement; (p.querySelector("input,button,a[href]") || p).focus({preventScroll:true}); }
+  else if(!p && lastFocus){ lastFocus.focus?.({preventScroll:true}); lastFocus = null; } }, 60)).observe(document.body, {subtree:true, attributes:true, attributeFilter:["class"]});
+document.addEventListener("keydown", e => { if(e.key !== "Tab") return; const p = document.querySelector(PANELS); if(!p) return;
+  const f = [...p.querySelectorAll("a[href],button:not([disabled]),input,select,textarea")].filter(x => x.offsetParent !== null); if(!f.length) return;
+  if(e.shiftKey && document.activeElement === f[0]){ e.preventDefault(); f[f.length-1].focus(); } else if(!e.shiftKey && document.activeElement === f[f.length-1]){ e.preventDefault(); f[0].focus(); } });
+
+/* ============ Démarrage ============ */
+document.querySelectorAll(".logoimg").forEach(i => i.src = IMG.logo);
+$("#year").textContent = new Date().getFullYear();
+$("#ftTag").textContent = "Une identité. Des pièces noires, un graphisme brut, rien de superflu.";
+if(S().announcement) $("#announce").innerHTML = `<div class="announce">${esc(S().announcement)}</div>`;
+if(S().instagram) $("#ftIg").innerHTML = `<a target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(S().instagram.replace(/^@/,""))}">Instagram</a>`;
+badge(); render();
+</script>
+</body>
+</html>
