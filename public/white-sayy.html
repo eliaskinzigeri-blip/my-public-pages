@@ -459,8 +459,17 @@ input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px soli
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 
-<style id="white-sayy-hero-dots">
-/* Seule signature conservée de la V0 : points gris sur l’image d’accueil. */
+<style id="white-sayy-motion-and-hero-dots">
+/* Animations d’origine maintenues après retrait du décor V0. */
+main{animation:pagein .45s var(--ease)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.scrollcue i{animation:cue 2s infinite}
+.marquee .t{animation:mq 32s linear infinite}
+.review-ticker-track{animation:review-mq 42s linear infinite}
+.pc .im img{transition:opacity .6s var(--ease),transform 1.2s var(--ease)}
+@media(prefers-reduced-motion:reduce){main{animation:none}.rv{opacity:1;transform:none;transition:none}.marquee .t,.review-ticker-track{animation:none}}
+/* Seule signature visuelle conservée de la V0 : points gris sur l’image d’accueil. */
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.24;background-image:radial-gradient(circle,rgba(185,183,177,.78) .7px,transparent 1px);background-size:7px 7px;-webkit-mask-image:linear-gradient(90deg,transparent 38%,rgba(0,0,0,.45) 57%,#000 100%);mask-image:linear-gradient(90deg,transparent 38%,rgba(0,0,0,.45) 57%,#000 100%)}
 .hero .inner{position:relative;z-index:1}
 </style>
