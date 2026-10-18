@@ -1493,7 +1493,7 @@ function pAdmin(){
     <div class="card"><b>Contact & paiement</b>${F("settings.contactEmail","E-mail de contact (reçoit commandes et avis)")}${F("settings.instagram","Compte Instagram (sans @)")}${F("settings.paymentLink","Lien de paiement (Stripe Payment Link, PayPal.me, SumUp…)")}<p class="note">Avec un lien de paiement, un bouton « Payer ma commande » apparaît après la commande.</p></div>
     <div class="card"><b>Pages</b>${F("settings.about","À propos","area")}${F("settings.legal","Mentions légales","area",'style="min-height:160px"')}</div>`;
   else if(admTab === "promos") body = `<p class="note" style="margin-top:0">Crée des codes à pourcentage ou à montant fixe. Le minimum se calcule sur tout le panier ; la remise s'applique aux produits choisis. Une seule banderole promo active peut apparaître en haut de toutes les pages.</p>` +
-    ((s.promos || []).length ? s.promos.map((p,i) => `<details class="card"><summary><span style="flex:1"><b style="font-weight:500">${esc(normalizePromoCode(p.code) || "NOUVEAU CODE")}</b><br><span class="muted" style="font-size:13px">${p.discountType === "percent" ? `${Number(p.value)||0}%` : eur(p.value)} · ${p.active ? "Actif" : "Désactivé"}</span></span>${p.showBanner ? '<span class="pill">Bandeau</span>' : ""}</summary><div class="b">
+    ((s.promos || []).length ? s.promos.map((p,i) => `<details class="card" data-promo-card="${i}"><summary><span style="flex:1"><b style="font-weight:500">${esc(normalizePromoCode(p.code) || "NOUVEAU CODE")}</b><br><span class="muted" style="font-size:13px">${p.discountType === "percent" ? `${Number(p.value)||0}%` : eur(p.value)} · ${p.active ? "Actif" : "Désactivé"}</span></span>${p.showBanner ? '<span class="pill">Bandeau</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`promos.${i}.code`,"Code promo")}
         <div class="fld"><label class="f">Type de remise</label><select class="in" data-bind="promos.${i}.discountType" data-type="text"><option value="percent" ${p.discountType === "percent" ? "selected" : ""}>Pourcentage</option><option value="fixed" ${p.discountType === "fixed" ? "selected" : ""}>Montant fixe (€)</option></select></div>
       </div>
@@ -1503,7 +1503,7 @@ function pAdmin(){
       <div class="fld"><label class="f">Produits concernés</label><div class="promo-products">${s.products.map(product => `<label class="chk"><input type="checkbox" data-promo-product="${i}" value="${esc(product.id)}" ${(p.productIds || []).includes(product.id) ? "checked" : ""} ${p.appliesToAll !== false ? "disabled" : ""}> ${esc(product.name)}</label>`).join("")}</div><p class="note">Décoche « Tous les produits » pour choisir une sélection. Si aucun produit n'est coché, le code ne s'applique à aucun article.</p></div>
       <label class="chk fld"><input type="checkbox" data-promo-banner="${i}" ${p.showBanner ? "checked" : ""}> Afficher une banderole sur toutes les pages</label>
       ${F(`promos.${i}.bannerText`,"Texte de la banderole (vide = texte généré)")}
-      <button class="btn ghost sm" style="color:#e88;margin-top:14px" data-act="promodel" data-i="${i}">Supprimer ce code promo</button></div></details>`).join("") : `<div class="empty"><p>Aucun code promo pour l'instant.</p></div>`) + `<button class="btn ghost full" data-act="promoadd">+ Créer un code promo</button>`;
+      <button type="button" class="btn ghost sm" style="color:#e88;margin-top:14px" data-act="promodel" data-i="${i}">Supprimer ce code promo</button></div></details>`).join("") : `<div class="empty"><p>Aucun code promo pour l'instant.</p></div>`) + `<button type="button" class="btn ghost full" data-act="promoadd">+ Créer un code promo</button>`;
   else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés depuis ce navigateur apparaissent ici pour modération. Coche « Afficher sur l’accueil » pour les publier dans le bandeau défilant.</p>` +
     (s.reviews.length ? s.reviews.map((r,i) => `<details class="card"><summary>${r.photo ? `<img src="${img(r.photo)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px" alt="">` : ""}<span style="flex:1">${stars(+r.rating||5)}<br><span class="muted" style="font-size:13px">${esc(r.name) || "Sans nom"} — ${esc((r.text||"").slice(0,40))}</span></span>${r.pending ? '<span class="pill">À valider</span>' : r.featured ? '<span class="pill">Accueil</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`reviews.${i}.name`,"Pseudo")}${F(`reviews.${i}.size`,"Taille portée")}</div>
@@ -1536,6 +1536,23 @@ function pAdmin(){
     <div class="tabs">${tabs.map(([k,l]) => `<button class="${k===admTab?"on":""}" data-act="tab" data-t="${k}">${l}</button>`).join("")}<button data-act="logout">Déconnexion</button></div>
     ${body}</div>`, mount: mountAdmin};
 }
+function refreshPromoAdminCard(i){
+  const promo = shop.promos?.[i]; if(!promo) return;
+  const card = document.querySelector(`[data-promo-card="${i}"]`); if(!card) return;
+  const title = card.querySelector("summary b"); if(title) title.textContent = normalizePromoCode(promo.code) || "NOUVEAU CODE";
+  const status = card.querySelector("summary .muted");
+  if(status) status.textContent = `${promo.discountType === "percent" ? `${Number(promo.value)||0}%` : eur(promo.value)} · ${promo.active ? "Actif" : "Désactivé"}`;
+  const all = card.querySelector(`[data-bind="promos.${i}.appliesToAll"]`);
+  card.querySelectorAll(`[data-promo-product="${i}"]`).forEach(input => { input.disabled = !!all?.checked; });
+  const bannerInput = card.querySelector(`[data-promo-banner="${i}"]`);
+  if(bannerInput) bannerInput.checked = !!promo.showBanner;
+  const summary = card.querySelector("summary");
+  let badge = summary?.querySelector(".pill");
+  if(promo.showBanner){
+    if(!badge){ badge = document.createElement("span"); badge.className = "pill"; summary?.append(badge); }
+    if(badge) badge.textContent = "Bandeau";
+  }else badge?.remove();
+}
 function mountAdmin(){
   const root = $(".adm"); if(!root) return;
   root.addEventListener("change", async e => {
@@ -1557,18 +1574,20 @@ function mountAdmin(){
       if(featuredMatch && v){ shop.reviews[+featuredMatch[1]].approved = true; shop.reviews[+featuredMatch[1]].pending = false; }
       saveDraft(); renderAnnouncement();
       if(/\.(name|price)$/.test(el.dataset.bind)){ const sm = el.closest("details")?.querySelector("summary b"); if(sm && /name$/.test(el.dataset.bind)) sm.textContent = v; }
-      if(!$(".warnbar") || /\.category$/.test(el.dataset.bind) || /^promos\.\d+\.(code|discountType|value|active|appliesToAll)$/.test(el.dataset.bind)) render();
+      const promoMatch = el.dataset.bind.match(/^promos\.(\d+)\./);
+      if(promoMatch) refreshPromoAdminCard(+promoMatch[1]);
+      if(/\.category$/.test(el.dataset.bind) || (!promoMatch && !$(".warnbar"))) render();
     }
     else if(el.dataset.promoProduct !== undefined){
       const i = +el.dataset.promoProduct, promo = shop.promos[i]; if(!promo) return;
       promo.productIds = promo.productIds || [];
       promo.productIds = el.checked ? [...new Set([...promo.productIds, el.value])] : promo.productIds.filter(id => id !== el.value);
-      saveDraft(); render();
+      saveDraft(); refreshPromoAdminCard(i);
     }
     else if(el.dataset.promoBanner !== undefined){
       const i = +el.dataset.promoBanner;
       shop.promos.forEach((promo, j) => { promo.showBanner = j === i && el.checked; });
-      saveDraft(); renderAnnouncement(); render();
+      saveDraft(); renderAnnouncement(); shop.promos.forEach((_, j) => refreshPromoAdminCard(j));
     }
     else if(el.dataset.setpart !== undefined){
       const p = shop.products[+el.dataset.setpart]; p.components = p.components || ["",""]; p.components[+el.dataset.j] = el.value; saveDraft(); render();
