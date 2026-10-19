@@ -57,9 +57,10 @@ function Index() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: DARK_PAGE }} />
+      {/* Incrémenter cette version à chaque livraison de white-sayy.html pour éviter un ancien cache mobile. */}
       <iframe
         ref={frame}
-        src="/white-sayy.html"
+        src="/white-sayy.html?v=93a776b"
         title="WHITE SAYY"
         style={{
           position: "fixed",
