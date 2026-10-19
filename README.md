@@ -31,6 +31,7 @@ Configurer les secrets uniquement dans l’environnement serveur Lovable, jamais
 - `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` pour les opérations serveur sur la boutique, les commandes et les avis.
 - `ADMIN_EMAIL` et `ADMIN_PASSWORD_HASH` pour l’accès admin. Le hash attendu est un SHA-256 de `e-mail-minuscule|mot-de-passe` ; ne stocker ni envoyer le mot de passe brut dans le dépôt.
 - `STRIPE_SECRET_KEY` et `STRIPE_WEBHOOK_SECRET` si les paiements Stripe sont activés.
+- `RESEND_API_KEY` pour les e-mails de confirmation après paiement Stripe ; définir aussi `MAIL_FROM` avec une adresse d’expédition vérifiée dans Resend avant la production. Sans ces secrets, les commandes et webhooks continuent de fonctionner, mais aucun e-mail transactionnel n’est envoyé.
 - `LOVABLE_DB_MIGRATION_URL` dans l’environnement de migration sécurisé pour `drizzle-kit`.
 
 Avant le lancement, appliquer les migrations dans l’ordre, notamment `drizzle/migrations/0002_reviews_and_stock_finalization.sql`. Depuis un shell sûr où `LOVABLE_DB_MIGRATION_URL` est déjà fourni :
@@ -46,12 +47,12 @@ Pour Stripe, configurer aussi le webhook vers `/api/public/stripe-webhook` et ab
 ## Checklist avant d’accepter des commandes
 
 1. Configurer et tester Stripe, ou renseigner au minimum un canal de commande/contact (e-mail, Instagram ou lien de paiement externe) dans l’administration. Sans cela, le checkout reste volontairement fermé et ne crée pas de fausse commande.
-2. Vérifier un achat de test complet : confirmation Stripe, mise à jour de statut, décrément de stock et arrivée de l’avis dans la boîte de modération.
+2. Vérifier un achat de test complet : confirmation Stripe, mise à jour du statut, décrément du stock et, si Resend est configuré, réception des e-mails client et boutique. Vérifier séparément l’arrivée des avis dans la boîte de modération.
 3. Remplacer les mentions légales modèle par les informations exactes de l’éditeur et vérifier les règles de livraison, les prix et chaque stock.
 4. Vérifier que le compte admin fonctionne après configuration des secrets et que les avis peuvent être approuvés depuis un autre appareil.
 5. Tester les commandes manuelles : le client transmet le récapitulatif par le canal configuré ; l’admin confirme le paiement avant de marquer l’expédition.
 
-Les commandes manuelles ne sont pas considérées comme payées automatiquement. Les notifications client et les comptes clients ne sont pas encore des services synchronisés : le compte et les favoris restent enregistrés sur l’appareil du visiteur. Les liens e-mail ouvrent un brouillon dans le logiciel de messagerie choisi et ne l’envoient pas automatiquement.
+Les commandes manuelles ne sont pas considérées comme payées automatiquement et n’envoient pas les e-mails de confirmation Stripe. Les comptes clients ne sont pas encore des services synchronisés : le compte et les favoris restent enregistrés sur l’appareil du visiteur. Les liens e-mail de contact ouvrent un brouillon dans le logiciel de messagerie choisi et ne l’envoient pas automatiquement.
 
 ## Synchronisation et publication
 
