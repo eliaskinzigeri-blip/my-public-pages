@@ -20,7 +20,7 @@ function decrementStock(shop: any, items: { id: string; size: string; qty: numbe
     if (!p) continue;
     if (isSet(p)) {
       const [a, b] = String(it.size).split(" / ");
-      const comps = p.components.map((c: any) => products.find((x: any) => x.id === c.id));
+      const comps = p.components.map((c: any) => products.find((x: any) => x.id === (typeof c === "string" ? c : c.id)));
       if (a && b && comps[0] && comps[1]) {
         dec(comps[0], a, it.qty);
         dec(comps[1], b, it.qty);
@@ -56,21 +56,34 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-        if (event.type === "checkout.session.completed") {
-          const { data: order } = await supabaseAdmin.from("orders").select("status, items").eq("id", orderId).maybeSingle();
+        const paidNow =
+          event.type === "checkout.session.async_payment_succeeded" ||
+          (event.type === "checkout.session.completed" && session.payment_status === "paid");
+
+        if (paidNow) {
+          const { data: order } = await supabaseAdmin
+            .from("orders")
+            .select("id, status, items, customer, subtotal, shipping, total")
+            .eq("id", orderId)
+            .maybeSingle();
           await supabaseAdmin
             .from("orders")
             .update({ status: "Payée", payment_intent: session.payment_intent ?? null })
             .eq("id", orderId);
 
-          // Stock décrémenté une seule fois (si la commande n'était pas déjà payée).
-          if (order && order.status !== "Payée" && Array.isArray(order.items)) {
+          // Stock et e-mails : une seule fois (si la commande n'était pas déjà payée).
+          if (order && order.status !== "Payée") {
             const shop = await getShopData();
-            if (shop && decrementStock(shop, order.items as { id: string; size: string; qty: number }[])) {
+            if (shop && Array.isArray(order.items) && decrementStock(shop, order.items as { id: string; size: string; qty: number }[])) {
               await supabaseAdmin.from("shop_data").upsert({ id: 1, data: shop, updated_at: new Date().toISOString() });
             }
+            try {
+              const { notifyPaidOrder } = await import("@/lib/mail.server");
+              await notifyPaidOrder(order, shop);
+            } catch {
+              // un e-mail raté ne doit jamais faire échouer le webhook
+            }
           }
-          // TODO: e-mail de confirmation client + notification (nécessite un service d'e-mails).
         } else if (event.type === "checkout.session.expired") {
           await supabaseAdmin.from("orders").update({ status: "Expirée" }).eq("id", orderId).eq("status", "En attente de paiement");
         }
