@@ -651,8 +651,9 @@ const DEFAULTS = {
   ],
   reviews: [], ugc: [], promos: []
 };
+function cloneData(value){ return typeof structuredClone === "function" ? structuredClone(value) : JSON.parse(JSON.stringify(value)); }
 function merge(base, over){
-  if(Array.isArray(base) || typeof base !== "object" || base === null) return over === undefined ? structuredClone(base) : over;
+  if(Array.isArray(base) || typeof base !== "object" || base === null) return over === undefined ? cloneData(base) : over;
   const o = {}; for(const k of new Set([...Object.keys(base), ...Object.keys(over || {})])) o[k] = k in base ? merge(base[k], (over || {})[k]) : over[k];
   return o;
 }
@@ -1524,7 +1525,7 @@ function syncCloud(){
   if(!adminPwd) return;
   clearTimeout(syncT);
   syncT = setTimeout(async () => {
-    const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
+    const data = cloneData(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
     try{
       const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: currentUser()?.email || "", password: adminPwd, data})});
       if(r.ok && await cloudHas(data.publishedAt)){ shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop); const b = $("#savedTag"); if(b){ b.textContent = "En ligne"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1600); } const w = $(".warnbar"); if(w) w.remove(); }
@@ -1837,7 +1838,7 @@ document.addEventListener("click", async e => {
       break;
     }
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
-    case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
+    case "expjson": { const d = cloneData(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
     case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
   }
 });
