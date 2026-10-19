@@ -1334,6 +1334,16 @@ function pDone(id){
   </div>`, mount: () => syncOrder(o.id)};
 }
 let srvOrders = null;
+let srvReviews = null, srvReviewsError = "";
+async function loadSrvReviews(){
+  try{
+    const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"list"})});
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok) throw new Error(data.error || "reviews_unavailable");
+    srvReviews = Array.isArray(data.reviews) ? data.reviews : []; srvReviewsError = "";
+  }catch(err){ srvReviews = []; srvReviewsError = "Impossible de charger les avis reçus. Vérifie que la migration de la boîte d’avis est appliquée."; }
+  if(/^#\/admin/.test(location.hash) && admTab === "avis") render();
+}
 async function loadSrvOrders(){
   try{
     const r = await fetch("/api/public/admin/orders", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd})});
@@ -1385,7 +1395,7 @@ function mountAuth(){
         write(K.session, {email, admin: true});
         const savedDraft = read(K.draft, null);
         if(savedDraft?._dirty && (savedDraft.version || 0) >= DEFAULTS.version) shop = merge(DEFAULTS, savedDraft);
-        authMode = "login"; srvOrders = null; if(shop._dirty) syncCloud(); render(); return;
+        authMode = "login"; srvOrders = null; srvReviews = null; srvReviewsError = ""; if(shop._dirty) syncCloud(); render(); return;
       }catch(err){ toast("Connexion admin impossible. Vérifie ta connexion."); return; }
       finally{ if(button && document.body.contains(button)){ button.disabled = false; button.textContent = "Se connecter"; } }
     }
@@ -1468,14 +1478,19 @@ function pLegal(){
 function ratingPicker(value = 5){
   return `<input type="hidden" name="rating" value="${value}"><div class="rate-pick" role="radiogroup" aria-label="Ta note">${[1,2,3,4,5].map(n => `<button type="button" data-act="rate" data-rating="${n}" aria-label="${n} étoile${n>1?"s":""}" aria-pressed="${n<=value}">★</button>`).join("")}</div>`;
 }
-function saveReviewForm(form, pid){
+async function saveReviewForm(form, pid){
   if(!form.reportValidity()) return;
   const val = name => String(form.elements.namedItem(name)?.value || "").trim();
-  const review = {id:"avis-" + uid(), name:val("name"), rating:Math.max(1,Math.min(5,Number(val("rating")) || 5)), text:val("text"), size:val("size"), productId:pid || "", date:new Date().toISOString().slice(0,10), approved:false, featured:false, pending:true};
-  const inbox = read(K.reviewInbox, []); inbox.unshift(review);
-  if(!write(K.reviewInbox, inbox)){ toast("L’avis n’a pas pu être enregistré sur cet appareil."); return; }
-  closeAll(); toast("Avis enregistré sur cet appareil, en attente de validation. Merci !");
-  if(location.hash === "#/avis") setTimeout(() => { const msg = $("#reviewThanks"); if(msg) msg.hidden = false; }, 0);
+  const button = form.querySelector('button[type="submit"]');
+  if(button){ button.disabled = true; button.dataset.label = button.textContent; button.textContent = "Envoi…"; }
+  try{
+    const response = await fetch("/api/public/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({name:val("name"), rating:Math.max(1,Math.min(5,Number(val("rating")) || 5)), text:val("text"), size:val("size"), productId:pid || "", website:val("website")})});
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok){ toast(response.status === 429 ? "Trop d’avis envoyés. Réessaie plus tard." : data.error === "reviews_unavailable" ? "Les avis ne peuvent pas être enregistrés pour le moment." : "Ton avis n’a pas été envoyé. Réessaie."); return; }
+    closeAll(); toast("Avis transmis pour validation. Merci !");
+    if(location.hash === "#/avis") setTimeout(() => { const msg = $("#reviewThanks"); if(msg) msg.hidden = false; }, 0);
+  }catch(err){ toast("Connexion interrompue : ton avis n’a pas été envoyé. Réessaie."); }
+  finally{ if(button){ button.disabled = false; button.textContent = button.dataset.label || "Envoyer mon avis"; } }
 }
 function mountReviewForm(form, pid){
   if(!form) return;
@@ -1484,7 +1499,7 @@ function mountReviewForm(form, pid){
 function reviewForm(pid){
   const p = findP(pid);
   openModal(`<div class="dhd"><h3>Ton avis</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div><div class="mb">
-    <form class="form" id="revForm">${ratingPicker()}<div class="row2"><input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><input name="size" placeholder="Taille portée (facultatif)" aria-label="Taille portée, facultatif" maxlength="12"></div>
+    <form class="form" id="revForm"><input class="sr-only" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">${ratingPicker()}<div class="row2"><input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><input name="size" placeholder="Taille portée (facultatif)" aria-label="Taille portée, facultatif" maxlength="12"></div>
     <textarea name="text" placeholder="Ton avis sur WHITE SAYY…" aria-label="Ton avis sur WHITE SAYY" required minlength="3" maxlength="500"></textarea>
     <p class="note">Ton avis sera vérifié par l’équipe avant d’être publié.</p>
     <button class="btn full lg" type="submit">Envoyer mon avis</button></form></div>`);
@@ -1494,7 +1509,7 @@ function pReviewPage(){
   return {title:"Laisser un avis", html:`<div class="wrap narrow" style="padding-top:44px;padding-bottom:100px;max-width:680px">
     <div class="eyebrow rv">WHITE SAYY · Communauté</div><h1 class="display rv d1" style="font-size:clamp(42px,8vw,88px);margin:14px 0 18px">Laisser un avis</h1>
     <p class="muted rv d2" style="font-size:16px;margin:0 0 28px">Quelques mots sur ta pièce. Ton avis sera vérifié avant d’apparaître sur le site.</p>
-    <form class="form rv d3" id="reviewPageForm">${ratingPicker()}<input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><textarea name="text" placeholder="Ton avis sur WHITE SAYY…" aria-label="Ton avis sur WHITE SAYY" required minlength="3" maxlength="500"></textarea><p class="note">Les avis sélectionnés par l’équipe défilent ensuite sur la page d’accueil.</p><button class="btn lg" type="submit">Envoyer mon avis ${I.arrow}</button></form>
+    <form class="form rv d3" id="reviewPageForm"><input class="sr-only" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">${ratingPicker()}<input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><textarea name="text" placeholder="Ton avis sur WHITE SAYY…" aria-label="Ton avis sur WHITE SAYY" required minlength="3" maxlength="500"></textarea><p class="note">Les avis sélectionnés par l’équipe défilent ensuite sur la page d’accueil.</p><button class="btn lg" type="submit">Envoyer mon avis ${I.arrow}</button></form>
     <p class="note" id="reviewThanks" hidden style="margin-top:18px">Merci, ton avis a bien été enregistré et attend sa validation.</p>
   </div>`, mount:() => mountReviewForm($("#reviewPageForm"), "")};
 }
@@ -1557,7 +1572,7 @@ function pAdmin(){
   if(!s.settings.contactEmail && !s.settings.instagram) readinessItems.push("Ajoute un e-mail de contact ou un compte Instagram pour que les clients puissent joindre la marque.");
   if(!s.settings.legal || s.settings.legal.trim() === DEFAULTS.settings.legal.trim()) readinessItems.push("Remplace le texte modèle des mentions légales par les informations exactes de l’entreprise avant l’ouverture.");
   if(!readinessItems.length) readinessItems.push("Les principaux canaux de commande et de contact sont renseignés. Vérifie encore les prix, stocks, livraison et mentions avant publication.");
-  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["promos","Codes promo"],["avis","Avis"],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
+  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["promos","Codes promo"],["avis",`Avis${srvReviews?.length ? ` (${srvReviews.length})` : ""}`],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
   let body = "";
   if(admTab === "produits") body = s.products.map((p,i) => `
     <details class="card" ${s.products.length === 1 ? "open" : ""}><summary><img src="${img(p.images[0])}" alt="" style="width:44px;height:55px;object-fit:cover;border-radius:6px"><span style="flex:1"><b style="font-weight:500">${esc(p.name)}</b><br><span class="muted" style="font-size:13px">${catName(p.category, 1)} · ${eur(p.price)} · stock ${totalStock(p)}</span></span>${p.active === false ? '<span class="pill">Masqué</span>' : ""}</summary><div class="b">
@@ -1594,7 +1609,8 @@ function pAdmin(){
       <label class="chk fld"><input type="checkbox" data-promo-banner="${i}" ${p.showBanner ? "checked" : ""}> Afficher une banderole sur toutes les pages</label>
       ${F(`promos.${i}.bannerText`,"Texte de la banderole (vide = texte généré)")}
       <button type="button" class="btn ghost sm" style="color:#e88;margin-top:14px" data-act="promodel" data-i="${i}">Supprimer ce code promo</button></div></details>`).join("") : `<div class="empty"><p>Aucun code promo pour l'instant.</p></div>`) + `<button type="button" class="btn ghost full" data-act="promoadd">+ Créer un code promo</button>`;
-  else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés depuis ce navigateur apparaissent ici pour modération. Coche « Afficher sur l’accueil » pour les publier dans le bandeau défilant.</p>` +
+  else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés par les visiteurs arrivent ici pour modération, même depuis un autre appareil. Après approbation, coche « Afficher sur l’accueil » pour les ajouter au bandeau défilant.</p>` +
+    (srvReviews === null ? `<div class="card muted" role="status">Chargement des avis reçus…</div>` : srvReviewsError ? `<div class="card" role="alert"><p class="note">${esc(srvReviewsError)}</p><button class="btn ghost sm" type="button" data-act="reviewInboxReload">Réessayer</button></div>` : srvReviews.length ? `<div class="card"><b>À modérer (${srvReviews.length})</b>${srvReviews.map(r => `<article style="border-top:1px solid var(--line);padding:16px 0;margin-top:12px"><div style="display:flex;align-items:center;gap:10px">${stars(+r.rating||5)}<b style="font-weight:500">${esc(r.name)}</b><span class="muted" style="font-size:12px">${new Date(r.created_at).toLocaleDateString("fr-FR")}</span></div><p class="muted" style="white-space:pre-wrap;line-height:1.6">${esc(r.text)}</p><div class="note">${r.size ? `Taille ${esc(r.size)}` : ""}${r.product_id ? ` · ${esc(s.products.find(p => p.id === r.product_id)?.name || "Produit")}` : ""}</div><div class="btns" style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" type="button" data-act="approveRemoteReview" data-id="${esc(r.id)}">Approuver</button><button class="btn ghost sm" type="button" data-act="rejectRemoteReview" data-id="${esc(r.id)}">Refuser</button></div></article>`).join("")}</div>` : `<div class="card muted">Aucun nouvel avis à modérer.</div>`) +
     (s.reviews.length ? s.reviews.map((r,i) => `<details class="card"><summary>${r.photo ? `<img src="${img(r.photo)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px" alt="">` : ""}<span style="flex:1">${stars(+r.rating||5)}<br><span class="muted" style="font-size:13px">${esc(r.name) || "Sans nom"} — ${esc((r.text||"").slice(0,40))}</span></span>${r.pending ? '<span class="pill">À valider</span>' : r.featured ? '<span class="pill">Accueil</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`reviews.${i}.name`,"Pseudo")}${F(`reviews.${i}.size`,"Taille portée")}</div>
       <div class="grid2"><div class="fld"><label class="f">Note</label><select aria-label="Note" class="in" data-bind="reviews.${i}.rating" data-type="num">${[5,4,3,2,1].map(n => `<option ${+r.rating===n?"selected":""}>${n}</option>`).join("")}</select></div>
@@ -1646,6 +1662,7 @@ function refreshPromoAdminCard(i){
 }
 function mountAdmin(){
   const root = $(".adm"); if(!root) return;
+  if(admTab === "avis" && srvReviews === null) void loadSrvReviews();
   root.addEventListener("change", async e => {
     const el = e.target;
     if(el.dataset.bind){
@@ -1785,7 +1802,7 @@ document.addEventListener("click", async e => {
       break;
     }
     case "authMode": authMode = authMode === "login" ? "signup" : "login"; render(); break;
-    case "logout": localStorage.removeItem(K.session); adminPwd = null; srvOrders = null; toast("Déconnecté"); render(); break;
+    case "logout": localStorage.removeItem(K.session); adminPwd = null; srvOrders = null; srvReviews = null; toast("Déconnecté"); render(); break;
     case "tab": e.preventDefault(); admTab = el.dataset.t; render(); break;
     case "padd": shop.products.push({id:"produit-" + uid().toLowerCase(), category:"tshirt", line:"", components:[], name:"Nouveau produit", subtitle:"", tagline:"", price:0, description:"", details:[], care:"", sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}, images:[], has360:false, isNew:true, active:false, createdAt:new Date().toISOString().slice(0,10), related:[]}); saveDraft(); render(); break;
     case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
@@ -1795,6 +1812,30 @@ document.addEventListener("click", async e => {
     case "promodel": shop.promos.splice(+el.dataset.i, 1); saveDraft(); renderAnnouncement(); render(); break;
     case "revadd": shop.reviews.unshift({id:"avis-"+uid(), name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10), approved:true, featured:false}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
     case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
+    case "reviewInboxReload": srvReviews = null; srvReviewsError = ""; render(); break;
+    case "approveRemoteReview": {
+      if(!adminPwd) break;
+      const reviewId = el.dataset.id; el.disabled = true;
+      try{
+        const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"approve", id:reviewId})});
+        const data = await response.json().catch(() => ({}));
+        if(!response.ok || !data.review) throw new Error(data.error || "approve_failed");
+        if(shop._dirty){ if(!shop.reviews.some(r => r.id === data.review.id)) shop.reviews.unshift(data.review); saveDraft(true); }
+        else { const cloud = await fetch("/api/public/shop?t=" + Date.now(), {cache:"no-store"}).then(r => r.ok ? r.json() : null); if(cloud?.data) shop = merge(DEFAULTS, cloud.data); }
+        srvReviews = (srvReviews || []).filter(r => r.id !== reviewId); render(); toast("Avis approuvé. Tu peux maintenant le sélectionner pour l’accueil.");
+      }catch(err){ toast("L’avis n’a pas pu être approuvé. Vérifie la connexion et la migration de la boîte d’avis."); if(document.body.contains(el)) el.disabled = false; }
+      break;
+    }
+    case "rejectRemoteReview": {
+      if(!adminPwd) break;
+      const reviewId = el.dataset.id; el.disabled = true;
+      try{
+        const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"reject", id:reviewId})});
+        if(!response.ok) throw new Error("reject_failed");
+        srvReviews = (srvReviews || []).filter(r => r.id !== reviewId); render(); toast("Avis refusé.");
+      }catch(err){ toast("L’avis n’a pas pu être refusé. Réessaie."); if(document.body.contains(el)) el.disabled = false; }
+      break;
+    }
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
     case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
     case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
