@@ -22,6 +22,7 @@ export type Database = {
           items: Json
           payment_intent: string | null
           session_url: string | null
+          stock_decremented_at: string | null
           shipping: number
           status: string
           stripe_session_id: string | null
@@ -36,6 +37,7 @@ export type Database = {
           items: Json
           payment_intent?: string | null
           session_url?: string | null
+          stock_decremented_at?: string | null
           shipping?: number
           status?: string
           stripe_session_id?: string | null
@@ -50,6 +52,7 @@ export type Database = {
           items?: Json
           payment_intent?: string | null
           session_url?: string | null
+          stock_decremented_at?: string | null
           shipping?: number
           status?: string
           stripe_session_id?: string | null
@@ -77,12 +80,60 @@ export type Database = {
         }
         Relationships: []
       }
+      review_submissions: {
+        Row: {
+          created_at: string
+          id: string
+          moderated_at: string | null
+          name: string
+          product_id: string | null
+          rating: number
+          review_text: string
+          size: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          moderated_at?: string | null
+          name: string
+          product_id?: string | null
+          rating: number
+          review_text: string
+          size?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          moderated_at?: string | null
+          name?: string
+          product_id?: string | null
+          rating?: number
+          review_text?: string
+          size?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      approve_review_submission: {
+        Args: { p_review_id: string }
+        Returns: Json
+      }
+      finalize_order_stock: {
+        Args: {
+          p_manual?: boolean
+          p_order_id: string
+          p_payment_intent?: string | null
+          p_session_id?: string | null
+        }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

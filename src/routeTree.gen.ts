@@ -12,10 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicCheckoutRouteImport } from './routes/api/public/checkout'
 import { Route as ApiPublicOrderStatusRouteImport } from './routes/api/public/order-status'
+import { Route as ApiPublicReviewsRouteImport } from './routes/api/public/reviews'
 import { Route as ApiPublicShopRouteImport } from './routes/api/public/shop'
 import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
+import { Route as ApiPublicAdminAuthRouteImport } from './routes/api/public/admin/auth'
 import { Route as ApiPublicAdminOrdersRouteImport } from './routes/api/public/admin/orders'
 import { Route as ApiPublicAdminOrdersUpdateRouteImport } from './routes/api/public/admin/orders-update'
+import { Route as ApiPublicAdminReviewsRouteImport } from './routes/api/public/admin/reviews'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,6 +35,11 @@ const ApiPublicOrderStatusRoute = ApiPublicOrderStatusRouteImport.update({
   path: '/api/public/order-status',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicReviewsRoute = ApiPublicReviewsRouteImport.update({
+  id: '/api/public/reviews',
+  path: '/api/public/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicShopRoute = ApiPublicShopRouteImport.update({
   id: '/api/public/shop',
   path: '/api/public/shop',
@@ -40,6 +48,11 @@ const ApiPublicShopRoute = ApiPublicShopRouteImport.update({
 const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
   id: '/api/public/stripe-webhook',
   path: '/api/public/stripe-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicAdminAuthRoute = ApiPublicAdminAuthRouteImport.update({
+  id: '/api/public/admin/auth',
+  path: '/api/public/admin/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicAdminOrdersRoute = ApiPublicAdminOrdersRouteImport.update({
@@ -53,34 +66,48 @@ const ApiPublicAdminOrdersUpdateRoute =
     path: '/api/public/admin/orders-update',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicAdminReviewsRoute = ApiPublicAdminReviewsRouteImport.update({
+  id: '/api/public/admin/reviews',
+  path: '/api/public/admin/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/public/checkout': typeof ApiPublicCheckoutRoute
   '/api/public/order-status': typeof ApiPublicOrderStatusRoute
+  '/api/public/reviews': typeof ApiPublicReviewsRoute
   '/api/public/shop': typeof ApiPublicShopRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/admin/auth': typeof ApiPublicAdminAuthRoute
   '/api/public/admin/orders': typeof ApiPublicAdminOrdersRoute
   '/api/public/admin/orders-update': typeof ApiPublicAdminOrdersUpdateRoute
+  '/api/public/admin/reviews': typeof ApiPublicAdminReviewsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/public/checkout': typeof ApiPublicCheckoutRoute
   '/api/public/order-status': typeof ApiPublicOrderStatusRoute
+  '/api/public/reviews': typeof ApiPublicReviewsRoute
   '/api/public/shop': typeof ApiPublicShopRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/admin/auth': typeof ApiPublicAdminAuthRoute
   '/api/public/admin/orders': typeof ApiPublicAdminOrdersRoute
   '/api/public/admin/orders-update': typeof ApiPublicAdminOrdersUpdateRoute
+  '/api/public/admin/reviews': typeof ApiPublicAdminReviewsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/public/checkout': typeof ApiPublicCheckoutRoute
   '/api/public/order-status': typeof ApiPublicOrderStatusRoute
+  '/api/public/reviews': typeof ApiPublicReviewsRoute
   '/api/public/shop': typeof ApiPublicShopRoute
   '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
+  '/api/public/admin/auth': typeof ApiPublicAdminAuthRoute
   '/api/public/admin/orders': typeof ApiPublicAdminOrdersRoute
   '/api/public/admin/orders-update': typeof ApiPublicAdminOrdersUpdateRoute
+  '/api/public/admin/reviews': typeof ApiPublicAdminReviewsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,38 +115,50 @@ export interface FileRouteTypes {
     | '/'
     | '/api/public/checkout'
     | '/api/public/order-status'
+    | '/api/public/reviews'
     | '/api/public/shop'
     | '/api/public/stripe-webhook'
+    | '/api/public/admin/auth'
     | '/api/public/admin/orders'
     | '/api/public/admin/orders-update'
+    | '/api/public/admin/reviews'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/api/public/checkout'
     | '/api/public/order-status'
+    | '/api/public/reviews'
     | '/api/public/shop'
     | '/api/public/stripe-webhook'
+    | '/api/public/admin/auth'
     | '/api/public/admin/orders'
     | '/api/public/admin/orders-update'
+    | '/api/public/admin/reviews'
   id:
     | '__root__'
     | '/'
     | '/api/public/checkout'
     | '/api/public/order-status'
+    | '/api/public/reviews'
     | '/api/public/shop'
     | '/api/public/stripe-webhook'
+    | '/api/public/admin/auth'
     | '/api/public/admin/orders'
     | '/api/public/admin/orders-update'
+    | '/api/public/admin/reviews'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiPublicCheckoutRoute: typeof ApiPublicCheckoutRoute
   ApiPublicOrderStatusRoute: typeof ApiPublicOrderStatusRoute
+  ApiPublicReviewsRoute: typeof ApiPublicReviewsRoute
   ApiPublicShopRoute: typeof ApiPublicShopRoute
   ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
+  ApiPublicAdminAuthRoute: typeof ApiPublicAdminAuthRoute
   ApiPublicAdminOrdersRoute: typeof ApiPublicAdminOrdersRoute
   ApiPublicAdminOrdersUpdateRoute: typeof ApiPublicAdminOrdersUpdateRoute
+  ApiPublicAdminReviewsRoute: typeof ApiPublicAdminReviewsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicOrderStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/reviews': {
+      id: '/api/public/reviews'
+      path: '/api/public/reviews'
+      fullPath: '/api/public/reviews'
+      preLoaderRoute: typeof ApiPublicReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/shop': {
       id: '/api/public/shop'
       path: '/api/public/shop'
@@ -157,6 +203,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/stripe-webhook'
       fullPath: '/api/public/stripe-webhook'
       preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/admin/auth': {
+      id: '/api/public/admin/auth'
+      path: '/api/public/admin/auth'
+      fullPath: '/api/public/admin/auth'
+      preLoaderRoute: typeof ApiPublicAdminAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/admin/orders': {
@@ -173,6 +226,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicAdminOrdersUpdateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/admin/reviews': {
+      id: '/api/public/admin/reviews'
+      path: '/api/public/admin/reviews'
+      fullPath: '/api/public/admin/reviews'
+      preLoaderRoute: typeof ApiPublicAdminReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -180,10 +240,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiPublicCheckoutRoute: ApiPublicCheckoutRoute,
   ApiPublicOrderStatusRoute: ApiPublicOrderStatusRoute,
+  ApiPublicReviewsRoute: ApiPublicReviewsRoute,
   ApiPublicShopRoute: ApiPublicShopRoute,
   ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
+  ApiPublicAdminAuthRoute: ApiPublicAdminAuthRoute,
   ApiPublicAdminOrdersRoute: ApiPublicAdminOrdersRoute,
   ApiPublicAdminOrdersUpdateRoute: ApiPublicAdminOrdersUpdateRoute,
+  ApiPublicAdminReviewsRoute: ApiPublicAdminReviewsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

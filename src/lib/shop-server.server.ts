@@ -61,8 +61,8 @@ export async function stripeApi(path: string, method: "GET" | "POST", params?: R
 export async function checkAdmin(email: string | undefined, password: string | undefined): Promise<boolean> {
   const e = (email ?? "").trim().toLowerCase();
   const expectedEmail = (process.env["ADMIN_EMAIL"] ?? "").trim().toLowerCase();
-  const expectedHash = process.env["ADMIN_PASSWORD_HASH"] ?? "";
-  if (!expectedEmail || !expectedHash || e !== expectedEmail) return false;
+  const expectedHash = (process.env["ADMIN_PASSWORD_HASH"] ?? "").toLowerCase();
+  if (!expectedEmail || !/^[a-f0-9]{64}$/.test(expectedHash) || e !== expectedEmail) return false;
   const given = await sha256Hex(`${e}|${password ?? ""}`);
   return timingSafeEq(given, expectedHash);
 }

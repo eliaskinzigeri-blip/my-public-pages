@@ -11,6 +11,7 @@
 <title>WHITE SAYY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -483,6 +484,9 @@ main{animation:pagein .45s var(--ease)}
 /* Seule signature visuelle conservée de la V0 : points gris sur l’image d’accueil. */
 .hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.24;background-image:radial-gradient(circle,rgba(185,183,177,.78) .7px,transparent 1px);background-size:7px 7px;-webkit-mask-image:linear-gradient(90deg,transparent 38%,rgba(0,0,0,.45) 57%,#000 100%);mask-image:linear-gradient(90deg,transparent 38%,rgba(0,0,0,.45) 57%,#000 100%)}
 .hero .inner{position:relative;z-index:1}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+:focus-visible{outline:2px solid #f2f0eb!important;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.review-ticker-track,.marquee .t{animation:none!important}}
 </style>
 </head>
 <body>
@@ -491,15 +495,15 @@ main{animation:pagein .45s var(--ease)}
 <header id="hdr">
   <div class="wrap hd">
     <div class="left">
-      <button class="ic only-m" data-act="menu" aria-label="Menu"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
+      <button class="ic only-m" data-act="menu" aria-label="Menu" aria-controls="mmenu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
       <a class="logo only-d" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
     </div>
     <a class="logo only-m" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
     <nav class="nav" id="nav"></nav>
     <div class="right">
-      <button class="ic" data-act="search" aria-label="Rechercher"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <button class="ic" data-act="search" aria-label="Rechercher" aria-controls="search" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <a class="ic only-d" href="#/compte" aria-label="Mon compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
-      <button class="ic" data-act="cart" aria-label="Panier"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="cartBadge" hidden></span></button>
+      <button class="ic" data-act="cart" aria-controls="drawer" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="cartBadge" hidden></span></button>
     </div>
   </div>
   <div id="promoSticky"></div>
@@ -517,19 +521,19 @@ main{animation:pagein .45s var(--ease)}
   </div>
 </footer>
 
-<div class="mmenu" id="mmenu">
+<div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Menu principal" tabindex="-1">
   <div class="top"><img class="logoimg" style="height:32px" alt="WHITE SAYY"><button class="ic" data-act="menu" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <nav id="mnav"></nav>
   <div class="bottom"><a href="#/compte">Mon compte</a><a href="#/suivi">Suivre ma commande</a><a href="#/contact">Contact</a></div>
 </div>
-<div class="search" id="search"><div class="wrap">
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Recherche" tabindex="-1"><div class="wrap">
   <div class="in"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" placeholder="Rechercher" autocomplete="off" aria-label="Rechercher"><button class="ic" data-act="search" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="res" id="qres"></div>
 </div></div>
 <div class="ov" id="ov"></div>
-<aside class="drawer" id="drawer" aria-label="Panier"></aside>
-<div class="modal" id="modal" role="dialog" aria-modal="true"></div>
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galerie photos"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Fenêtre" tabindex="-1"></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Galerie photos" tabindex="-1"></div>
 <div class="mbar" id="mbar"></div>
 <div id="toast"></div>
 
@@ -721,7 +725,7 @@ function toast(msg, action){
   t.innerHTML = `<span class="t">${I.ok}${esc(msg)}</span>` + (action ? `<button class="act" data-act="${action.act}">${esc(action.label)}</button>` : "");
   t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 3200);
 }
-const uid = () => Array.from(crypto.getRandomValues(new Uint8Array(4)), b => b.toString(16).padStart(2,"0")).join("").toUpperCase();
+const uid = () => Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2,"0")).join("").toUpperCase();
 
 /* ============ Panier ============ */
 const cartCount = () => cart.reduce((s,i) => s + i.qty, 0);
@@ -779,7 +783,7 @@ function badge(pop){ const b = $("#cartBadge"), n = cartCount(); b.hidden = !n; 
 function addToCart(id, size){
   const p = findP(id); if(!p) return;
   const st = stockOf(p, size); const ex = cart.find(i => i.id === id && i.size === size);
-  if((ex ? ex.qty : 0) + 1 > st){ toast(st ? `Plus que ${st} exemplaire${st>1?"s":""} (${sizeLabel(p, size)})` : `${sizeLabel(p, size)} : épuisé`); return; }
+  if((ex ? ex.qty : 0) + 1 > Math.min(st, 10)){ toast(st ? (st > 10 ? `Maximum 10 exemplaires par taille (${sizeLabel(p, size)})` : `Plus que ${st} exemplaire${st>1?"s":""} (${sizeLabel(p, size)})`) : `${sizeLabel(p, size)} : épuisé`); return; }
   ex ? ex.qty++ : cart.push({id, size, qty:1});
   saveCart(); badge(true); openDrawer();
 }
@@ -789,9 +793,10 @@ let openPanel = null;
 function lock(on){ document.body.classList.toggle("lock", on); }
 function closeAll(){
   ["#drawer","#modal","#lb","#search","#mmenu"].forEach(s => $(s).classList.remove("open"));
+  document.querySelectorAll('[aria-controls="mmenu"],[aria-controls="drawer"],[aria-controls="search"]').forEach(button => button.setAttribute("aria-expanded","false"));
   $("#ov").classList.remove("open"); lock(false); openPanel = null;
 }
-function openDrawer(){ closeAll(); renderDrawer(); $("#drawer").classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "drawer"; }
+function openDrawer(){ closeAll(); renderDrawer(); $("#drawer").classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "drawer"; document.querySelector('[aria-controls="drawer"]')?.setAttribute("aria-expanded","true"); }
 function openModal(html){ closeAll(); const m = $("#modal"); m.innerHTML = html; m.setAttribute("aria-label", m.querySelector("h3")?.textContent || "Fenêtre"); m.classList.add("open"); $("#ov").classList.add("open"); lock(true); openPanel = "modal"; }
 $("#ov").addEventListener("click", closeAll);
 document.addEventListener("keydown", e => { if(e.key === "Escape") closeAll(); });
@@ -800,7 +805,7 @@ function renderDrawer(){
   const sub = cartSub(), free = +S().freeFrom;
   const d = $("#drawer");
   d.innerHTML = `
-    <div class="dhd"><h3>Panier${cart.length ? ` (${cartCount()})` : ""}</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div>
+    <div class="dhd"><h3 id="drawerTitle">Panier${cart.length ? ` (${cartCount()})` : ""}</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div>
     <div class="dbody">${cart.length ? `
       ${free > 0 ? `<div class="ship">${sub >= free ? "Livraison offerte" : `Plus que <b style="color:var(--text)">${eur(free - sub)}</b> pour la livraison offerte`}<div class="tr"><i style="width:${Math.min(100, sub/free*100)}%"></i></div></div>` : ""}
       ${cart.map((i,k) => { const p = findP(i.id); return `
@@ -1205,6 +1210,9 @@ function openLightbox(p, start){
 /* ============ Checkout (une page) ============ */
 function pCheckout(){
   if(!cart.length) return {title:"Commande", html:`<div class="wrap empty" style="padding:120px 0"><div class="display" style="font-size:36px">Panier vide</div><p>Ajoute un article pour passer commande.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
+  const manualChannel = !!(S().paymentLink || S().contactEmail || S().instagram);
+  if(!stripeStatusLoaded) return {title:"Commande", html:`<div class="wrap empty" style="padding:120px 0" role="status" aria-live="polite"><div class="display" style="font-size:30px">Vérification du paiement…</div><p class="muted">On prépare les options de commande.</p></div>`};
+  if(!stripeOn && !manualChannel) return {title:"Commandes indisponibles", html:`<div class="wrap empty" style="padding:120px 0"><div class="eyebrow">Commandes momentanément fermées</div><h1 class="display" style="font-size:clamp(36px,7vw,64px);margin:14px 0">On prépare la suite.</h1><p class="muted" style="max-width:540px;margin:0 auto 24px">La boutique n’a pas encore configuré de moyen de paiement ou de contact. Aucune commande ne sera enregistrée pour l’instant et ton panier reste conservé sur cet appareil.</p><a class="btn" href="#/boutique">Retour à la boutique</a></div>`};
   const sub = cartSub(), ship = shipFor(sub), d = read(K.addr, {}), me = currentUser();
   const promoResult = appliedPromoCode ? calculatePromo(appliedPromoCode) : null;
   const promoValid = !!(promoResult && !promoResult.error);
@@ -1226,15 +1234,15 @@ function pCheckout(){
       <div>
         <details class="box only-m" style="margin-bottom:26px"><summary class="msum"><span>Afficher le récapitulatif</span><b>${eur(total)}</b></summary><div style="margin-top:10px">${summary}</div></details>
         <fieldset><legend><b>1</b>Contact</legend><div class="form">
-          <input name="email" type="email" placeholder="E-mail" required autocomplete="email" value="${esc(d.email || me?.email)}">
-          <input name="phone" type="tel" placeholder="Téléphone (facultatif)" autocomplete="tel" value="${esc(d.phone)}">
+          <input name="email" type="email" placeholder="E-mail" aria-label="Adresse e-mail" required autocomplete="email" value="${esc(d.email || me?.email)}">
+          <input name="phone" type="tel" placeholder="Téléphone (facultatif)" aria-label="Téléphone facultatif" autocomplete="tel" value="${esc(d.phone)}">
         </div></fieldset>
         <div class="promo-box"><div class="eyebrow">Code promo</div><div class="promo-row"><input id="promoInput" type="text" placeholder="Saisis ton code" autocomplete="off" value="${esc(appliedPromoCode)}" aria-label="Code promo"><button class="btn ghost sm" type="button" data-act="applyPromo">Appliquer</button>${appliedPromoCode ? `<button class="btn ghost sm" type="button" data-act="removePromo">Retirer</button>` : ""}</div><p id="promoMessage" class="promo-status${promoValid ? " ok" : ""}">${promoStatus}</p></div>
         <fieldset><legend><b>2</b>Livraison</legend><div class="form">
-          <input name="name" placeholder="Nom complet" required autocomplete="name" value="${esc(d.name)}">
-          <input name="address" placeholder="Adresse" required autocomplete="street-address" value="${esc(d.address)}">
-          <div class="row2"><input name="zip" placeholder="Code postal" required autocomplete="postal-code" inputmode="numeric" value="${esc(d.zip)}"><input name="city" placeholder="Ville" required autocomplete="address-level2" value="${esc(d.city)}"></div>
-          <input name="country" placeholder="Pays" required autocomplete="country-name" value="${esc(d.country || "France")}">
+          <input name="name" placeholder="Nom complet" aria-label="Nom complet" required autocomplete="name" value="${esc(d.name)}">
+          <input name="address" placeholder="Adresse" aria-label="Adresse" required autocomplete="street-address" value="${esc(d.address)}">
+          <div class="row2"><input name="zip" placeholder="Code postal" aria-label="Code postal" required autocomplete="postal-code" inputmode="numeric" value="${esc(d.zip)}"><input name="city" placeholder="Ville" aria-label="Ville" required autocomplete="address-level2" value="${esc(d.city)}"></div>
+          <input name="country" placeholder="Pays" aria-label="Pays" required autocomplete="country-name" value="${esc(d.country || "France")}">
           <label class="opt"><span class="l"><input type="radio" name="method" value="standard" checked><span>Livraison standard<small>À domicile</small></span></span><span>${ship ? eur(ship) : "Offerte"}</span></label>
         </div></fieldset>
         <fieldset><legend><b>3</b>Paiement</legend>
@@ -1255,35 +1263,42 @@ function pCheckout(){
       for(const el of f.elements){
         if(el.required && !el.value.trim()){ el.setCustomValidity("Remplissez ce champ."); el.reportValidity(); el.setCustomValidity(""); el.focus(); return; }
       }
-      if(!/^\S+@\S+\.\S+$/.test(f.email.value.trim())){ f.email.setCustomValidity("Saisis une adresse e-mail valide."); f.email.reportValidity(); f.email.setCustomValidity(""); return; }
+      const field = name => f.elements.namedItem(name);
+      const emailField = field("email");
+      if(!/^\S+@\S+\.\S+$/.test(String(emailField?.value || "").trim())){ emailField?.setCustomValidity("Saisis une adresse e-mail valide."); emailField?.reportValidity(); emailField?.setCustomValidity(""); return; }
       const promoNow = appliedPromoCode ? calculatePromo(appliedPromoCode) : null;
       if(promoNow?.error){ toast(promoNow.error); $("#promoMessage").textContent = promoNow.error; $("#promoMessage").classList.remove("ok"); return; }
-      const c = {}; for(const k of ["email","phone","name","address","zip","city","country"]) c[k] = f[k].value.trim();
-      if(f.save.checked) write(K.addr, c); else localStorage.removeItem(K.addr);
+      const c = {}; for(const k of ["email","phone","name","address","zip","city","country"]) c[k] = String(field(k)?.value || "").trim();
+      if(field("save")?.checked) write(K.addr, c); else localStorage.removeItem(K.addr);
       const sub = cartSub(), ship = shipFor(sub), code = promoNow?.code || "", cut = promoNow?.discount || 0;
       const o = {id:uid(), date:new Date().toISOString(), status:"En attente de paiement", customer:c,
         items: cart.map(i => { const p = findP(i.id); return {id:i.id, name:p.name, size: isSet(p) ? sizeLabel(p, i.size) : i.size, qty:i.qty, price:p.price, image:p.images[0]}; }),
         subtotal:sub, discount:cut, promoCode:code, shipping:ship, total:Math.max(0,sub-cut)+ship, tracking:""};
-      const orders = read(K.orders, []); orders.unshift(o); write(K.orders, orders);
+      const orders = read(K.orders, []);
       const btn = f.querySelector("button[type=submit],button:not([type])");
-      if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = "Redirection vers le paiement…"; }
-      let url = null;
+      if(btn){ btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = "Enregistrement sécurisé…"; }
+      const restoreButton = () => { if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; } };
       try{
-        const r = await fetch("/api/public/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty})), promoCode:code})});
-        const data = await r.json().catch(() => ({}));
-        if(r.ok) url = data.url || null;
-        else if(data.error === "invalid_promo"){
-          const ix = orders.findIndex(x => x.id === o.id); if(ix >= 0) orders.splice(ix, 1); write(K.orders, orders);
-          if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
-          appliedPromoCode = ""; localStorage.removeItem(K.promo); render();
-          const input = $("#promoInput"), message = $("#promoMessage"); if(input) input.value = code; if(message){ message.textContent = data.message || "Ce code promo n'est plus valable."; message.classList.remove("ok"); }
-          toast(data.message || "Ce code promo n'est plus valable."); return;
+        const response = await fetch("/api/public/checkout", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({orderId:o.id, customer:c, items:cart.map(i => ({id:i.id, size:i.size, qty:i.qty})), promoCode:code})});
+        const data = await response.json().catch(() => ({}));
+        if(!response.ok){
+          if(data.error === "invalid_promo"){
+            restoreButton(); appliedPromoCode = ""; localStorage.removeItem(K.promo); render();
+            const input = $("#promoInput"), message = $("#promoMessage"); if(input) input.value = code; if(message){ message.textContent = data.message || "Ce code promo n'est plus valable."; message.classList.remove("ok"); }
+            toast(data.message || "Ce code promo n'est plus valable."); return;
+          }
+          const messages = {order_channel_not_configured:"La boutique n’a configuré aucun moyen de paiement ou de contact.", out_of_stock:"Un article de ton panier n’est plus disponible dans la quantité choisie.", unknown_product:"Un article de ton panier n’est plus disponible.", rate_limited:"Trop de tentatives. Patiente un instant puis réessaie.", payment_provider_error:"Le paiement n’a pas pu démarrer. Aucun paiement n’a été effectué.", order_id_conflict:"Cette commande ne peut pas être réutilisée. Réessaie depuis ton panier."};
+          restoreButton(); toast(messages[data.error] || "La commande n’a pas été enregistrée. Réessaie sans quitter ton panier."); return;
         }
-      }catch(err){}
-      if(url){ o.status = "Paiement en cours"; o.stripeCheckout = true; write(K.orders, orders); location.href = url; return; }
-      if(btn){ btn.disabled = false; btn.textContent = btn.dataset.t; }
-      cart = []; saveCart(); appliedPromoCode = ""; localStorage.removeItem(K.promo);
-      location.hash = "#/commande/" + o.id;
+        if(data.url){
+          o.status = "Paiement en cours"; o.stripeCheckout = true; orders.unshift(o); write(K.orders, orders); location.href = data.url; return;
+        }
+        if(data.manual === true){
+          o.status = "À confirmer"; o.manualOrder = true; orders.unshift(o); write(K.orders, orders);
+          cart = []; saveCart(); appliedPromoCode = ""; localStorage.removeItem(K.promo); location.hash = "#/commande/" + o.id; return;
+        }
+        restoreButton(); toast("La réponse de paiement est incomplète. Aucun article n’a été commandé.");
+      }catch(err){ restoreButton(); toast("Connexion interrompue : la commande n’a pas été enregistrée. Réessaie."); }
     });
   }};
 }
@@ -1297,10 +1312,12 @@ function pDone(id){
   if(!o) return {html:`<div class="wrap empty" style="padding:120px 0"><p>Commande introuvable sur cet appareil.</p><a class="btn" href="#/boutique">Voir la boutique</a></div>`};
   const c = o.customer, first = (c.name || "").split(/\s+/)[0];
   const mail = S().contactEmail ? `mailto:${encodeURIComponent(S().contactEmail)}?subject=${encodeURIComponent("Commande " + o.id)}&body=${encodeURIComponent(orderMail(o))}` : "";
-  return {title:"Commande confirmée", html:`<div class="wrap done">
+  const heading = o.stripeCheckout ? "Commande confirmée" : o.manualOrder ? "Demande enregistrée" : "Commande";
+  const notice = o.manualOrder ? "Ta demande est enregistrée. Envoie le récapitulatif à la marque pour confirmer le paiement." : "Commande n°";
+  return {title:heading, html:`<div class="wrap done">
     <div class="check">${I.check}</div>
-    <h1 class="display" style="font-size:clamp(34px,6vw,52px)">Merci ${esc(first)} !</h1>
-    <p class="muted" style="margin:12px 0 30px">Commande n° <b style="color:var(--text)">${esc(o.id)}</b> — ${esc(o.status.toLowerCase())}.</p>
+    <h1 class="display" style="font-size:clamp(34px,6vw,52px)">${o.manualOrder ? "Merci" : "Merci"} ${esc(first)} !</h1>
+    <p class="muted" style="margin:12px 0 30px">${o.manualOrder ? esc(notice) + " " : "Commande n° "}<b style="color:var(--text)">${esc(o.id)}</b>${o.manualOrder ? "" : ` — ${esc(o.status.toLowerCase())}.`}</p>
     <div class="box">
       ${o.items.map(i => `<div class="sline" style="color:var(--text)"><span>${i.qty} × ${esc(i.name)} (${esc(i.size)})</span><span>${eur(i.price*i.qty)}</span></div>`).join("")}
       ${o.promoCode ? `<div class="sline"><span>Code ${esc(o.promoCode)}</span><span>−${eur(o.discount)}</span></div>` : ""}
@@ -1318,9 +1335,19 @@ function pDone(id){
   </div>`, mount: () => syncOrder(o.id)};
 }
 let srvOrders = null;
+let srvReviews = null, srvReviewsError = "";
+async function loadSrvReviews(){
+  try{
+    const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"list"})});
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok) throw new Error(data.error || "reviews_unavailable");
+    srvReviews = Array.isArray(data.reviews) ? data.reviews : []; srvReviewsError = "";
+  }catch(err){ srvReviews = []; srvReviewsError = "Impossible de charger les avis reçus. Vérifie que la migration de la boîte d’avis est appliquée."; }
+  if(/^#\/admin/.test(location.hash) && admTab === "avis") render();
+}
 async function loadSrvOrders(){
   try{
-    const r = await fetch("/api/public/admin/orders", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:ADMIN_EMAIL, password:adminPwd})});
+    const r = await fetch("/api/public/admin/orders", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd})});
     const d = r.ok ? await r.json() : null; srvOrders = Array.isArray(d) ? d : ((d && d.orders) || []);
   }catch(err){ srvOrders = []; }
   if(/^#\/admin/.test(location.hash)) render();
@@ -1336,9 +1363,8 @@ async function syncOrder(id, n = 0){
 
 /* ============ Comptes ============ */
 async function hash(s){ const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2,"0")).join(""); }
-const ADMIN_EMAIL = "test@test.test", ADMIN_HASH = "f31adb294860771faa6950660ede79962ec56fcf5e3a2473f548258ae51517fa";
 let adminPwd = null;
-function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return {email: s.email, admin: true}; return read(K.users, []).find(u => u.email === s.email) || null; }
+function currentUser(){ const s = read(K.session, null); if(!s) return null; if(s.admin) return adminPwd ? {email: s.email, admin: true} : null; return read(K.users, []).find(u => u.email === s.email) || null; }
 let authMode = "login";
 function authForm(admin){
   const login = authMode === "login";
@@ -1347,8 +1373,8 @@ function authForm(admin){
     <h1 class="display">${login || admin ? "Connexion" : "Créer un compte"}</h1>
     <p class="muted" style="font-size:14px;margin:0 0 24px">${admin ? "Accès réservé à l'administrateur de la boutique." : "Retrouve tes commandes et le suivi de tes colis."}</p>
     <form class="form" id="authForm" data-admin="${admin ? "1" : ""}">
-      <input name="email" type="email" placeholder="E-mail" required autocomplete="email">
-      <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
+      <input name="email" type="email" placeholder="E-mail" aria-label="Adresse e-mail" required autocomplete="email">
+      <input name="password" type="password" placeholder="Mot de passe (6 caractères min.)" aria-label="Mot de passe" required minlength="6" autocomplete="${login ? "current-password" : "new-password"}">
       <button class="btn full lg" type="submit">${login || admin ? "Se connecter" : "Créer le compte"}</button>
     </form>
     ${admin ? "" : `<button class="ulink" style="margin-top:16px;font-size:14px" data-act="authMode">${login ? "Pas encore de compte ? Créer un compte" : "Déjà un compte ? Se connecter"}</button>
@@ -1359,12 +1385,22 @@ function mountAuth(){
   const f = $("#authForm"); if(!f) return;
   f.addEventListener("submit", async e => {
     e.preventDefault(); if(!f.reportValidity()) return;
-    const email = f.email.value.trim().toLowerCase(), h = await hash(email + "|" + f.password.value);
+    const email = String(f.elements.namedItem("email")?.value || "").trim().toLowerCase();
+    const password = String(f.elements.namedItem("password")?.value || "");
     if(f.dataset.admin === "1"){
-      if(email !== ADMIN_EMAIL || h !== ADMIN_HASH) return toast("E-mail ou mot de passe incorrect");
-      adminPwd = f.password.value;
-      write(K.session, {email, admin: true}); authMode = "login"; srvOrders = null; if(shop._dirty) syncCloud(); render(); return;
+      const button = f.querySelector('button[type="submit"]'); if(button){ button.disabled = true; button.textContent = "Vérification…"; }
+      try{
+        const response = await fetch("/api/public/admin/auth", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email, password})});
+        if(!response.ok){ toast(response.status === 401 ? "E-mail ou mot de passe incorrect" : response.status === 503 ? "L’administration n’est pas configurée sur le serveur." : "Connexion admin indisponible. Réessaie."); return; }
+        adminPwd = password;
+        write(K.session, {email, admin: true});
+        const savedDraft = read(K.draft, null);
+        if(savedDraft?._dirty && (savedDraft.version || 0) >= DEFAULTS.version) shop = merge(DEFAULTS, savedDraft);
+        authMode = "login"; srvOrders = null; srvReviews = null; srvReviewsError = ""; if(shop._dirty) syncCloud(); render(); return;
+      }catch(err){ toast("Connexion admin impossible. Vérifie ta connexion."); return; }
+      finally{ if(button && document.body.contains(button)){ button.disabled = false; button.textContent = "Se connecter"; } }
     }
+    const h = await hash(email + "|" + password);
     const users = read(K.users, []);
     if(authMode === "signup"){
       if(users.some(u => u.email === email)) return toast("Ce compte existe déjà");
@@ -1379,10 +1415,10 @@ function mountAuth(){
 function orderCard(o, admin){
   return `<details class="ord"><summary><span><b style="font-weight:500">n° ${esc(o.id)}</b><br><span class="muted" style="font-size:13px">${new Date(o.date).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})} · ${eur(o.total)}</span></span><span class="status ${/expédi|livr/i.test(o.status)?"ok":""}">${esc(o.status)}</span></summary>
     <div class="b">
-      ${o.items.map(i => `<div class="line" style="padding:12px 0">${i.image ? `<img src="${img(i.image)}" alt="" style="width:56px;height:70px">` : ""}<div class="m"><div class="n">${esc(i.name)}</div><div class="s">${esc(i.size)} · Qté ${i.qty}</div></div><div>${eur(i.price*i.qty)}</div></div>`).join("")}
+      ${(o.items || []).map(i => { const product = findP(i.id); return `<div class="line" style="padding:12px 0">${i.image ? `<img src="${img(i.image)}" alt="" style="width:56px;height:70px">` : ""}<div class="m"><div class="n">${esc(i.name || product?.name || "Article")}</div><div class="s">${esc(i.displaySize || i.size)} · Qté ${i.qty}</div></div><div>${eur(Number(i.price || product?.price || 0)*Number(i.qty || 0))}</div></div>`; }).join("")}
       ${(o.promoCode || o.customer?.promoCode) ? `<div class="sline"><span>Code ${esc(o.promoCode || o.customer.promoCode)}</span><span>−${eur(o.discount ?? o.customer?.promoDiscount ?? 0)}</span></div>` : ""}
       <div class="note" style="margin:6px 0 14px">${esc(o.customer.address)}, ${esc(o.customer.zip)} ${esc(o.customer.city)}${admin ? ` · ${esc(o.customer.name)} · ${esc(o.customer.email)}` : ""}</div>
-      <div style="display:flex;gap:8px"><input placeholder="N° de suivi du colis" value="${esc(o.tracking)}" data-track="${o.id}" style="padding:11px 14px"><button class="btn sm" data-act="track" data-id="${o.id}">Suivre</button></div>
+      ${admin ? (o.manualOrder && o.status === "À confirmer" ? `<button type="button" class="btn ghost sm" data-act="markManualPaid" data-id="${esc(o.id)}">Marquer le paiement reçu</button>` : `<p class="note">Le suivi et les statuts se gèrent avec le formulaire ci-dessus.</p>`) : `<div style="display:flex;gap:8px"><input aria-label="Numéro de suivi" placeholder="N° de suivi du colis" value="${esc(o.tracking)}" data-track="${o.id}" style="padding:11px 14px"><button type="button" class="btn sm" data-act="track" data-id="${o.id}">Suivre</button></div>`}
     </div></details>`;
 }
 function pAccount(){
@@ -1403,8 +1439,8 @@ function pTrack(){
     <div class="eyebrow" style="margin-bottom:12px">Aide</div><h1 class="display">Suivi</h1>
     <p class="muted" style="font-size:14px;margin:0 0 24px">Saisis le numéro de suivi reçu par e-mail lors de l'expédition.</p>
     <form class="form" id="trackForm">
-      <input name="code" placeholder="Numéro de suivi" required autocomplete="off">
-      <div class="sel"><select class="in" name="carrier" style="appearance:none;border-radius:14px"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre transporteur</option></select></div>
+      <input name="code" placeholder="Numéro de suivi" aria-label="Numéro de suivi" required autocomplete="off">
+      <div class="sel"><select class="in" name="carrier" aria-label="Transporteur" style="appearance:none;border-radius:14px"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre transporteur</option></select></div>
       <button class="btn full lg" type="submit">Suivre mon colis</button>
     </form>
     <p class="note" style="margin-top:22px">Pas de numéro ? <a class="ulink" href="#/contact">Contacte-nous</a> avec ton numéro de commande.</p>
@@ -1433,9 +1469,9 @@ function pContact(){
       ${s.contactEmail ? `<a class="box" style="display:flex;justify-content:space-between" href="mailto:${esc(s.contactEmail)}"><span>${esc(s.contactEmail)}</span>${I.arrow}</a>` : `<div class="box muted">Adresse e-mail de contact à renseigner.</div>`}
       ${s.instagram ? `<a class="box" style="display:flex;justify-content:space-between" target="_blank" rel="noopener" href="https://instagram.com/${encodeURIComponent(s.instagram.replace(/^@/,""))}"><span>Instagram · @${esc(s.instagram.replace(/^@/,""))}</span>${I.arrow}</a>` : ""}
     </div>
-    ${s.contactEmail ? `<form class="form rv" id="ctForm"><input name="name" placeholder="Nom" required><input name="order" placeholder="N° de commande (facultatif)"><textarea name="msg" placeholder="Ton message" required></textarea><button class="btn lg" type="submit">Envoyer</button></form>` : ""}
+    ${s.contactEmail ? `<form class="form rv" id="ctForm"><input name="name" placeholder="Nom" aria-label="Nom" required><input name="order" placeholder="N° de commande (facultatif)" aria-label="Numéro de commande facultatif"><textarea name="msg" placeholder="Ton message" aria-label="Ton message" required></textarea><button class="btn lg" type="submit">Envoyer</button></form>` : ""}
   </div>`, mount: () => { const f = $("#ctForm"); f && f.addEventListener("submit", e => { e.preventDefault(); if(!f.reportValidity()) return;
-    location.href = `mailto:${encodeURIComponent(s.contactEmail)}?subject=${encodeURIComponent("Contact" + (f.order.value ? " — commande " + f.order.value : ""))}&body=${encodeURIComponent(f.msg.value + "\n\n" + f.name.value)}`; }); }};
+    location.href = `mailto:${encodeURIComponent(s.contactEmail)}?subject=${encodeURIComponent("Contact" + (f.elements.namedItem("order")?.value ? " — commande " + f.elements.namedItem("order").value : ""))}&body=${encodeURIComponent(String(f.elements.namedItem("msg")?.value || "") + "\n\n" + String(f.elements.namedItem("name")?.value || ""))}`; }); }};
 }
 function pLegal(){
   return {title:"Mentions légales", html:`<div class="wrap prose"><h1 class="display" style="font-size:clamp(38px,7vw,72px);margin-bottom:26px">Mentions légales</h1>${S().legal.split(/\n{2,}/).map(b => `<p>${esc(b).replace(/\n/g,"<br>")}</p>`).join("")}</div>`};
@@ -1443,23 +1479,29 @@ function pLegal(){
 function ratingPicker(value = 5){
   return `<input type="hidden" name="rating" value="${value}"><div class="rate-pick" role="radiogroup" aria-label="Ta note">${[1,2,3,4,5].map(n => `<button type="button" data-act="rate" data-rating="${n}" aria-label="${n} étoile${n>1?"s":""}" aria-pressed="${n<=value}">★</button>`).join("")}</div>`;
 }
-function saveReviewForm(form, pid){
+async function saveReviewForm(form, pid){
   if(!form.reportValidity()) return;
-  const review = {id:"avis-" + uid(), name:form.name.value.trim(), rating:Math.max(1,Math.min(5,+form.rating.value||5)), text:form.text.value.trim(), size:form.size?.value.trim() || "", productId:pid || "", date:new Date().toISOString().slice(0,10), approved:false, featured:false, pending:true};
-  const inbox = read(K.reviewInbox, []); inbox.unshift(review);
-  if(!write(K.reviewInbox, inbox)) return;
-  closeAll(); toast("Avis transmis pour validation. Merci !");
-  if(location.hash === "#/avis") setTimeout(() => { const msg = $("#reviewThanks"); if(msg) msg.hidden = false; }, 0);
+  const val = name => String(form.elements.namedItem(name)?.value || "").trim();
+  const button = form.querySelector('button[type="submit"]');
+  if(button){ button.disabled = true; button.dataset.label = button.textContent; button.textContent = "Envoi…"; }
+  try{
+    const response = await fetch("/api/public/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({name:val("name"), rating:Math.max(1,Math.min(5,Number(val("rating")) || 5)), text:val("text"), size:val("size"), productId:pid || "", website:val("website")})});
+    const data = await response.json().catch(() => ({}));
+    if(!response.ok){ toast(response.status === 429 ? "Trop d’avis envoyés. Réessaie plus tard." : data.error === "reviews_unavailable" ? "Les avis ne peuvent pas être enregistrés pour le moment." : "Ton avis n’a pas été envoyé. Réessaie."); return; }
+    closeAll(); toast("Avis transmis pour validation. Merci !");
+    if(location.hash === "#/avis") setTimeout(() => { const msg = $("#reviewThanks"); if(msg) msg.hidden = false; }, 0);
+  }catch(err){ toast("Connexion interrompue : ton avis n’a pas été envoyé. Réessaie."); }
+  finally{ if(button){ button.disabled = false; button.textContent = button.dataset.label || "Envoyer mon avis"; } }
 }
 function mountReviewForm(form, pid){
   if(!form) return;
-  form.addEventListener("submit", e => { e.preventDefault(); saveReviewForm(form, pid); });
+  form.addEventListener("submit", e => { e.preventDefault(); void saveReviewForm(form, pid); });
 }
 function reviewForm(pid){
   const p = findP(pid);
   openModal(`<div class="dhd"><h3>Ton avis</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div><div class="mb">
-    <form class="form" id="revForm">${ratingPicker()}<div class="row2"><input name="name" placeholder="Ton pseudo" required maxlength="32"><input name="size" placeholder="Taille portée (facultatif)" maxlength="12"></div>
-    <textarea name="text" placeholder="Ton avis sur WHITE SAYY…" required maxlength="500"></textarea>
+    <form class="form" id="revForm"><input class="sr-only" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">${ratingPicker()}<div class="row2"><input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><input name="size" placeholder="Taille portée (facultatif)" aria-label="Taille portée, facultatif" maxlength="12"></div>
+    <textarea name="text" placeholder="Ton avis sur WHITE SAYY…" aria-label="Ton avis sur WHITE SAYY" required minlength="3" maxlength="500"></textarea>
     <p class="note">Ton avis sera vérifié par l’équipe avant d’être publié.</p>
     <button class="btn full lg" type="submit">Envoyer mon avis</button></form></div>`);
   mountReviewForm($("#revForm"), p?.id || "");
@@ -1468,7 +1510,7 @@ function pReviewPage(){
   return {title:"Laisser un avis", html:`<div class="wrap narrow" style="padding-top:44px;padding-bottom:100px;max-width:680px">
     <div class="eyebrow rv">WHITE SAYY · Communauté</div><h1 class="display rv d1" style="font-size:clamp(42px,8vw,88px);margin:14px 0 18px">Laisser un avis</h1>
     <p class="muted rv d2" style="font-size:16px;margin:0 0 28px">Quelques mots sur ta pièce. Ton avis sera vérifié avant d’apparaître sur le site.</p>
-    <form class="form rv d3" id="reviewPageForm">${ratingPicker()}<input name="name" placeholder="Ton pseudo" required maxlength="32" autocomplete="nickname"><textarea name="text" placeholder="Ton avis sur WHITE SAYY…" required maxlength="500"></textarea><p class="note">Les avis sélectionnés par l’équipe défilent ensuite sur la page d’accueil.</p><button class="btn lg" type="submit">Envoyer mon avis ${I.arrow}</button></form>
+    <form class="form rv d3" id="reviewPageForm"><input class="sr-only" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">${ratingPicker()}<input name="name" placeholder="Ton pseudo" aria-label="Ton pseudo" required maxlength="32" autocomplete="nickname"><textarea name="text" placeholder="Ton avis sur WHITE SAYY…" aria-label="Ton avis sur WHITE SAYY" required minlength="3" maxlength="500"></textarea><p class="note">Les avis sélectionnés par l’équipe défilent ensuite sur la page d’accueil.</p><button class="btn lg" type="submit">Envoyer mon avis ${I.arrow}</button></form>
     <p class="note" id="reviewThanks" hidden style="margin-top:18px">Merci, ton avis a bien été enregistré et attend sa validation.</p>
   </div>`, mount:() => mountReviewForm($("#reviewPageForm"), "")};
 }
@@ -1485,7 +1527,7 @@ function syncCloud(){
   syncT = setTimeout(async () => {
     const data = structuredClone(shop); delete data._dirty; data.publishedAt = new Date().toISOString();
     try{
-      const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: ADMIN_EMAIL, password: adminPwd, data})});
+      const r = await fetch("/api/public/shop", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({email: currentUser()?.email || "", password: adminPwd, data})});
       if(r.ok && await cloudHas(data.publishedAt)){ shop._dirty = false; shop.publishedAt = data.publishedAt; write(K.draft, shop); const b = $("#savedTag"); if(b){ b.textContent = "En ligne"; clearTimeout(flashSaved.t); flashSaved.t = setTimeout(() => b.textContent = "", 1600); } const w = $(".warnbar"); if(w) w.remove(); }
       else toast(r.ok ? "Le serveur n'a pas gardé la modification (elle reste sur cet appareil)" : "Publication en ligne impossible — réessaie");
     }catch(e){ toast("Connexion impossible — modifications gardées sur cet appareil"); }
@@ -1505,9 +1547,10 @@ function compress(file, max = 1100, q = .82){
 const F = (path, label, type = "text", extra = "") => {
   const v = getPath(shop, path);
   const val = type === "lines" ? (v || []).join("\n") : (v ?? "");
-  if(type === "area" || type === "lines") return `<div class="fld"><label class="f">${label}</label><textarea data-bind="${path}" data-type="${type}" ${extra}>${esc(val)}</textarea></div>`;
-  if(type === "bool") return `<label class="chk fld"><input type="checkbox" data-bind="${path}" data-type="bool" ${v ? "checked" : ""}> ${label}</label>`;
-  return `<div class="fld"><label class="f">${label}</label><input data-bind="${path}" data-type="${type}" type="${type === "num" ? "number" : "text"}" ${type === "num" ? 'step="any" inputmode="decimal"' : ""} value="${esc(val)}" ${extra}></div>`;
+  const id = `adm-${path.replace(/[^a-z0-9_-]/gi,"-")}`;
+  if(type === "area" || type === "lines") return `<div class="fld"><label class="f" for="${id}">${esc(label)}</label><textarea id="${id}" data-bind="${path}" data-type="${type}" ${extra}>${esc(val)}</textarea></div>`;
+  if(type === "bool") return `<label class="chk fld"><input type="checkbox" data-bind="${path}" data-type="bool" ${v ? "checked" : ""}> ${esc(label)}</label>`;
+  return `<div class="fld"><label class="f" for="${id}">${esc(label)}</label><input id="${id}" data-bind="${path}" data-type="${type}" type="${type === "num" ? "number" : "text"}" ${type === "num" ? 'step="any" inputmode="decimal"' : ""} value="${esc(val)}" ${extra}></div>`;
 };
 const thumbs = (path, arr) => `<div class="thumbs">${arr.map((k,i) => `<div class="th"><img src="${img(k)}" alt=""><div class="ctl"><button data-act="imgmove" data-path="${path}" data-i="${i}" title="Avancer">◀</button><button data-act="imgdel" data-path="${path}" data-i="${i}" title="Retirer">✕</button></div></div>`).join("")}
   <label class="th" style="display:grid;place-items:center;border:1px dashed var(--line2);background:none;cursor:pointer;font-size:26px;color:var(--muted)">+<input type="file" accept="image/*" multiple hidden data-upload="${path}"></label></div>`;
@@ -1522,8 +1565,15 @@ function pAdmin(){
     shop.reviews.unshift(...inbox.filter(r => !known.has(r.id)).map(r => ({...r, approved:false, featured:false, pending:true})));
     write(K.reviewInbox, []); saveDraft(true);
   }
-  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["promos","Codes promo"],["avis","Avis"],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
   const s = shop;
+  const hasManualChannel = !!(s.settings.paymentLink || s.settings.contactEmail || s.settings.instagram);
+  const canReceiveOrders = stripeOn || hasManualChannel;
+  const readinessItems = [];
+  if(!canReceiveOrders) readinessItems.push("Bloquant : aucun paiement Stripe, lien externe ou contact de commande n’est configuré. Le checkout reste fermé.");
+  if(!s.settings.contactEmail && !s.settings.instagram) readinessItems.push("Ajoute un e-mail de contact ou un compte Instagram pour que les clients puissent joindre la marque.");
+  if(!s.settings.legal || s.settings.legal.trim() === DEFAULTS.settings.legal.trim()) readinessItems.push("Remplace le texte modèle des mentions légales par les informations exactes de l’entreprise avant l’ouverture.");
+  if(!readinessItems.length) readinessItems.push("Les principaux canaux de commande et de contact sont renseignés. Vérifie encore les prix, stocks, livraison et mentions avant publication.");
+  const tabs = [["produits",`Produits (${shop.products.length})`],["boutique","Boutique"],["promos","Codes promo"],["avis",`Avis${srvReviews?.length ? ` (${srvReviews.length})` : ""}`],["ugc","Vu sur vous"],["commandes","Commandes"],["publier","Publier"]];
   let body = "";
   if(admTab === "produits") body = s.products.map((p,i) => `
     <details class="card" ${s.products.length === 1 ? "open" : ""}><summary><img src="${img(p.images[0])}" alt="" style="width:44px;height:55px;object-fit:cover;border-radius:6px"><span style="flex:1"><b style="font-weight:500">${esc(p.name)}</b><br><span class="muted" style="font-size:13px">${catName(p.category, 1)} · ${eur(p.price)} · stock ${totalStock(p)}</span></span>${p.active === false ? '<span class="pill">Masqué</span>' : ""}</summary><div class="b">
@@ -1546,8 +1596,8 @@ function pAdmin(){
     <div class="card"><b>Livraison & stock</b><div class="grid2">${F("settings.shipping","Frais de livraison (€)","num")}${F("settings.freeFrom","Livraison offerte dès (€, 0 = jamais)","num")}</div>
       ${F("settings.lowStock","Afficher « Plus que X » à partir de","num")}${F("settings.shippingInfo","Texte livraison & échanges","area")}</div>
     <div class="card"><b>Guide des tailles</b> <span class="pill" style="color:var(--warn)">Mesures indicatives : remplace-les par les tiennes</span>${[["tshirt","T-shirts"],["sweat","Sweats"],["jogging","Joggings"]].map(([k,l]) => F(`settings.sizeGuides.${k}`,`${l} (une ligne par taille, colonnes séparées par ;)`,"area",'style="min-height:160px;font-family:ui-monospace,monospace;font-size:13px"')).join("")}${F("settings.sizeAdvice","Conseil de taille","area",'style="min-height:70px"')}</div>
-    <div class="card"><b>Contact & paiement</b>${F("settings.contactEmail","E-mail de contact (reçoit commandes et avis)")}${F("settings.instagram","Compte Instagram (sans @)")}${F("settings.paymentLink","Lien de paiement (Stripe Payment Link, PayPal.me, SumUp…)")}<p class="note">Avec un lien de paiement, un bouton « Payer ma commande » apparaît après la commande.</p></div>
-    <div class="card"><b>Pages</b>${F("settings.about","À propos","area")}${F("settings.legal","Mentions légales","area",'style="min-height:160px"')}</div>`;
+    <div class="card"><b>Contact & paiement</b>${F("settings.contactEmail","E-mail de contact (commandes et support)")}${F("settings.instagram","Compte Instagram (sans @)")}${F("settings.paymentLink","Lien de paiement (Stripe Payment Link, PayPal.me, SumUp…)")}<p class="note">Renseigne au moins un canal de contact ou un lien de paiement. Stripe nécessite aussi les secrets serveur configurés dans Lovable.</p></div>
+    <div class="card"><b>Pages</b>${F("settings.about","À propos","area")}${F("settings.legal","Mentions légales","area",'style="min-height:160px"')}<p class="note">Remplace le texte modèle par les informations exactes de l’éditeur et les coordonnées de contact avant d’accepter des commandes.</p></div>`;
   else if(admTab === "promos") body = `<p class="note" style="margin-top:0">Crée des codes à pourcentage ou à montant fixe. Le minimum se calcule sur tout le panier ; la remise s'applique aux produits choisis. Une seule banderole promo active peut apparaître en haut de toutes les pages.</p>` +
     ((s.promos || []).length ? s.promos.map((p,i) => `<details class="card" data-promo-card="${i}"><summary><span style="flex:1"><b style="font-weight:500">${esc(normalizePromoCode(p.code) || "NOUVEAU CODE")}</b><br><span class="muted" style="font-size:13px">${p.discountType === "percent" ? `${Number(p.value)||0}%` : eur(p.value)} · ${p.active ? "Actif" : "Désactivé"}</span></span>${p.showBanner ? '<span class="pill">Bandeau</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`promos.${i}.code`,"Code promo")}
@@ -1560,14 +1610,15 @@ function pAdmin(){
       <label class="chk fld"><input type="checkbox" data-promo-banner="${i}" ${p.showBanner ? "checked" : ""}> Afficher une banderole sur toutes les pages</label>
       ${F(`promos.${i}.bannerText`,"Texte de la banderole (vide = texte généré)")}
       <button type="button" class="btn ghost sm" style="color:#e88;margin-top:14px" data-act="promodel" data-i="${i}">Supprimer ce code promo</button></div></details>`).join("") : `<div class="empty"><p>Aucun code promo pour l'instant.</p></div>`) + `<button type="button" class="btn ghost full" data-act="promoadd">+ Créer un code promo</button>`;
-  else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés depuis ce navigateur apparaissent ici pour modération. Coche « Afficher sur l’accueil » pour les publier dans le bandeau défilant.</p>` +
+  else if(admTab === "avis") body = `<p class="note" style="margin-top:0">Les avis envoyés par les visiteurs arrivent ici pour modération, même depuis un autre appareil. Après approbation, coche « Afficher sur l’accueil » pour les ajouter au bandeau défilant.</p>` +
+    (srvReviews === null ? `<div class="card muted" role="status">Chargement des avis reçus…</div>` : srvReviewsError ? `<div class="card" role="alert"><p class="note">${esc(srvReviewsError)}</p><button class="btn ghost sm" type="button" data-act="reviewInboxReload">Réessayer</button></div>` : srvReviews.length ? `<div class="card"><b>À modérer (${srvReviews.length})</b>${srvReviews.map(r => `<article style="border-top:1px solid var(--line);padding:16px 0;margin-top:12px"><div style="display:flex;align-items:center;gap:10px">${stars(+r.rating||5)}<b style="font-weight:500">${esc(r.name)}</b><span class="muted" style="font-size:12px">${new Date(r.created_at).toLocaleDateString("fr-FR")}</span></div><p class="muted" style="white-space:pre-wrap;line-height:1.6">${esc(r.text)}</p><div class="note">${r.size ? `Taille ${esc(r.size)}` : ""}${r.product_id ? ` · ${esc(s.products.find(p => p.id === r.product_id)?.name || "Produit")}` : ""}</div><div class="btns" style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" type="button" data-act="approveRemoteReview" data-id="${esc(r.id)}">Approuver</button><button class="btn ghost sm" type="button" data-act="rejectRemoteReview" data-id="${esc(r.id)}">Refuser</button></div></article>`).join("")}</div>` : `<div class="card muted">Aucun nouvel avis à modérer.</div>`) +
     (s.reviews.length ? s.reviews.map((r,i) => `<details class="card"><summary>${r.photo ? `<img src="${img(r.photo)}" style="width:44px;height:44px;object-fit:cover;border-radius:6px" alt="">` : ""}<span style="flex:1">${stars(+r.rating||5)}<br><span class="muted" style="font-size:13px">${esc(r.name) || "Sans nom"} — ${esc((r.text||"").slice(0,40))}</span></span>${r.pending ? '<span class="pill">À valider</span>' : r.featured ? '<span class="pill">Accueil</span>' : ""}</summary><div class="b">
       <div class="grid2">${F(`reviews.${i}.name`,"Pseudo")}${F(`reviews.${i}.size`,"Taille portée")}</div>
-      <div class="grid2"><div class="fld"><label class="f">Note</label><select class="in" data-bind="reviews.${i}.rating" data-type="num">${[5,4,3,2,1].map(n => `<option ${+r.rating===n?"selected":""}>${n}</option>`).join("")}</select></div>
-      <div class="fld"><label class="f">Produit</label><select class="in" data-bind="reviews.${i}.productId" data-type="text"><option value="">Tous</option>${s.products.map(p => `<option value="${p.id}" ${r.productId===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}</select></div></div>
+      <div class="grid2"><div class="fld"><label class="f">Note</label><select aria-label="Note" class="in" data-bind="reviews.${i}.rating" data-type="num">${[5,4,3,2,1].map(n => `<option ${+r.rating===n?"selected":""}>${n}</option>`).join("")}</select></div>
+      <div class="fld"><label class="f">Produit</label><select aria-label="Produit concerné" class="in" data-bind="reviews.${i}.productId" data-type="text"><option value="">Tous</option>${s.products.map(p => `<option value="${p.id}" ${r.productId===p.id?"selected":""}>${esc(p.name)}</option>`).join("")}</select></div></div>
       ${F(`reviews.${i}.text`,"Avis","area")}<label class="chk fld" style="margin-top:14px"><input type="checkbox" data-bind="reviews.${i}.featured" data-type="bool" ${r.featured?"checked":""}> Afficher sur l’accueil (bandeau défilant)</label>
       <div class="fld"><label class="f">Photo (facultatif)</label>${thumbs(`reviews.${i}.photo`, r.photo ? [r.photo] : [])}</div>
-      <button class="btn ghost sm" style="color:#e88;margin-top:12px" data-act="revdel" data-i="${i}">Supprimer</button></div></details>`).join("") : `<div class="empty"><p>Aucun avis reçu pour l’instant.</p></div>`) + `<button class="btn ghost full" data-act="revadd">+ Ajouter un avis reçu</button>`;
+      <button class="btn ghost sm" type="button" style="color:#e88;margin-top:12px" data-act="revdel" data-i="${i}">Supprimer</button></div></details>`).join("") : `<div class="empty"><p>Aucun avis publié pour l’instant.</p></div>`) + `<button class="btn ghost full" type="button" data-act="revadd">+ Ajouter un avis reçu manuellement</button>`;
   else if(admTab === "ugc") body = `<p class="note" style="margin-top:0">Photos de clients qui portent WHITE SAYY (avec leur accord). La section s'affiche sur l'accueil dès qu'il y a une photo.</p>` +
     s.ugc.map((g,i) => `<div class="card" style="display:flex;gap:14px;align-items:flex-start"><img src="${img(g.photo)}" style="width:80px;height:80px;object-fit:cover;border-radius:8px" alt=""><div style="flex:1">${F(`ugc.${i}.handle`,"Pseudo Instagram")}${F(`ugc.${i}.link`,"Lien vers la publication (facultatif)")}<button class="btn ghost sm" style="color:#e88;margin-top:10px" data-act="ugcdel" data-i="${i}">Retirer</button></div></div>`).join("") +
     `<label class="btn ghost full" style="cursor:pointer">+ Ajouter des photos<input type="file" accept="image/*" multiple hidden data-upload="ugc"></label>`;
@@ -1575,17 +1626,18 @@ function pAdmin(){
     if(srvOrders === null && adminPwd){ srvOrders = []; loadSrvOrders(); }
     const orders = [...(srvOrders || []), ...read(K.orders, []).filter(l => !(srvOrders || []).some(x => x.id === l.id))];
     body = `<div class="card"><b>Envoyer un suivi de colis</b><p class="note">Prépare l'e-mail d'expédition pour ton client avec le lien de suivi.</p>
-      <form class="form" id="shipForm"><div class="grid2"><input name="email" type="email" placeholder="E-mail du client" required><input name="order" placeholder="N° de commande" required></div>
-      <div class="grid2"><input name="code" placeholder="N° de suivi" required><select class="in" name="carrier"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre</option></select></div>
+      <form class="form" id="shipForm"><div class="grid2"><input name="email" type="email" placeholder="E-mail du client" aria-label="E-mail du client" required><input name="order" placeholder="N° de commande" aria-label="Numéro de commande" required></div>
+      <div class="grid2"><input name="code" placeholder="N° de suivi" aria-label="Numéro de suivi" required><select class="in" name="carrier" aria-label="Transporteur"><option value="laposte">La Poste / Colissimo</option><option value="chronopost">Chronopost</option><option value="other">Autre</option></select></div>
       <button class="btn" type="submit">Préparer l'e-mail</button></form></div>
       <p class="note">Les commandes payées par Stripe apparaissent ci-dessous (recharge la page pour actualiser). Celles passées sur cet appareil y figurent aussi.</p>
       ${orders.length ? orders.map(o => orderCard(o, true)).join("") : `<div class="card muted">Aucune commande pour le moment.</div>`}`;
   }
-  else body = `<div class="card"><b>Publication automatique</b>
-      <p class="muted" style="font-size:14px;line-height:1.7">Tes modifications sont enregistrées en ligne automatiquement, dès que tu les fais. Tous les visiteurs les voient immédiatement — plus rien à télécharger ni à déposer sur GitHub.</p>
+  else body = `<div class="card" role="${canReceiveOrders ? "status" : "alert"}"><b>État avant ouverture</b><ul style="padding-left:20px;line-height:1.7">${readinessItems.map(item => `<li>${esc(item)}</li>`).join("")}</ul><p class="note">${stripeStatusLoaded ? (stripeOn ? "Stripe est activé côté serveur." : "Stripe n’est pas activé côté serveur.") : "Vérification du statut Stripe…"}</p></div>
+    <div class="card"><b>Publication automatique</b>
+      <p class="muted" style="font-size:14px;line-height:1.7">Tes modifications sont enregistrées en ligne automatiquement dès qu’elles sont validées. Les visiteurs voient la version enregistrée côté serveur.</p>
       <p class="note">${shop.publishedAt ? `Dernière mise en ligne : ${new Date(shop.publishedAt).toLocaleString("fr-FR")}` : "Aucune publication pour le moment."}</p></div>
     <div class="card"><b>Sauvegarde</b><p class="note">Exporte ou restaure tous les réglages, produits, avis et photos.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" data-act="expjson">Exporter (JSON)</button><label class="btn ghost sm" style="cursor:pointer">Importer (JSON)<input type="file" accept=".json,application/json" hidden id="impjson"></label>${shop._dirty ? `<button class="btn ghost sm" style="color:#e88" data-act="discard">Annuler mes modifications</button>` : ""}</div></div>`;
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" type="button" data-act="expjson">Exporter (JSON)</button><label class="btn ghost sm" style="cursor:pointer">Importer (JSON)<input type="file" accept=".json,application/json" hidden id="impjson"></label>${shop._dirty ? `<button class="btn ghost sm" type="button" style="color:#e88" data-act="discard">Annuler mes modifications</button>` : ""}</div></div>`;
   return {title:"Admin", html:`<div class="wrap adm" style="padding-bottom:100px;max-width:860px">
     <div class="pagehd" style="padding-bottom:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px"><div><div class="eyebrow">${esc(u.email)}</div><h1 class="display" style="font-size:clamp(36px,6vw,60px);margin-top:10px">Admin</h1></div><span class="muted" id="savedTag" style="font-size:13px"></span></div>
     ${shop._dirty && admTab !== "publier" ? `<div class="warnbar"><span>Envoi des modifications en ligne…</span></div>` : ""}
@@ -1611,6 +1663,7 @@ function refreshPromoAdminCard(i){
 }
 function mountAdmin(){
   const root = $(".adm"); if(!root) return;
+  if(admTab === "avis" && srvReviews === null) void loadSrvReviews();
   root.addEventListener("change", async e => {
     const el = e.target;
     if(el.dataset.bind){
@@ -1672,9 +1725,16 @@ function mountAdmin(){
   });
   const sf = $("#shipForm");
   sf && sf.addEventListener("submit", async e => { e.preventDefault(); if(!sf.reportValidity()) return;
-    try{ await fetch("/api/public/admin/orders/update", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:ADMIN_EMAIL, password:adminPwd, id:sf.order.value.trim(), status:"Expédiée", tracking:sf.code.value.trim()})}); }catch(err){}
-    const url = trackUrl(sf.code.value.trim(), sf.carrier.value);
-    location.href = `mailto:${encodeURIComponent(sf.email.value.trim())}?subject=${encodeURIComponent(`WHITE SAYY — ta commande ${sf.order.value} est en route`)}&body=${encodeURIComponent(`Bonjour,\n\nTa commande n° ${sf.order.value} vient d'être expédiée.\nNuméro de suivi : ${sf.code.value}\nSuivre le colis : ${url}\n\nMerci pour ta confiance,\nWHITE SAYY`)}`; });
+    const val = name => String(sf.elements.namedItem(name)?.value || "").trim();
+    const button = sf.querySelector('button[type="submit"]'); if(button){ button.disabled = true; button.textContent = "Enregistrement…"; }
+    try{
+      const response = await fetch("/api/public/admin/orders-update", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, id:val("order"), status:"Expédiée", tracking:val("code")})});
+      if(!response.ok){ toast(response.status === 404 ? "Commande introuvable en ligne : vérifie son numéro." : "Le suivi n’a pas été enregistré. Réessaie."); return; }
+      const url = trackUrl(val("code"), val("carrier"));
+      location.href = `mailto:${encodeURIComponent(val("email"))}?subject=${encodeURIComponent(`WHITE SAYY — ta commande ${val("order")} est en route`)}&body=${encodeURIComponent(`Bonjour,\n\nTa commande n° ${val("order")} vient d'être expédiée.\nNuméro de suivi : ${val("code")}\nSuivre le colis : ${url}\n\nMerci pour ta confiance,\nWHITE SAYY`)}`;
+    }catch(err){ toast("Connexion impossible : le suivi n’a pas été enregistré."); }
+    finally{ if(button && document.body.contains(button)){ button.disabled = false; button.textContent = "Préparer l’e-mail"; } }
+  });
 }
 function download(name, content, type){
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([content], {type})); a.download = name;
@@ -1684,7 +1744,7 @@ function download(name, content, type){
 /* ============ Recherche ============ */
 function openSearch(){
   const was = $("#search").classList.contains("open"); closeAll(); if(was) return;
-  $("#search").classList.add("open"); $("#ov").classList.add("open"); openPanel = "search"; $("#q").value = ""; searchRes(""); setTimeout(() => $("#q").focus(), 60);
+  $("#search").classList.add("open"); $("#ov").classList.add("open"); openPanel = "search"; document.querySelector('[aria-controls="search"]')?.setAttribute("aria-expanded","true"); $("#q").value = ""; searchRes(""); setTimeout(() => $("#q").focus(), 60);
 }
 function searchRes(v){
   const t = v.trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
@@ -1699,11 +1759,11 @@ document.addEventListener("click", async e => {
   const a = el.dataset.act;
   const p = el.dataset.id ? findP(el.dataset.id) : null;
   switch(a){
-    case "menu": { const m = $("#mmenu"), o = m.classList.contains("open"); closeAll(); if(!o){ m.classList.add("open"); lock(true); } break; }
+    case "menu": { const m = $("#mmenu"), wasOpen = m.classList.contains("open"); closeAll(); if(!wasOpen){ m.classList.add("open"); lock(true); openPanel = "mmenu"; document.querySelector('[aria-controls="mmenu"]')?.setAttribute("aria-expanded","true"); } break; }
     case "search": openSearch(); break;
     case "cart": openDrawer(); break;
     case "close": closeAll(); break;
-    case "qty": { const i = cart[+el.dataset.k], pp = findP(i.id); const n = i.qty + +el.dataset.d; if(n > stockOf(pp, i.size)){ toast(`Plus que ${stockOf(pp,i.size)} (${sizeLabel(pp, i.size)})`); break; } i.qty = n; saveCart(); break; }
+    case "qty": { const i = cart[+el.dataset.k], pp = findP(i.id); const n = i.qty + +el.dataset.d, max = Math.min(stockOf(pp, i.size), 10); if(n > max){ toast(max < stockOf(pp,i.size) ? `Maximum 10 exemplaires par taille (${sizeLabel(pp, i.size)})` : `Plus que ${max} (${sizeLabel(pp, i.size)})`); break; } i.qty = n; saveCart(); break; }
     case "rm": cart.splice(+el.dataset.k, 1); saveCart(); break;
     case "size": { if(el.dataset.w === "2") sel.size2 = el.dataset.s; else sel.size = el.dataset.s; updateSizeUI(findP(sel.id)); break; }
     case "scrollsize": $(".sizes").scrollIntoView({behavior:"smooth", block:"center"}); break;
@@ -1726,11 +1786,24 @@ document.addEventListener("click", async e => {
     }
     case "removePromo": appliedPromoCode = ""; localStorage.removeItem(K.promo); render(); toast("Code promo retiré"); break;
     case "review": reviewForm(el.dataset.id); break;
-    case "rate": { const form = el.closest("form"); if(form){ const value = +el.dataset.rating; form.elements.rating.value = value; form.querySelectorAll('[data-act="rate"]').forEach(b => b.setAttribute("aria-pressed", +b.dataset.rating <= value ? "true" : "false")); } break; }
-    case "track": { const v = document.querySelector(`[data-track="${el.dataset.id}"]`).value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
+    case "rate": { const form = el.closest("form"); if(form){ const value = +el.dataset.rating; form.elements.namedItem("rating").value = value; form.querySelectorAll('[data-act="rate"]').forEach(b => b.setAttribute("aria-pressed", +b.dataset.rating <= value ? "true" : "false")); } break; }
+    case "track": { const input = document.querySelector(`[data-track="${el.dataset.id}"]`); const v = input?.value.trim(); if(!v){ toast("Saisis ton numéro de suivi"); break; }
       const os = read(K.orders, []); const o = os.find(x => x.id === el.dataset.id); if(o){ o.tracking = v; write(K.orders, os); } openTracking(v, "laposte"); break; }
+    case "markManualPaid": {
+      if(!adminPwd || !el.dataset.id) break;
+      el.disabled = true;
+      try{
+        const response = await fetch("/api/public/admin/orders-update", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, id:el.dataset.id, status:"Payée"})});
+        const data = await response.json().catch(() => ({}));
+        if(!response.ok) throw new Error(data.error || "payment_update_failed");
+        srvOrders = (srvOrders || []).map(order => order.id === el.dataset.id ? {...order, status:"Payée"} : order);
+        const local = read(K.orders, []), order = local.find(item => item.id === el.dataset.id); if(order){ order.status = "Payée"; write(K.orders, local); }
+        render(); toast("Paiement confirmé et stock mis à jour.");
+      }catch(err){ toast("Le paiement n’a pas pu être confirmé. Vérifie la commande et réessaie."); if(document.body.contains(el)) el.disabled = false; }
+      break;
+    }
     case "authMode": authMode = authMode === "login" ? "signup" : "login"; render(); break;
-    case "logout": localStorage.removeItem(K.session); adminPwd = null; toast("Déconnecté"); render(); break;
+    case "logout": localStorage.removeItem(K.session); adminPwd = null; srvOrders = null; srvReviews = null; toast("Déconnecté"); render(); break;
     case "tab": e.preventDefault(); admTab = el.dataset.t; render(); break;
     case "padd": shop.products.push({id:"produit-" + uid().toLowerCase(), category:"tshirt", line:"", components:[], name:"Nouveau produit", subtitle:"", tagline:"", price:0, description:"", details:[], care:"", sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}, images:[], has360:false, isNew:true, active:false, createdAt:new Date().toISOString().slice(0,10), related:[]}); saveDraft(); render(); break;
     case "pdel": if(confirm("Supprimer ce produit ?")){ shop.products.splice(+el.dataset.i, 1); saveDraft(); render(); } break;
@@ -1740,6 +1813,30 @@ document.addEventListener("click", async e => {
     case "promodel": shop.promos.splice(+el.dataset.i, 1); saveDraft(); renderAnnouncement(); render(); break;
     case "revadd": shop.reviews.unshift({id:"avis-"+uid(), name:"", rating:5, text:"", photo:"", size:"", productId:"", date:new Date().toISOString().slice(0,10), approved:true, featured:false}); saveDraft(); render(); setTimeout(() => document.querySelector(".adm details.card")?.setAttribute("open",""), 0); break;
     case "revdel": shop.reviews.splice(+el.dataset.i, 1); saveDraft(); render(); break;
+    case "reviewInboxReload": srvReviews = null; srvReviewsError = ""; render(); break;
+    case "approveRemoteReview": {
+      if(!adminPwd) break;
+      const reviewId = el.dataset.id; el.disabled = true;
+      try{
+        const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"approve", id:reviewId})});
+        const data = await response.json().catch(() => ({}));
+        if(!response.ok || !data.review) throw new Error(data.error || "approve_failed");
+        if(shop._dirty){ if(!shop.reviews.some(r => r.id === data.review.id)) shop.reviews.unshift(data.review); saveDraft(true); }
+        else { const cloud = await fetch("/api/public/shop?t=" + Date.now(), {cache:"no-store"}).then(r => r.ok ? r.json() : null); if(cloud?.data) shop = merge(DEFAULTS, cloud.data); }
+        srvReviews = (srvReviews || []).filter(r => r.id !== reviewId); render(); toast("Avis approuvé. Tu peux maintenant le sélectionner pour l’accueil.");
+      }catch(err){ toast("L’avis n’a pas pu être approuvé. Vérifie la connexion et la migration de la boîte d’avis."); if(document.body.contains(el)) el.disabled = false; }
+      break;
+    }
+    case "rejectRemoteReview": {
+      if(!adminPwd) break;
+      const reviewId = el.dataset.id; el.disabled = true;
+      try{
+        const response = await fetch("/api/public/admin/reviews", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({email:currentUser()?.email || "", password:adminPwd, action:"reject", id:reviewId})});
+        if(!response.ok) throw new Error("reject_failed");
+        srvReviews = (srvReviews || []).filter(r => r.id !== reviewId); render(); toast("Avis refusé.");
+      }catch(err){ toast("L’avis n’a pas pu être refusé. Réessaie."); if(document.body.contains(el)) el.disabled = false; }
+      break;
+    }
     case "ugcdel": shop.ugc.splice(+el.dataset.i, 1); saveDraft(); render(); break;
     case "expjson": { const d = structuredClone(shop); delete d._dirty; download(`white-sayy-donnees-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify(d, null, 1), "application/json"); break; }
     case "discard": if(confirm("Revenir à la version en ligne ? Tes modifications non publiées seront perdues.")){ localStorage.removeItem(K.draft); try{ const r = await fetch("/api/public/shop?t=" + Date.now(), {cache: "no-store"}); const row = r.ok ? await r.json() : null; shop = merge(DEFAULTS, (row && row.data) || PUBLISHED || {}); }catch(e){ shop = merge(DEFAULTS, PUBLISHED || {}); } render(); toast("Modifications annulées"); } break;
@@ -1752,8 +1849,8 @@ document.addEventListener("change", e => {
 });
 
 /* Stripe : actif seulement si le serveur répond enabled:true */
-let stripeOn = false;
-fetch("/api/public/checkout", {cache:"no-store"}).then(r => r.ok ? r.json() : null).then(d => { stripeOn = !!(d && d.enabled === true); if(stripeOn && /^#\/(checkout|livraison)/.test(location.hash)) render(); }).catch(() => {});
+let stripeOn = false, stripeStatusLoaded = false;
+fetch("/api/public/checkout", {cache:"no-store"}).then(r => r.ok ? r.json() : null).then(d => { stripeOn = !!(d && d.enabled === true); stripeStatusLoaded = true; if(/^#\/(checkout|livraison|admin)/.test(location.hash)) render(); }).catch(() => { stripeStatusLoaded = true; if(/^#\/(checkout|livraison|admin)/.test(location.hash)) render(); });
 /* Affichée dans un cadre (iframe) du même site : le # suit l'adresse du navigateur, dans les deux sens */
 let L = location;
 try{

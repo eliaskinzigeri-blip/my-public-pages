@@ -4,11 +4,12 @@ Ce dépôt contient l’application WHITE SAYY reliée à Lovable et la page de 
 
 ## Où modifier le site
 
-- **Page de boutique active** — `public/white-sayy.html` : catalogue, accueil, avis, administration et interactions de la boutique. C’est le fichier à modifier pour les changements visibles dans le storefront.
-- **Cadre de l’application** — `src/routes/index.tsx` : métadonnées et affichage de la page HTML active. Conserver son chemin `/white-sayy.html` si le fichier est déplacé.
-- **API et intégrations** — `src/routes/api/`, `src/integrations/supabase/` et `src/lib/` : serveur, commandes, paiement et données.
-- **Données et migrations** — `drizzle/` et `supabase/`.
-- **Ancienne page** — `archive/white-sayy-legacy.html` : copie de référence non utilisée par l’application ni incluse dans la sortie publique. La page active reste dans `public/`.
+- **Boutique active** — `public/white-sayy.html` : accueil, catalogue, navigation, avis, administration et interactions visibles.
+- **Cadre de l’application** — `src/routes/index.tsx` : métadonnées et chargement de la boutique active. Conserver le chemin `/white-sayy.html`.
+- **API serveur** — `src/routes/api/public/` : boutique publiée, commandes, avis, administration et paiements.
+- **Sécurité et intégrations** — `src/lib/shop-server.server.ts` et `src/integrations/supabase/`.
+- **Données et migrations** — `drizzle/migrations/` et `supabase/`.
+- **Ancienne page** — `archive/white-sayy-legacy.html` : copie de référence inactive.
 
 ## Développement et vérification
 
@@ -17,21 +18,41 @@ Prérequis : Node.js et npm. Depuis la racine du dépôt :
 ```sh
 npm install
 npm run dev
-```
-
-Avant de pousser une modification, lancer si possible :
-
-```sh
 npm test
 npm run build
 ```
 
-Les sorties générées (`.output/`, `.wrangler/`, `node_modules/`) ne sont pas des fichiers source et restent ignorées par Git.
+Les sorties générées (`.output/`, `.wrangler/`, `node_modules/`) restent ignorées par Git.
+
+## Configuration de production
+
+Configurer les secrets uniquement dans l’environnement serveur Lovable, jamais dans le HTML, le dépôt ou une variable `VITE_*` :
+
+- `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` pour les opérations serveur sur la boutique, les commandes et les avis.
+- `ADMIN_EMAIL` et `ADMIN_PASSWORD_HASH` pour l’accès admin. Le hash attendu est un SHA-256 de `e-mail-minuscule|mot-de-passe` ; ne stocker ni envoyer le mot de passe brut dans le dépôt.
+- `STRIPE_SECRET_KEY` et `STRIPE_WEBHOOK_SECRET` si les paiements Stripe sont activés.
+- `LOVABLE_DB_MIGRATION_URL` dans l’environnement de migration sécurisé pour `drizzle-kit`.
+
+Avant le lancement, appliquer les migrations dans l’ordre, notamment `drizzle/migrations/0002_reviews_and_stock_finalization.sql`. Depuis un shell sûr où `LOVABLE_DB_MIGRATION_URL` est déjà fourni :
+
+```sh
+npx drizzle-kit migrate
+```
+
+La migration ajoute la boîte d’avis privée, sa fonction d’approbation et la finalisation idempotente du paiement et du stock. Ne pas appliquer la migration depuis un environnement non vérifié.
+
+Pour Stripe, configurer aussi le webhook vers `/api/public/stripe-webhook` et abonner ce webhook aux événements `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed` et `checkout.session.expired`.
+
+## Checklist avant d’accepter des commandes
+
+1. Configurer et tester Stripe, ou renseigner au minimum un canal de commande/contact (e-mail, Instagram ou lien de paiement externe) dans l’administration. Sans cela, le checkout reste volontairement fermé et ne crée pas de fausse commande.
+2. Vérifier un achat de test complet : confirmation Stripe, mise à jour de statut, décrément de stock et arrivée de l’avis dans la boîte de modération.
+3. Remplacer les mentions légales modèle par les informations exactes de l’éditeur et vérifier les règles de livraison, les prix et chaque stock.
+4. Vérifier que le compte admin fonctionne après configuration des secrets et que les avis peuvent être approuvés depuis un autre appareil.
+5. Tester les commandes manuelles : le client transmet le récapitulatif par le canal configuré ; l’admin confirme le paiement avant de marquer l’expédition.
+
+Les commandes manuelles ne sont pas considérées comme payées automatiquement. Les notifications client et les comptes clients ne sont pas encore des services synchronisés : le compte et les favoris restent enregistrés sur l’appareil du visiteur. Les liens e-mail ouvrent un brouillon dans le logiciel de messagerie choisi et ne l’envoient pas automatiquement.
 
 ## Synchronisation et publication
 
-Le dépôt est relié au projet Lovable. Les commits poussés sur `main` se synchronisent avec l’éditeur, mais la mise en ligne sur le domaine public peut encore nécessiter la publication depuis Lovable. Ne pas réécrire l’historique publié (pas de force-push, rebase ou amend de commits déjà poussés).
-
-## Variables d’environnement
-
-Les variables Supabase côté navigateur utilisent une clé **publishable**. Ne jamais ajouter de mot de passe, clé `service_role` ou autre secret privé dans le HTML, le code client ou un dépôt public ; gérer les secrets serveur dans l’environnement prévu à cet effet.
+Le dépôt est relié au projet Lovable. Les commits poussés sur `main` se synchronisent avec l’éditeur, mais la mise en ligne sur le domaine public peut encore nécessiter une publication depuis Lovable. Ne pas réécrire l’historique publié (pas de force-push, rebase ou amend de commits déjà poussés).

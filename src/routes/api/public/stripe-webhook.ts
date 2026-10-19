@@ -1,36 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getShopData, verifyStripeSignature } from "@/lib/shop-server.server";
-
-function isSet(p: any) {
-  return p?.category === "ensemble" && Array.isArray(p?.components);
-}
-
-// Décrémente le stock des tailles achetées dans les données de la boutique.
-function decrementStock(shop: any, items: { id: string; size: string; qty: number }[]): boolean {
-  const products: any[] = shop?.products ?? [];
-  let changed = false;
-  const dec = (p: any, size: string, qty: number) => {
-    if (p && p.sizes && size in p.sizes) {
-      p.sizes[size] = Math.max(0, Number(p.sizes[size]) - qty);
-      changed = true;
-    }
-  };
-  for (const it of items) {
-    const p = products.find((x: any) => x.id === it.id);
-    if (!p) continue;
-    if (isSet(p)) {
-      const [a, b] = String(it.size).split(" / ");
-      const comps = p.components.map((c: any) => products.find((x: any) => x.id === c.id));
-      if (a && b && comps[0] && comps[1]) {
-        dec(comps[0], a, it.qty);
-        dec(comps[1], b, it.qty);
-      }
-    } else {
-      dec(p, it.size, it.qty);
-    }
-  }
-  return changed;
-}
+import { verifyStripeSignature } from "@/lib/shop-server.server";
 
 export const Route = createFileRoute("/api/public/stripe-webhook")({
   server: {
@@ -38,10 +7,11 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
       POST: async ({ request }) => {
         const secret = process.env["STRIPE_WEBHOOK_SECRET"];
         if (!secret) return new Response("webhook_not_configured", { status: 503 });
-
+        if (Number(request.headers.get("content-length") ?? 0) > 1_000_000) return new Response("payload_too_large", { status: 413 });
         const payload = await request.text();
-        const ok = await verifyStripeSignature(payload, request.headers.get("stripe-signature"), secret);
-        if (!ok) return new Response("invalid_signature", { status: 401 });
+        if (new TextEncoder().encode(payload).byteLength > 1_000_000) return new Response("payload_too_large", { status: 413 });
+        const valid = await verifyStripeSignature(payload, request.headers.get("stripe-signature"), secret);
+        if (!valid) return new Response("invalid_signature", { status: 401 });
 
         let event: any;
         try {
@@ -49,33 +19,42 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
         } catch {
           return new Response("invalid_payload", { status: 400 });
         }
-
         const session = event?.data?.object;
         const orderId = session?.metadata?.orderId;
-        if (!orderId) return Response.json({ received: true });
+        const sessionId = session?.id;
+        if (!orderId || !sessionId) return Response.json({ received: true });
 
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-        if (event.type === "checkout.session.completed") {
-          const { data: order } = await supabaseAdmin.from("orders").select("status, items").eq("id", orderId).maybeSingle();
-          await supabaseAdmin
-            .from("orders")
-            .update({ status: "Payée", payment_intent: session.payment_intent ?? null })
-            .eq("id", orderId);
-
-          // Stock décrémenté une seule fois (si la commande n'était pas déjà payée).
-          if (order && order.status !== "Payée" && Array.isArray(order.items)) {
-            const shop = await getShopData();
-            if (shop && decrementStock(shop, order.items as { id: string; size: string; qty: number }[])) {
-              await supabaseAdmin.from("shop_data").upsert({ id: 1, data: shop, updated_at: new Date().toISOString() });
+        try {
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          if (["checkout.session.completed", "checkout.session.async_payment_succeeded"].includes(event.type)) {
+            // Un paiement différé peut déclencher completed avant sa confirmation réelle.
+            if (session.payment_status !== "paid") return Response.json({ received: true, pending: true });
+            const paymentIntent = typeof session.payment_intent === "string" ? session.payment_intent : null;
+            const { data, error } = await supabaseAdmin.rpc("finalize_order_stock", {
+              p_order_id: String(orderId),
+              p_session_id: String(sessionId),
+              p_payment_intent: paymentIntent,
+              p_manual: false,
+            });
+            if (error) return new Response("order_finalization_failed", { status: 503 });
+            const result = data && typeof data === "object" && !Array.isArray(data) ? data as { ok?: boolean; reason?: string } : null;
+            if (!result?.ok) {
+              console.warn("Stripe event did not match an order", { orderId: String(orderId), reason: result?.reason });
+              return new Response("order_finalization_failed", { status: 503 });
             }
+          } else if (event.type === "checkout.session.expired") {
+            const { error } = await supabaseAdmin.from("orders").update({ status: "Expirée" })
+              .eq("id", String(orderId)).eq("stripe_session_id", String(sessionId)).eq("status", "En attente de paiement");
+            if (error) return new Response("order_update_failed", { status: 503 });
+          } else if (event.type === "checkout.session.async_payment_failed") {
+            const { error } = await supabaseAdmin.from("orders").update({ status: "Annulée" })
+              .eq("id", String(orderId)).eq("stripe_session_id", String(sessionId)).eq("status", "En attente de paiement");
+            if (error) return new Response("order_update_failed", { status: 503 });
           }
-          // TODO: e-mail de confirmation client + notification (nécessite un service d'e-mails).
-        } else if (event.type === "checkout.session.expired") {
-          await supabaseAdmin.from("orders").update({ status: "Expirée" }).eq("id", orderId).eq("status", "En attente de paiement");
+          return Response.json({ received: true });
+        } catch {
+          return new Response("webhook_processing_failed", { status: 503 });
         }
-
-        return Response.json({ received: true });
       },
     },
   },
