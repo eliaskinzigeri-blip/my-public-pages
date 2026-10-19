@@ -23,10 +23,10 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-/* Fond noir partout (y compris quand on tire la page vers le haut ou le bas sur téléphone) */
 const DARK_PAGE = `
   html, body { margin: 0; background: #0a0a0a !important; color-scheme: dark; overscroll-behavior: none; }
   body { overflow: hidden; }
+  .storefront-frame { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; border: 0; background: #0a0a0a; color-scheme: dark; }
 `;
 
 function Index() {
@@ -57,20 +57,12 @@ function Index() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: DARK_PAGE }} />
-      {/* Incrémenter cette version à chaque livraison de white-sayy.html pour éviter un ancien cache mobile. */}
+      {/* Version différente pour forcer le rechargement du HTML embarqué sur les navigateurs concernés. */}
       <iframe
         ref={frame}
-        src="/white-sayy.html?v=0891479-compat"
+        className="storefront-frame"
+        src="/white-sayy.html?v=20261019-legacy-browser-fix"
         title="WHITE SAYY"
-        style={{
-          position: "fixed",
-          inset: 0,
-          width: "100vw",
-          height: "100dvh",
-          border: 0,
-          background: "#0a0a0a",
-          colorScheme: "dark",
-        }}
       />
     </>
   );
