@@ -60,7 +60,7 @@ function Index() {
       {/* Incrémenter cette version à chaque livraison de white-sayy.html pour éviter un ancien cache mobile. */}
       <iframe
         ref={frame}
-        src="/white-sayy.html?v=93a776b"
+        src="/white-sayy.html?v=0891479-compat"
         title="WHITE SAYY"
         style={{
           position: "fixed",
