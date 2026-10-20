@@ -25,11 +25,20 @@ describe("storefront browser compatibility", () => {
     expect(script).toContain("document.documentElement.contains(section)");
   });
 
+  it("initializes adminPwd before the first currentUser call", () => {
+    const script = inlineScripts[0][1];
+    const adminPwdDeclaration = script.indexOf("let adminPwd = null;");
+    const firstCurrentUserCall = script.indexOf("currentUser() || {}");
+
+    expect(adminPwdDeclaration).toBeGreaterThanOrEqual(0);
+    expect(firstCurrentUserCall).toBeGreaterThan(adminPwdDeclaration);
+  });
+
   it("provides legacy viewport and cache-busting fallbacks", () => {
     expect(storefront).toMatch(
       /height:\s*calc\(100vh\s*-\s*var\(--hd\)\);\s*height:\s*calc\(100svh/,
     );
     expect(rootRoute).toContain("height: 100vh; height: 100dvh");
-    expect(rootRoute).toContain("20261019-legacy-browser-fix");
+    expect(rootRoute).toContain("20261020-adminpwd-fix");
   });
 });

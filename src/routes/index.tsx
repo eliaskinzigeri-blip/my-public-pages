@@ -61,7 +61,7 @@ function Index() {
       <iframe
         ref={frame}
         className="storefront-frame"
-        src="/white-sayy.html?v=20261019-legacy-browser-fix"
+        src="/white-sayy.html?v=20261020-adminpwd-fix"
         title="WHITE SAYY"
       />
     </>

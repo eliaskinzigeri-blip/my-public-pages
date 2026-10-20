@@ -652,6 +652,7 @@ function merge(base, over) {
         o[k] = k in base ? merge(base[k], (over || {})[k]) : over[k];
     return o;
 }
+let adminPwd = null;
 let draft = read(K.draft, null);
 if (draft && (!draft._dirty || (draft.version || 0) < DEFAULTS.version)) {
     localStorage.removeItem(K.draft);
@@ -1620,7 +1621,6 @@ async function syncOrder(id, n = 0) {
 }
 /* ============ Comptes ============ */
 async function hash(s) { const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)); return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, "0")).join(""); }
-let adminPwd = null;
 function currentUser() { const s = read(K.session, null); if (!s)
     return null; if (s.admin)
     return adminPwd ? { email: s.email, admin: true } : null; return read(K.users, []).find(u => u.email === s.email) || null; }
