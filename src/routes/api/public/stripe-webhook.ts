@@ -67,7 +67,7 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
             const { data, error } = await supabaseAdmin.rpc("finalize_order_stock", {
               p_order_id: String(orderId),
               p_session_id: String(sessionId),
-              p_payment_intent: paymentIntent,
+              ...(paymentIntent === undefined ? {} : { p_payment_intent: paymentIntent }),
               p_manual: false,
             });
             if (error) return new Response("order_finalization_failed", { status: 503 });
