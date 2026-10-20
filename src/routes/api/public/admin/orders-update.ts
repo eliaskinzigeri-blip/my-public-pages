@@ -38,8 +38,6 @@ export const Route = createFileRoute("/api/public/admin/orders-update")({
             if (order.stripe_session_id) return Response.json({ error: "stripe_payment_must_be_verified" }, { status: 409 });
             const { data, error } = await supabaseAdmin.rpc("finalize_order_stock", {
               p_order_id: body.id,
-              p_session_id: null,
-              p_payment_intent: null,
               p_manual: true,
             });
             if (error) return Response.json({ error: "payment_status_save_failed" }, { status: 503 });

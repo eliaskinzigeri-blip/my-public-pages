@@ -63,7 +63,7 @@ export const Route = createFileRoute("/api/public/stripe-webhook")({
             if (session.payment_status !== "paid")
               return Response.json({ received: true, pending: true });
             const paymentIntent =
-              typeof session.payment_intent === "string" ? session.payment_intent : null;
+              typeof session.payment_intent === "string" ? session.payment_intent : undefined;
             const { data, error } = await supabaseAdmin.rpc("finalize_order_stock", {
               p_order_id: String(orderId),
               p_session_id: String(sessionId),
