@@ -22,9 +22,9 @@ export type Database = {
           items: Json
           payment_intent: string | null
           session_url: string | null
-          stock_decremented_at: string | null
           shipping: number
           status: string
+          stock_decremented_at: string | null
           stripe_session_id: string | null
           subtotal: number
           total: number
@@ -37,9 +37,9 @@ export type Database = {
           items: Json
           payment_intent?: string | null
           session_url?: string | null
-          stock_decremented_at?: string | null
           shipping?: number
           status?: string
+          stock_decremented_at?: string | null
           stripe_session_id?: string | null
           subtotal?: number
           total?: number
@@ -52,31 +52,13 @@ export type Database = {
           items?: Json
           payment_intent?: string | null
           session_url?: string | null
-          stock_decremented_at?: string | null
           shipping?: number
           status?: string
+          stock_decremented_at?: string | null
           stripe_session_id?: string | null
           subtotal?: number
           total?: number
           tracking?: string | null
-        }
-        Relationships: []
-      }
-      shop_data: {
-        Row: {
-          data: Json
-          id: number
-          updated_at: string
-        }
-        Insert: {
-          data: Json
-          id?: number
-          updated_at?: string
-        }
-        Update: {
-          data?: Json
-          id?: number
-          updated_at?: string
         }
         Relationships: []
       }
@@ -94,7 +76,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          id?: string
+          id: string
           moderated_at?: string | null
           name: string
           product_id?: string | null
@@ -116,6 +98,24 @@ export type Database = {
         }
         Relationships: []
       }
+      shop_data: {
+        Row: {
+          data: Json
+          id: number
+          updated_at: string
+        }
+        Insert: {
+          data: Json
+          id?: number
+          updated_at?: string
+        }
+        Update: {
+          data?: Json
+          id?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -125,12 +125,21 @@ export type Database = {
         Args: { p_review_id: string }
         Returns: Json
       }
+      decrement_product_size: {
+        Args: {
+          p_product_id: string
+          p_products: Json
+          p_qty: number
+          p_size: string
+        }
+        Returns: Json
+      }
       finalize_order_stock: {
         Args: {
           p_manual?: boolean
           p_order_id: string
-          p_payment_intent?: string | null
-          p_session_id?: string | null
+          p_payment_intent?: string
+          p_session_id?: string
         }
         Returns: Json
       }
