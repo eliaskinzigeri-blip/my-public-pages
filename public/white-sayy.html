@@ -505,8 +505,8 @@ body{font-size:16px!important;line-height:1.6!important}
 :root {
   --bg: #070707;
   --bg2: #0c0c0c;
-  --card: #111111;
-  --card-hover: #161616;
+  --card: #0d0d0d;
+  --card-hover: #141414;
   --line: rgba(255, 255, 255, 0.08);
   --line2: rgba(255, 255, 255, 0.16);
   --line-strong: rgba(255, 255, 255, 0.28);
@@ -526,29 +526,119 @@ body {
   line-height: 1.6;
   color: var(--text);
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035), transparent 60%);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04), transparent 65%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============ HEADER & PERFECT OPTICAL CENTERING ============ */
 header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(7, 7, 7, 0.85);
+  background: rgba(7, 7, 7, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--line);
   transition: all 0.35s var(--ease);
 }
 header.solid {
-  background: rgba(7, 7, 7, 0.95);
+  background: rgba(7, 7, 7, 0.96);
   border-color: var(--line2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 .hd {
-  height: 68px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.hd-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+  justify-content: flex-start;
+  min-width: 0;
+}
+.hd-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: auto;
+}
+.hd-center .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hd-center .logoimg {
+  height: 38px;
+  width: auto;
+  transition: transform 0.25s var(--ease);
+}
+.hd-center .logo:hover .logoimg {
+  transform: scale(1.06);
+}
+.hd-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+.nav {
+  display: none;
+  gap: 24px;
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.nav a {
+  color: var(--muted);
+  transition: color 0.2s;
+  position: relative;
+  padding: 6px 0;
+}
+.nav a:hover, .nav a.on {
+  color: var(--text);
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--text);
+  transform: scaleX(0);
+  transition: transform 0.25s var(--ease);
+  transform-origin: center;
+}
+.nav a.on::after, .nav a:hover::after {
+  transform: scaleX(1);
+}
+
+@media (min-width: 900px) {
+  .hd {
+    height: 82px;
+  }
+  .hd-center .logoimg {
+    height: 44px;
+  }
+  .nav {
+    display: flex;
+  }
 }
 
 .announce {
@@ -632,54 +722,84 @@ header.solid {
   line-height: 1.4;
 }
 
-/* Product Cards */
+/* ============ PRODUCT CARDS (HIGH-FASHION LOOKBOOK) ============ */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 14px;
+}
+@media (min-width: 900px) {
+  .pgrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 24px;
+  }
+}
+@media (min-width: 1200px) {
+  .pgrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 44px 28px;
+  }
+}
+
 .pc {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px;
-  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 0;
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .pc:hover {
-  border-color: var(--line2);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
+
+/* Studio Canvas Container */
 .pc .im {
   position: relative;
-  aspect-ratio: 1/1;
-  border-radius: 8px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background: #ffffff;
   overflow: hidden;
-  background: #0d0d0d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pc .im img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 14px;
   transition: opacity 0.5s var(--ease), transform 0.8s var(--ease);
+  will-change: transform, opacity;
 }
 .pc .im img.b {
   opacity: 0;
 }
 @media (hover: hover) {
   .pc:hover .im img.a { opacity: 0; }
-  .pc:hover .im img.b { opacity: 1; transform: scale(1.04); }
+  .pc:hover .im img.b { opacity: 1; transform: scale(1.05); }
 }
 
-/* Card Wishlist Heart */
+/* Wishlist Disc Button */
 .card-fav {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   z-index: 3;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   color: var(--text);
   display: grid;
   place-items: center;
@@ -696,8 +816,8 @@ header.solid {
 }
 .card-fav:hover {
   background: rgba(10, 10, 10, 0.95);
-  transform: scale(1.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.12);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 .card-fav.on {
   background: var(--white);
@@ -706,14 +826,14 @@ header.solid {
 }
 .card-fav.on svg {
   fill: currentColor;
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-/* Card Quick Size Bar */
+/* Quick Size Bar */
 .quick .sz {
-  background: rgba(12, 12, 12, 0.9);
+  background: rgba(12, 12, 12, 0.92);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   padding: 4px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
@@ -730,38 +850,126 @@ header.solid {
   transform: scale(1.08);
 }
 
-/* Card Metadata */
+/* Metadata Block */
 .pc .meta {
-  padding: 14px 4px 6px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px 18px;
+  background: #0d0d0d;
+  flex: 1;
+  gap: 4px;
+}
+.meta-sub {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 .pc .meta .n {
-  font-family: Inter, system-ui, sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 1.35;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14.5px;
   letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1.25;
+  margin: 2px 0 6px;
 }
-.pc .meta small {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 4px;
+.meta-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 6px;
 }
 .price-val {
-  font-variant-numeric: tabular-nums;
-  font-size: 15px;
-  font-weight: 600;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.old-price {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 6px;
+}
+.meta-tagline {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
 /* Category Tiles */
+.cats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (min-width: 900px) {
+  .cats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
 .cat {
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: block;
+  transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .cat:hover {
-  border-color: var(--line2);
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+.cat img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 16px;
+  transition: transform 1s var(--ease);
+}
+.cat:hover img {
+  transform: scale(1.08);
+}
+.cat span {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 48px 16px 16px;
+  background: linear-gradient(180deg, transparent 0%, rgba(7, 7, 7, 0.75) 50%, rgba(7, 7, 7, 0.96) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
+}
+.cat b {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(18px, 2.2vw, 24px);
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1;
+}
+.cat i {
+  font-style: normal;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #cfccc6;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
 }
 
 /* Atelier Section */
@@ -783,26 +991,27 @@ header.solid {
   }
 }
 .atelier-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 28px 22px;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.8) 0%, rgba(12, 12, 12, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px 24px;
   position: relative;
   display: flex;
   flex-direction: column;
   transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
 .atelier-card:hover {
-  border-color: var(--line2);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-4px);
 }
 .ac-num {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: 0.15em;
-  color: var(--muted2);
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.15);
   margin-bottom: 16px;
+  line-height: 1;
 }
 .atelier-card h3 {
   font-family: var(--font-display);
@@ -829,7 +1038,53 @@ header.solid {
   border: 1px solid var(--line);
   padding: 4px 10px;
   border-radius: 999px;
-  color: var(--muted);
+  color: var(--gold);
+}
+
+/* Editorial Lookbook Showcase */
+.edito .ph {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edito .ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 24px;
+  transition: transform 0.8s var(--ease);
+}
+.edito .ph:hover img {
+  transform: scale(1.04);
+}
+
+/* Product Detail Page Gallery */
+.gal .slide {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-in;
+}
+.gal .slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 20px;
+  transition: transform 0.4s var(--ease);
+}
+.gal .slide:hover img {
+  transform: scale(1.03);
 }
 
 /* Reassurance Bar in Product Page */
@@ -1010,6 +1265,102 @@ body.has-mbar .mobile-dock {
   }
 }
 
+/* ============ FOOTER (CENTERED LUXURY IDENTITY) ============ */
+.ft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 80px 0 40px;
+  border-top: 1px solid var(--line);
+}
+.ft-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 56px;
+  width: 100%;
+}
+.ft-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.ft-logo-link img {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+  transition: transform 0.3s var(--ease);
+}
+.ft-logo-link:hover img {
+  transform: scale(1.08);
+}
+.ft-wordmark {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.ft-tagline {
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.ft-cols {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px 20px;
+  text-align: left;
+  padding: 48px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .ft-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.ft-cols h4 {
+  font-size: 11.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.ft-cols a {
+  display: block;
+  color: var(--muted);
+  font-size: 13.5px;
+  padding: 5px 0;
+  transition: color 0.2s;
+}
+.ft-cols a:hover {
+  color: var(--text);
+}
+.ft-bt {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted2);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-top: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 </style>
 
 <style id="white-sayy-motion-and-hero-dots">
@@ -1034,13 +1385,14 @@ main{animation:pagein .45s var(--ease)}
 <div id="announce"></div>
 <header id="hdr">
   <div class="wrap hd">
-    <div class="left">
+    <div class="hd-left">
       <button class="ic only-m" data-act="menu" aria-label="Menu" aria-controls="mmenu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-      <a class="logo only-d" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
+      <nav class="nav only-d" id="nav"></nav>
     </div>
-    <a class="logo only-m" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
-    <nav class="nav" id="nav"></nav>
-    <div class="right">
+    <div class="hd-center">
+      <a class="logo" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
+    </div>
+    <div class="hd-right">
       <button class="ic" data-act="search" aria-label="Rechercher" aria-controls="search" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <a class="ic only-d" href="#/compte?onglet=favoris" aria-label="Mes favoris"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="badge" id="favBadge" hidden></span></a>
       <a class="ic only-d" href="#/compte" aria-label="Mon compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
@@ -1052,13 +1404,23 @@ main{animation:pagein .45s var(--ease)}
 <main id="app"></main>
 <footer>
   <div class="wrap ft">
-    <div class="big"><img class="logoimg" alt="WHITE SAYY"><p class="muted" style="max-width:320px;font-size:14px;margin-top:18px" id="ftTag"></p></div>
-    <div class="cols">
-      <div><h4>Boutique</h4><a href="#/boutique">Tout voir</a><a href="#/boutique?cat=tshirt">T-shirts</a><a href="#/boutique?cat=sweat">Sweats</a><a href="#/boutique?cat=jogging">Joggings</a><a href="#/boutique?cat=ensemble">Ensembles</a></div>
-      <div><h4>Aide</h4><a href="#/contact">Contact</a><a href="#/suivi">Suivre ma commande</a><a href="#/compte">Mon compte</a></div>
-      <div><h4>Marque</h4><a href="#/a-propos">À propos</a><a href="#/mentions-legales">Mentions légales</a><a href="#/cgv">CGV</a><a href="#/politique-de-retour">Retours &amp; Échanges</a><span id="ftIg"></span></div>
+    <div class="ft-brand">
+      <a class="ft-logo-link" href="#/" aria-label="WHITE SAYY — accueil">
+        <img class="logoimg" alt="WHITE SAYY">
+      </a>
+      <div class="ft-wordmark">WHITE SAYY</div>
+      <p class="ft-tagline" id="ftTag"></p>
     </div>
-    <div class="bt"><span>© <span id="year"></span> WHITE SAYY</span><span>WHITE SAYY Studio</span></div>
+    <div class="ft-cols">
+      <div><h4>Boutique</h4><a href="#/boutique">Tout voir</a><a href="#/boutique?cat=tshirt">T-shirts</a><a href="#/boutique?cat=sweat">Sweats</a><a href="#/boutique?cat=jogging">Joggings</a><a href="#/boutique?cat=ensemble">Ensembles</a></div>
+      <div><h4>Aide &amp; Suivi</h4><a href="#/contact">Service client</a><a href="#/suivi">Suivre ma commande</a><a href="#/compte">Mon compte</a><a href="#/politique-de-retour">Retours &amp; Échanges</a></div>
+      <div><h4>La Maison</h4><a href="#/a-propos">L'Atelier WHITE SAYY</a><a href="#/avis">Avis clients</a><span id="ftIg"></span></div>
+      <div><h4>Légal</h4><a href="#/mentions-legales">Mentions légales</a><a href="#/cgv">Conditions Générales de Vente</a><a href="#/politique-de-confidentialite">Confidentialité</a></div>
+    </div>
+    <div class="ft-bt">
+      <span>© <span id="year"></span> WHITE SAYY STUDIO. TOUS DROITS RÉSERVÉS.</span>
+      <span>PARIS · AMSTERDAM</span>
+    </div>
   </div>
 </footer>
 
@@ -1666,6 +2028,7 @@ function card(p, i = 0) {
     const isFav = Array.isArray(favs) && favs.includes(p.id);
     const tags = [isSet(p) ? `<span class="tag w">Ensemble${c > p.price ? ` −${Math.round((1 - p.price / c) * 100)} %` : ""}</span>` : "", p.isNew ? `<span class="tag w">Nouveau</span>` : "",
         total === 0 ? `<span class="tag">Épuisé</span>` : isLow(total) ? `<span class="tag warn">Derniers exemplaires</span>` : ""].join("");
+    const gsm = isSet(p) ? "400 GSM · Ensemble" : (p.category === "tshirt" ? "240 GSM · Coton peigné" : "400 GSM · Fleece brossé");
     return `<div class="pc rv d${i % 3}">
     <div class="im">
       <a href="#/produit/${p.id}" aria-label="${esc(p.name)}" class="fill">
@@ -1676,7 +2039,14 @@ function card(p, i = 0) {
       <button class="card-fav ${isFav ? "on" : ""}" data-act="fav" data-id="${p.id}" aria-label="Favoris">${I.heart}</button>
       ${total && !isSet(p) ? `<div class="quick"><div class="sz">${sizesOf(p).map(s => `<button data-act="quick" data-id="${p.id}" data-s="${s}" ${stockOf(p, s) ? "" : "disabled"} aria-label="Ajouter taille ${s}">${s}</button>`).join("")}</div></div>` : ""}
     </div>
-    <a href="#/produit/${p.id}" class="meta"><h3 class="n">${esc(p.name)}<small>${esc(p.subtitle)}${p.tagline ? " · " + esc(p.tagline) : ""}</small></h3><span style="text-align:right;white-space:nowrap">${eur(p.price)}${c > p.price ? `<small style="text-decoration:line-through">${eur(c)}</small>` : ""}</span></a>
+    <a href="#/produit/${p.id}" class="meta">
+      <div class="meta-sub">${gsm}</div>
+      <h3 class="n">${esc(p.name)}</h3>
+      <div class="meta-bottom">
+        <span class="price-val">${eur(p.price)}${c > p.price ? ` <span class="old-price">${eur(c)}</span>` : ""}</span>
+        <span class="meta-tagline">${esc(p.tagline || "")}</span>
+      </div>
+    </a>
   </div>`;
 }
 const CAT_COVER = { tshirt: "p_tw_b", sweat: "p_ha_b", jogging: "p_jd_f", ensemble: "p_set_s_f" };
