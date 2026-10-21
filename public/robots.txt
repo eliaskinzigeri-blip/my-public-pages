@@ -1,14 +1,61 @@
+# https://www.robotstxt.org/robotstxt.html
+# Robots policy for WHITE SAYY (https://whitesayy.lovable.app)
+
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
 
-User-agent: Twitterbot
+# AI Search & Citation Agents (Explicitly allowed for brand citations & search discovery)
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+# Foundation Model Training Agents
+User-agent: GPTBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+User-agent: Google-Extended
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: Applebot-Extended
 Allow: /
 
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+
+# Default catch-all
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api/public/admin/
+Disallow: /checkout
+Disallow: /commande/
+
+# XML Sitemap
+Sitemap: https://whitesayy.lovable.app/sitemap.xml

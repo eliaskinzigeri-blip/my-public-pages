@@ -77,21 +77,78 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "WHITE SAYY" },
-      { name: "description", content: "WHITE SAYY — marque streetwear. T-shirts, sweats, joggings et ensembles." },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { title: "WHITE SAYY | Marque Streetwear — T-shirts Oversize, Sweats & Ensembles" },
+      {
+        name: "description",
+        content:
+          "Découvrez WHITE SAYY, marque streetwear au design brut et noir profond. T-shirts oversize (29,99 €), sweats zippés, joggings ballon et ensembles. Livraison France.",
+      },
       { name: "author", content: "WHITE SAYY" },
-      { property: "og:title", content: "WHITE SAYY" },
-      { property: "og:description", content: "WHITE SAYY — marque streetwear. T-shirts, sweats, joggings et ensembles." },
+      { name: "theme-color", content: "#0a0a0a" },
+      { name: "color-scheme", content: "dark" },
+      { property: "og:site_name", content: "WHITE SAYY" },
+      { property: "og:locale", content: "fr_FR" },
       { property: "og:type", content: "website" },
+      { property: "og:title", content: "WHITE SAYY | Marque Streetwear — T-shirts Oversize, Sweats & Ensembles" },
+      {
+        property: "og:description",
+        content:
+          "Découvrez WHITE SAYY, marque streetwear au design brut et noir profond. T-shirts oversize (29,99 €), sweats zippés, joggings ballon et ensembles. Livraison France.",
+      },
+      { property: "og:url", content: "https://whitesayy.lovable.app/" },
+      { property: "og:image", content: "https://whitesayy.lovable.app/images/og-white-sayy.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "WHITE SAYY — Marque streetwear" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "WHITE SAYY | Marque Streetwear" },
+      {
+        name: "twitter:description",
+        content:
+          "Streetwear noir profond & design brut. T-shirts oversize (29,99 €), sweats zippés, joggings ballon et ensembles.",
+      },
+      { name: "twitter:image", content: "https://whitesayy.lovable.app/images/og-white-sayy.jpg" },
     ],
     links: [
+      { rel: "canonical", href: "https://whitesayy.lovable.app/" },
       {
         rel: "stylesheet",
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://whitesayy.lovable.app/#organization",
+              name: "WHITE SAYY",
+              url: "https://whitesayy.lovable.app/",
+              logo: "https://whitesayy.lovable.app/images/logo.png",
+              sameAs: ["https://www.instagram.com/l_.say/"],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                email: "contact@whitesayy.com",
+                availableLanguage: ["fr"],
+              },
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://whitesayy.lovable.app/#website",
+              name: "WHITE SAYY",
+              url: "https://whitesayy.lovable.app/",
+              inLanguage: "fr-FR",
+              publisher: { "@id": "https://whitesayy.lovable.app/#organization" },
+            },
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -102,7 +159,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <head>
         <HeadContent />
       </head>

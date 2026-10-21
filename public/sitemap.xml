@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Core Storefront Pages -->
+  <url>
+    <loc>https://whitesayy.lovable.app/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hero-800.webp</image:loc>
+      <image:title>WHITE SAYY — Marque streetwear</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/boutique</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+
+  <!-- Category Pages -->
+  <url>
+    <loc>https://whitesayy.lovable.app/boutique/t-shirts</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tw_b-800.webp</image:loc>
+      <image:title>T-shirts oversize WHITE SAYY</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/boutique/sweats</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/ha_b-800.webp</image:loc>
+      <image:title>Sweats zippés à capuche WHITE SAYY</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/boutique/joggings</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/jd_f-800.webp</image:loc>
+      <image:title>Joggings coupe ballon WHITE SAYY</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/boutique/ensembles</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_s_f-800.webp</image:loc>
+      <image:title>Ensembles sweat et jogging WHITE SAYY</image:title>
+    </image:image>
+  </url>
+
+  <!-- Product Pages: Ensembles (76,99 €) -->
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/ensemble-art-of-rich</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_a_f-800.webp</image:loc>
+      <image:title>ENSEMBLE ART OF RICH — Marron chocolat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_a_b-800.webp</image:loc>
+      <image:title>ENSEMBLE ART OF RICH — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/ensemble-sayy-studio</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_s_f-800.webp</image:loc>
+      <image:title>ENSEMBLE SAYY STUDIO AMSTERDAM — Gris anthracite</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_s_b-800.webp</image:loc>
+      <image:title>ENSEMBLE SAYY STUDIO AMSTERDAM — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/ensemble-drip</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_d_f-800.webp</image:loc>
+      <image:title>ENSEMBLE DRIP WHITESAYY — Noir</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/set_d_b-800.webp</image:loc>
+      <image:title>ENSEMBLE DRIP WHITESAYY — Vue dos</image:title>
+    </image:image>
+  </url>
+
+  <!-- Product Pages: Sweats Zippés (49,99 €) -->
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/sweat-sayy-studio</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hs_f-800.webp</image:loc>
+      <image:title>Sweat zippé SAYY STUDIO AMSTERDAM — Gris anthracite</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hs_b-800.webp</image:loc>
+      <image:title>Sweat zippé SAYY STUDIO AMSTERDAM — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/sweat-drip</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hd_f-800.webp</image:loc>
+      <image:title>Sweat zippé DRIP WHITESAYY — Noir</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hd_b-800.webp</image:loc>
+      <image:title>Sweat zippé DRIP WHITESAYY — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/sweat-white-sayy</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hw_f-800.webp</image:loc>
+      <image:title>Sweat zippé WHITE SAYY ZIP — Coupe boxy</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/hw_b-800.webp</image:loc>
+      <image:title>Sweat zippé WHITE SAYY ZIP — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/sweat-art-of-rich</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/ha_f-800.webp</image:loc>
+      <image:title>Sweat zippé ART OF RICH — Marron chocolat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/ha_b-800.webp</image:loc>
+      <image:title>Sweat zippé ART OF RICH — Vue dos</image:title>
+    </image:image>
+  </url>
+
+  <!-- Product Pages: Joggings Coupe Ballon (39,99 €) -->
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/jogging-drip</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/jd_f-800.webp</image:loc>
+      <image:title>Jogging coupe ballon DRIP WHITESAYY — Noir</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/jd_b-800.webp</image:loc>
+      <image:title>Jogging coupe ballon DRIP WHITESAYY — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/jogging-art-of-rich</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/ja_f-800.webp</image:loc>
+      <image:title>Jogging coupe ballon ART OF RICH — Marron chocolat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/ja_b-800.webp</image:loc>
+      <image:title>Jogging coupe ballon ART OF RICH — Vue dos</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/jogging-sayy-studio</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/js_f-800.webp</image:loc>
+      <image:title>Jogging coupe ballon SAYY STUDIO AMSTERDAM — Gris anthracite</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/js_b-800.webp</image:loc>
+      <image:title>Jogging coupe ballon SAYY STUDIO AMSTERDAM — Vue dos</image:title>
+    </image:image>
+  </url>
+
+  <!-- Product Pages: T-shirts Oversize (29,99 €) -->
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/wsayy</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tw_f-800.webp</image:loc>
+      <image:title>T-shirt oversize WSAYY — Noir</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tw_b-800.webp</image:loc>
+      <image:title>T-shirt oversize WSAYY — Vue dos imprimé bleu électrique</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/piece-of-art</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tp_f-800.webp</image:loc>
+      <image:title>T-shirt oversize PIECE OF ART — Blanc</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tp_b-800.webp</image:loc>
+      <image:title>T-shirt oversize PIECE OF ART — Vue dos lettrage denim</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/produit/bye-dubai</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tb_f-800.webp</image:loc>
+      <image:title>T-shirt oversize BYE, DUBAI — Blanc</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://whitesayy.lovable.app/images/p/tb_b-800.webp</image:loc>
+      <image:title>T-shirt oversize BYE, DUBAI — Vue dos visuel noir</image:title>
+    </image:image>
+  </url>
+
+  <!-- Brand, Trust, Support & Legal Pages -->
+  <url>
+    <loc>https://whitesayy.lovable.app/a-propos</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/avis</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/contact</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/mentions-legales</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/cgv</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+  <url>
+    <loc>https://whitesayy.lovable.app/politique-de-retour</loc>
+    <lastmod>2026-10-21</lastmod>
+  </url>
+
+</urlset>
