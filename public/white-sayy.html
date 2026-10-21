@@ -536,64 +536,41 @@ header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(7, 7, 7, 0.88);
+  background: rgba(7, 7, 7, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--line);
   transition: all 0.35s var(--ease);
 }
 header.solid {
-  background: rgba(7, 7, 7, 0.96);
+  background: rgba(7, 7, 7, 0.98);
   border-color: var(--line2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 .hd {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 68px;
+  position: relative;
 }
-.hd-left {
+.hd .left {
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex: 1;
-  justify-content: flex-start;
-  min-width: 0;
+  gap: 14px;
 }
-.hd-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.hd .logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 5;
-  pointer-events: auto;
 }
-.hd-center .logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hd-center .logoimg {
+.hd .logo img {
   height: 38px;
   width: auto;
   transition: transform 0.25s var(--ease);
 }
-.hd-center .logo:hover .logoimg {
-  transform: scale(1.06);
-}
-.hd-right {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-  justify-content: flex-end;
-  min-width: 0;
+.hd .logo:hover img {
+  transform: scale(1.05);
 }
 
 .nav {
@@ -601,14 +578,16 @@ header.solid {
   gap: 24px;
   font-size: 13.5px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .nav a {
+  white-space: nowrap !important;
   color: var(--muted);
   transition: color 0.2s;
   position: relative;
   padding: 6px 0;
+  flex-shrink: 0;
 }
 .nav a:hover, .nav a.on {
   color: var(--text);
@@ -629,15 +608,35 @@ header.solid {
   transform: scaleX(1);
 }
 
+.hd .right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
 @media (min-width: 900px) {
   .hd {
-    height: 82px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 36px;
+    height: 78px;
   }
-  .hd-center .logoimg {
-    height: 44px;
+  .hd .logo img {
+    height: 42px;
   }
   .nav {
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (max-width: 899px) {
+  .hd .left .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -934,8 +933,8 @@ header.solid {
 .cat img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 16px;
+  object-fit: cover;
+  padding: 0;
   transition: transform 1s var(--ease);
 }
 .cat:hover img {
@@ -1385,14 +1384,12 @@ main{animation:pagein .45s var(--ease)}
 <div id="announce"></div>
 <header id="hdr">
   <div class="wrap hd">
-    <div class="hd-left">
+    <div class="left">
       <button class="ic only-m" data-act="menu" aria-label="Menu" aria-controls="mmenu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></svg></button>
-      <nav class="nav only-d" id="nav"></nav>
-    </div>
-    <div class="hd-center">
       <a class="logo" href="#/" aria-label="WHITE SAYY — accueil"><img class="logoimg" alt="WHITE SAYY"></a>
     </div>
-    <div class="hd-right">
+    <nav class="nav only-d" id="nav"></nav>
+    <div class="right">
       <button class="ic" data-act="search" aria-label="Rechercher" aria-controls="search" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <a class="ic only-d" href="#/compte?onglet=favoris" aria-label="Mes favoris"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="badge" id="favBadge" hidden></span></a>
       <a class="ic only-d" href="#/compte" aria-label="Mon compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
@@ -1491,8 +1488,8 @@ const pic = n => n ? "/images/p/" + n + "-800.webp" : "img/placeholder.webp";
 const picSrcSet = n => n ? "/images/p/" + n + "-480.webp 480w, /images/p/" + n + "-800.webp 800w" : "";
 const cleanKey = k => String(k || "").replace(/^p_/, "");
 const BYE_FRONT = "/images/p/tb_f-800.webp";
-const HERO = "/images/p/hero-800.webp";
-const IMG = { logo: "/images/logo.webp", logo_png: "/images/logo.png", sprite: pic("vue-360"), hero: "/__l5e/assets-v1/975c7a5b-f302-425d-8acb-e297e2bd46cc/white-sayy-barber.jpeg", front: pic("front"), back: pic("back"), "worn-dos": pic("worn-dos"), "worn-face": pic("worn-face") };
+const HERO = "/images/hero-barber.jpg";
+const IMG = { logo: "/images/logo.webp", logo_png: "/images/logo.png", sprite: pic("vue-360"), hero: "/images/hero-barber.jpg", "cat-tshirt": "/images/p/cat-tshirt.webp", "p_cat-tshirt": "/images/p/cat-tshirt.webp", front: pic("front"), back: pic("back"), "worn-dos": pic("worn-dos"), "worn-face": pic("worn-face") };
 ["ha_b", "ha_f", "hd_b", "hd_f", "hs_b", "hs_f", "hw_b", "hw_f", "ja_b", "ja_f", "jd_b", "jd_f", "js_b", "js_f", "set_a_b", "set_a_f", "set_d_b", "set_d_f", "set_s_b", "set_s_f", "tb_b", "tp_b", "tp_f", "tw_b", "tw_f"].forEach(k => IMG["p_" + k] = pic(k));
 IMG.p_tb_f = DRIVE.tb_f ? pic("tb_f") : BYE_FRONT;
 const PUBLISHED = /*SHOP_DATA_START*/ null /*SHOP_DATA_END*/;
@@ -1845,7 +1842,7 @@ function renderDrawer() {
     </div>` : ""}`;
 }
 /* ============ Routeur ============ */
-const NAV = [["#/boutique", "Boutique"], ["#/boutique?cat=tshirt", "T-shirts"], ["#/boutique?cat=sweat", "Sweats"], ["#/boutique?cat=jogging", "Joggings"], ["#/boutique?cat=ensemble", "Ensembles"], ["#/avis", "Laisser un avis"], ["#/a-propos", "À propos"]];
+const NAV = [["#/boutique", "Boutique"], ["#/boutique?cat=tshirt", "T-shirts"], ["#/boutique?cat=sweat", "Sweats"], ["#/boutique?cat=jogging", "Joggings"], ["#/boutique?cat=ensemble", "Ensembles"], ["#/a-propos", "À propos"]];
 const ROUTES = [
     [/^\/?$/, pHome], [/^\/boutique$/, pShop], [/^\/produit\/([\w-]+)$/, pProduct], [/^\/panier$/, () => { setTimeout(openDrawer, 50); return pShop(); }],
     [/^\/checkout$/, pCheckout], [/^\/livraison$/, pCheckout], [/^\/commande\/(\w+)$/, pDone], [/^\/compte$/, pAccount], [/^\/suivi$/, pTrack],
@@ -2049,7 +2046,7 @@ function card(p, i = 0) {
     </a>
   </div>`;
 }
-const CAT_COVER = { tshirt: "p_tw_b", sweat: "p_ha_b", jogging: "p_jd_f", ensemble: "p_set_s_f" };
+const CAT_COVER = { tshirt: "cat-tshirt", sweat: "p_ha_b", jogging: "p_jd_f", ensemble: "p_set_s_f" };
 function catTiles() {
     const cats = CATS.filter(([k]) => products().some(p => p.category === k));
     return `<div class="cats">${cats.map(([k, label], i) => {
