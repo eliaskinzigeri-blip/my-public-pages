@@ -124,7 +124,7 @@ header:not(.solid) .nav a{color:var(--text);text-shadow:0 1px 12px rgba(10,10,10
 /* Hero */
 .hero{position:relative;height:calc(100vh - var(--hd));height:calc(100svh - var(--hd));min-height:560px;max-height:980px;margin-top:calc(var(--hd) * -1);overflow:hidden;display:flex;align-items:flex-end;isolation:isolate}
 .hero .bg{position:absolute;inset:-6% 0 0 0;z-index:-2;will-change:transform}
-.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 10%}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.15) 24%,rgba(10,10,10,.78) 48%,rgba(10,10,10,.95) 70%,rgba(10,10,10,1) 100%)}
 body.has-promo-banner .hero{height:calc(100vh - var(--sticky-top,var(--hd)));height:calc(100svh - var(--sticky-top,var(--hd)));margin-top:calc(0px - var(--sticky-top,var(--hd)))}
 .hero .inner{padding-bottom:56px;width:100%}
@@ -136,7 +136,7 @@ body.has-promo-banner .hero{height:calc(100vh - var(--sticky-top,var(--hd)));hei
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @media (min-width:900px){
   .hero .bg{left:46%}
-  .hero .bg img{object-position:center 45%}
+  .hero .bg img{object-position:center 10%}
   .hero::after{background:linear-gradient(90deg,var(--bg) 46%,rgba(10,10,10,.35) 58%,rgba(10,10,10,0) 74%),linear-gradient(180deg,rgba(10,10,10,.92) 0%,rgba(10,10,10,.7) 5%,rgba(10,10,10,.3) 11%,rgba(10,10,10,0) 18%,rgba(10,10,10,0) 72%,var(--bg) 100%)}
   .hero{align-items:center}
   .hero .inner{padding-bottom:0;padding-top:var(--hd)}
@@ -514,7 +514,7 @@ body{font-size:16px!important;line-height:1.6!important}
   --muted: #8e8c87;
   --muted2: #6b6965;
   --white: #f7f6f2;
-  --gold: #dfb15b;
+  --gold: #e27d26; --orange: #e27d26; --orange-glow: rgba(226, 125, 38, 0.25);
   --green: #48bb78;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --font-display: "Archivo", Inter, system-ui, sans-serif;
@@ -536,8 +536,10 @@ header {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(7, 7, 7, 0.92);
-  backdrop-filter: blur(20px);
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding-top: env(safe-area-inset-top);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--line);
   transition: all 0.35s var(--ease);
@@ -753,8 +755,8 @@ header.solid {
 }
 .pc:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 18px 40px -6px rgba(0, 0, 0, 0.85);
 }
 
 /* Studio Canvas Container */
@@ -928,7 +930,14 @@ header.solid {
 .cat:hover {
   transform: translateY(-5px);
   border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+}
+.cat:hover img {
+  transform: scale(1.05);
+}
+.cat:hover span i {
+  transform: translateX(4px);
+  color: var(--gold);
 }
 .cat img {
   width: 100%;
@@ -1360,6 +1369,22 @@ body.has-mbar .mobile-dock {
   gap: 12px;
 }
 
+
+@media (max-width: 600px) {
+  .cat span {
+    bottom: 12px !important;
+    left: 12px !important;
+    right: 12px !important;
+  }
+  .cat span b {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.02em !important;
+  }
+  .cat span i {
+    font-size: 10px !important;
+  }
+}
 </style>
 
 <style id="white-sayy-motion-and-hero-dots">
@@ -2026,6 +2051,7 @@ function card(p, i = 0) {
     const tags = [isSet(p) ? `<span class="tag w">Ensemble${c > p.price ? ` −${Math.round((1 - p.price / c) * 100)} %` : ""}</span>` : "", p.isNew ? `<span class="tag w">Nouveau</span>` : "",
         total === 0 ? `<span class="tag">Épuisé</span>` : isLow(total) ? `<span class="tag warn">Derniers exemplaires</span>` : ""].join("");
     const gsm = isSet(p) ? "400 GSM · Ensemble" : (p.category === "tshirt" ? "240 GSM · Coton peigné" : "400 GSM · Fleece brossé");
+    const spec = esc(p.tagline ? p.tagline.toUpperCase() : "NOIR");
     return `<div class="pc rv d${i % 3}">
     <div class="im">
       <a href="#/produit/${p.id}" aria-label="${esc(p.name)}" class="fill">
@@ -2037,16 +2063,16 @@ function card(p, i = 0) {
       ${total && !isSet(p) ? `<div class="quick"><div class="sz">${sizesOf(p).map(s => `<button data-act="quick" data-id="${p.id}" data-s="${s}" ${stockOf(p, s) ? "" : "disabled"} aria-label="Ajouter taille ${s}">${s}</button>`).join("")}</div></div>` : ""}
     </div>
     <a href="#/produit/${p.id}" class="meta">
-      <div class="meta-sub">${gsm}</div>
+      <div class="meta-sub">${spec}</div>
       <h3 class="n">${esc(p.name)}</h3>
       <div class="meta-bottom">
         <span class="price-val">${eur(p.price)}${c > p.price ? ` <span class="old-price">${eur(c)}</span>` : ""}</span>
-        <span class="meta-tagline">${esc(p.tagline || "")}</span>
+        <span class="meta-tagline">${gsm}</span>
       </div>
     </a>
   </div>`;
 }
-const CAT_COVER = { tshirt: "cat-tshirt", sweat: "p_ha_b", jogging: "p_jd_f", ensemble: "p_set_s_f" };
+const CAT_COVER = { tshirt: "p_tw_b", sweat: "p_ha_b", jogging: "p_jd_f", ensemble: "p_set_s_f" };
 function catTiles() {
     const cats = CATS.filter(([k]) => products().some(p => p.category === k));
     return `<div class="cats">${cats.map(([k, label], i) => {
