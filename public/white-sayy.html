@@ -500,6 +500,516 @@ body{font-size:16px!important;line-height:1.6!important}
 .size-table th,.size-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
 .size-table th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
 
+
+/* ============ LUXURY STREETWEAR MASTERPIECE ============ */
+:root {
+  --bg: #070707;
+  --bg2: #0c0c0c;
+  --card: #111111;
+  --card-hover: #161616;
+  --line: rgba(255, 255, 255, 0.08);
+  --line2: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.28);
+  --text: #f7f6f2;
+  --muted: #8e8c87;
+  --muted2: #6b6965;
+  --white: #f7f6f2;
+  --gold: #dfb15b;
+  --green: #48bb78;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-display: "Archivo", Inter, system-ui, sans-serif;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035), transparent 60%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(7, 7, 7, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  transition: all 0.35s var(--ease);
+}
+header.solid {
+  background: rgba(7, 7, 7, 0.95);
+  border-color: var(--line2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.hd {
+  height: 68px;
+}
+
+.announce {
+  background: #f7f6f2;
+  color: #070707;
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+/* Hero Section */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: pulseGreen 1.8s infinite;
+}
+@keyframes pulseGreen {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.85); }
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 820px;
+}
+@media (min-width: 768px) {
+  .hero-stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+.hstat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.hstat span {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Product Cards */
+.pc {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.pc:hover {
+  border-color: var(--line2);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+.pc .im {
+  position: relative;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0d0d0d;
+}
+.pc .im img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s var(--ease), transform 0.8s var(--ease);
+}
+.pc .im img.b {
+  opacity: 0;
+}
+@media (hover: hover) {
+  .pc:hover .im img.a { opacity: 0; }
+  .pc:hover .im img.b { opacity: 1; transform: scale(1.04); }
+}
+
+/* Card Wishlist Heart */
+.card-fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+}
+.card-fav svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  transition: transform 0.2s;
+}
+.card-fav:hover {
+  background: rgba(10, 10, 10, 0.95);
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.card-fav.on {
+  background: var(--white);
+  color: #070707;
+  border-color: var(--white);
+}
+.card-fav.on svg {
+  fill: currentColor;
+  transform: scale(1.05);
+}
+
+/* Card Quick Size Bar */
+.quick .sz {
+  background: rgba(12, 12, 12, 0.9);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+}
+.quick .sz button {
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px 0;
+  transition: all 0.18s;
+}
+.quick .sz button:hover:not([disabled]) {
+  background: var(--white);
+  color: #070707;
+  transform: scale(1.08);
+}
+
+/* Card Metadata */
+.pc .meta {
+  padding: 14px 4px 6px;
+}
+.pc .meta .n {
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+.pc .meta small {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+.price-val {
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Category Tiles */
+.cat {
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.cat:hover {
+  border-color: var(--line2);
+  transform: translateY(-3px);
+}
+
+/* Atelier Section */
+.atelier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+@media (min-width: 768px) {
+  .atelier-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .atelier-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.atelier-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.atelier-card:hover {
+  border-color: var(--line2);
+  transform: translateY(-4px);
+}
+.ac-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--muted2);
+  margin-bottom: 16px;
+}
+.atelier-card h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.atelier-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  margin: 0 0 20px;
+}
+.ac-tag {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+/* Reassurance Bar in Product Page */
+.p-reassure {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.pr-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.pr-item svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--text);
+  flex-shrink: 0;
+}
+
+/* Shipping Meter in Cart Drawer */
+.ship-meter {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.ship-meter.unlocked {
+  border-color: rgba(72, 187, 120, 0.4);
+  background: rgba(72, 187, 120, 0.08);
+}
+.sm-txt {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.ship-meter.unlocked .sm-txt {
+  color: var(--text);
+  font-weight: 600;
+}
+.sm-bar {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.sm-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #dfb15b, #f7f6f2);
+  border-radius: 999px;
+  transition: width 0.5s var(--ease);
+}
+.ship-meter.unlocked .sm-fill {
+  background: var(--green);
+}
+
+/* Drawer Badges */
+.drawer-badges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+/* Mobile Dock */
+.mobile-dock {
+  position: fixed;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  z-index: 35;
+  background: rgba(14, 14, 14, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.85);
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+body.has-mbar .mobile-dock {
+  transform: translateY(150%);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 899px) {
+  body {
+    padding-bottom: calc(68px + env(safe-area-inset-bottom));
+  }
+}
+.dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 10px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  position: relative;
+  border-radius: 12px;
+  transition: color 0.2s;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.dock-item svg.i {
+  width: 19px;
+  height: 19px;
+}
+.dock-item:hover, .dock-item.on {
+  color: var(--text);
+}
+.dock-item .badge {
+  top: 1px;
+  right: 6px;
+}
+@media (min-width: 900px) {
+  .mobile-dock {
+    display: none !important;
+  }
+}
+
+/* Scroll To Top Button */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: all 0.3s var(--ease);
+}
+.scroll-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.scroll-top:hover {
+  background: var(--white);
+  color: #070707;
+  border-color: var(--white);
+  transform: translateY(-2px);
+}
+@media (max-width: 899px) {
+  .scroll-top {
+    bottom: 76px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+  }
+}
+
 </style>
 
 <style id="white-sayy-motion-and-hero-dots">
@@ -532,6 +1042,7 @@ main{animation:pagein .45s var(--ease)}
     <nav class="nav" id="nav"></nav>
     <div class="right">
       <button class="ic" data-act="search" aria-label="Rechercher" aria-controls="search" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      <a class="ic only-d" href="#/compte?onglet=favoris" aria-label="Mes favoris"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="badge" id="favBadge" hidden></span></a>
       <a class="ic only-d" href="#/compte" aria-label="Mon compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></a>
       <button class="ic" data-act="cart" aria-label="Ouvrir le panier" aria-controls="drawer" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="cartBadge" hidden></span></button>
     </div>
@@ -550,6 +1061,16 @@ main{animation:pagein .45s var(--ease)}
     <div class="bt"><span>© <span id="year"></span> WHITE SAYY</span><span>WHITE SAYY Studio</span></div>
   </div>
 </footer>
+
+<nav class="mobile-dock only-m" aria-label="Navigation rapide">
+  <a href="#/boutique" class="dock-item" data-dock="boutique"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg><span>Shop</span></a>
+  <button class="dock-item" data-act="search" aria-label="Recherche"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Chercher</span></button>
+  <a href="#/compte?onglet=favoris" class="dock-item" data-dock="favoris"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>Favoris</span><span class="badge" id="dockFavBadge" hidden></span></a>
+  <button class="dock-item" data-act="cart" aria-label="Panier"><svg class="i" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Panier</span><span class="badge" id="dockCartBadge" hidden></span></button>
+  <a href="#/compte" class="dock-item" data-dock="compte"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Compte</span></a>
+</nav>
+<button class="scroll-top" id="scrollTop" aria-label="Retourner en haut"><svg class="i" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg></button>
+
 
 <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Menu principal" tabindex="-1">
   <div class="top"><img class="logoimg" style="height:32px" alt="WHITE SAYY"><button class="ic" data-act="menu" aria-label="Fermer"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
@@ -844,11 +1365,36 @@ function renderAnnouncement() {
 }
 function saveCart() { cart = cart.filter(i => findP(i.id) && i.qty > 0); write(K.cart, cart); badge(); if ($("#drawer").classList.contains("open"))
     renderDrawer(); }
-function badge(pop) { const b = $("#cartBadge"), n = cartCount(); b.hidden = !n; b.textContent = n; if (pop) {
-    b.classList.remove("pop");
-    void b.offsetWidth;
-    b.classList.add("pop");
-} }
+function favBadge(pop) {
+    const f = read(K.favs, []);
+    const n = Array.isArray(f) ? f.length : 0;
+    const b = $("#favBadge"), db = $("#dockFavBadge");
+    [b, db].forEach(el => {
+        if (!el) return;
+        el.hidden = !n;
+        el.textContent = n;
+        if (pop) {
+            el.classList.remove("pop");
+            void el.offsetWidth;
+            el.classList.add("pop");
+        }
+    });
+}
+function badge(pop) {
+    const n = cartCount();
+    const b = $("#cartBadge"), db = $("#dockCartBadge");
+    [b, db].forEach(el => {
+        if (!el) return;
+        el.hidden = !n;
+        el.textContent = n;
+        if (pop) {
+            el.classList.remove("pop");
+            void el.offsetWidth;
+            el.classList.add("pop");
+        }
+    });
+    favBadge();
+}
 function addToCart(id, size) {
     const p = findP(id);
     if (!p)
@@ -880,29 +1426,60 @@ $("#ov").addEventListener("click", closeAll);
 document.addEventListener("keydown", e => { if (e.key === "Escape")
     closeAll(); });
 function renderDrawer() {
-    const sub = cartSub(), free = +S().freeFrom;
+    const sub = cartSub(), free = +S().freeFrom || 80, ship = shipFor(sub);
     const d = $("#drawer");
+    const freeDiff = Math.max(0, free - sub);
+    const progress = Math.min(100, Math.round((sub / free) * 100));
     d.innerHTML = `
     <div class="dhd"><h3 id="drawerTitle">Panier${cart.length ? ` (${cartCount()})` : ""}</h3><button class="ic" data-act="close" aria-label="Fermer">${I.x}</button></div>
     <div class="dbody">${cart.length ? `
-      ${free > 0 ? `<div class="ship">${sub >= free ? "Livraison offerte" : `Plus que <b style="color:var(--text)">${eur(free - sub)}</b> pour la livraison offerte`}<div class="tr"><i style="width:${Math.min(100, sub / free * 100)}%"></i></div></div>` : ""}
-      ${cart.map((i, k) => {
+      ${free > 0 ? `
+      <div class="ship-meter ${sub >= free ? "unlocked" : ""}">
+        <div class="sm-txt">${sub >= free ? "🎉 Félicitations ! Livraison Colissimo offerte" : `Plus que <b style="color:var(--text)">${eur(freeDiff)}</b> pour la <b>livraison offerte</b>`}</div>
+        <div class="sm-bar"><div class="sm-fill" style="width:${progress}%"></div></div>
+      </div>` : ""}
+      <div class="cart-lines">${cart.map((i, k) => {
         const p = findP(i.id);
+        if (!p) return "";
         return `
-      <div class="line">
-        <a href="#/produit/${p.id}" data-act="close" aria-label="${esc(p.name)}"><img src="${img(p.images[0])}" width="80" height="96" alt="${esc(p.name)}" loading="lazy"></a>
-        <div class="m"><div class="n">${esc(p.name)}</div><div class="s">${isSet(p) ? esc(sizeLabel(p, i.size)) : esc(p.subtitle) + " · " + esc(i.size)}</div><div class="s" style="color:var(--text);margin-top:4px">${eur(p.price)}</div>
-          <div class="bt"><div class="stepper"><button data-act="qty" data-k="${k}" data-d="-1" aria-label="Retirer un">−</button><span>${i.qty}</span><button data-act="qty" data-k="${k}" data-d="1" aria-label="Ajouter un">+</button></div>
-          <button class="rm" data-act="rm" data-k="${k}">Retirer</button></div></div>
-      </div>`;
-    }).join("")}` : `<div class="empty"><div class="display" style="font-size:30px">Panier vide</div><p>Le noir te va bien. Commence par là.</p><a class="btn" href="#/boutique" data-act="close">Voir la boutique</a></div>`}
+        <div class="line">
+          <a href="#/produit/${p.id}" data-act="close" aria-label="${esc(p.name)}"><img src="${img(p.images[0])}" width="80" height="96" alt="${esc(p.name)}" loading="lazy"></a>
+          <div class="m">
+            <div class="n">${esc(p.name)}</div>
+            <div class="s">${isSet(p) ? esc(sizeLabel(p, i.size)) : esc(p.subtitle) + " · " + esc(i.size)}</div>
+            <div class="s" style="color:var(--text);font-weight:600;margin-top:4px">${eur(p.price)}</div>
+            <div class="bt">
+              <div class="stepper">
+                <button data-act="qty" data-k="${k}" data-d="-1" aria-label="Retirer un">−</button>
+                <span>${i.qty}</span>
+                <button data-act="qty" data-k="${k}" data-d="1" aria-label="Ajouter un">+</button>
+              </div>
+              <button class="rm" data-act="rm" data-k="${k}">Retirer</button>
+            </div>
+          </div>
+        </div>`;
+      }).join("")}</div>` : `
+      <div class="empty">
+        <svg class="i" viewBox="0 0 24 24" style="width:48px;height:48px;margin:0 auto 16px;opacity:.35"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <div class="display" style="font-size:26px;margin-bottom:8px">Ton panier est vide</div>
+        <p style="color:var(--muted);font-size:14px;margin-bottom:24px">Découvre nos t-shirts oversize, sweats zippés et ensembles.</p>
+        <a class="btn" href="#/boutique" data-act="close">Découvrir la collection ${I.arrow}</a>
+      </div>`}
     </div>
-    ${cart.length ? `<div class="dft">
-      <div class="sline"><span>Sous-total</span><span>${eur(sub)}</span></div>
-      <div class="sline"><span>Livraison</span><span>${shipFor(sub) ? eur(shipFor(sub)) : "Offerte"}</span></div>
-      <div class="stotal"><span>Total</span><span>${eur(sub + shipFor(sub))}</span></div>
-      <div class="note" style="margin-bottom:14px">Taxes incluses</div>
-      <a class="btn full lg" href="#/checkout" data-act="close">Commander ${I.arrow}</a>
+    ${cart.length ? `
+    <div class="dft">
+      <div class="sline"><span>Sous-total</span><span class="price-val">${eur(sub)}</span></div>
+      <div class="sline"><span>Livraison</span><span>${ship ? eur(ship) : '<b style="color:var(--green)">Offerte</b>'}</span></div>
+      <div class="stotal"><b>Total TTC</b><b class="price-val" style="font-size:20px">${eur(sub + ship)}</b></div>
+      <div class="note" style="margin-bottom:14px;color:var(--muted)">Taxes incluses · Expédition rapide 24/48h</div>
+      <a class="btn full lg" href="#/checkout" data-act="close" style="font-weight:600"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Passer la commande — ${eur(sub + ship)}</a>
+      <div class="drawer-badges">
+        <span>🔒 Paiement SSL 256-bit</span>
+        <span>•</span>
+        <span>🇫🇷 Colissimo 48h</span>
+        <span>•</span>
+        <span>14j pour échanger</span>
+      </div>
     </div>` : ""}`;
 }
 /* ============ Routeur ============ */
@@ -1012,12 +1589,43 @@ function render() {
     $("#mnav").innerHTML = nav + `<a href="#/contact" class="${cur === "#/contact" ? "on" : ""}">Contact</a>`;
     document.body.dataset.page = path === "/" ? "home" : path.split("/")[1];
     $("#mbar").classList.remove("show");
+    document.body.classList.remove("has-mbar");
     $("#mbar").innerHTML = "";
     if (r.mount)
         r.mount();
     observe();
     headerState();
+    badge();
+    updateDock(location.hash || "#/");
 }
+
+function updateDock(hash) {
+    const h = hash || "";
+    document.querySelectorAll(".dock-item").forEach(item => {
+        const d = item.dataset.dock;
+        if (!d) return;
+        if (d === "boutique") {
+            item.classList.toggle("on", h === "" || h === "#/" || h.indexOf("#/boutique") === 0);
+        } else if (d === "favoris") {
+            item.classList.toggle("on", h.indexOf("favoris") !== -1);
+        } else if (d === "compte") {
+            item.classList.toggle("on", h.indexOf("#/compte") === 0 && h.indexOf("favoris") === -1);
+        }
+    });
+}
+
+window.addEventListener("scroll", function() {
+    var st = document.getElementById("scrollTop");
+    if (st) {
+        if (window.scrollY > 400) { st.classList.add("show"); }
+        else { st.classList.remove("show"); }
+    }
+}, { passive: true });
+document.addEventListener("click", function(e) {
+    var t = e.target.closest("#scrollTop");
+    if (t) { window.scrollTo({ top: 0, behavior: "smooth" }); }
+});
+
 window.addEventListener("hashchange", () => { closeAll(); render(); window.scrollTo({ top: 0, behavior: "instant" }); });
 /* Apparition au scroll */
 let io = null;
@@ -1054,6 +1662,8 @@ addEventListener("scroll", () => {
 /* ============ Cartes produit ============ */
 function card(p, i = 0) {
     const total = totalStock(p), c = compareAt(p);
+    const favs = read(K.favs, []);
+    const isFav = Array.isArray(favs) && favs.includes(p.id);
     const tags = [isSet(p) ? `<span class="tag w">Ensemble${c > p.price ? ` −${Math.round((1 - p.price / c) * 100)} %` : ""}</span>` : "", p.isNew ? `<span class="tag w">Nouveau</span>` : "",
         total === 0 ? `<span class="tag">Épuisé</span>` : isLow(total) ? `<span class="tag warn">Derniers exemplaires</span>` : ""].join("");
     return `<div class="pc rv d${i % 3}">
@@ -1063,6 +1673,7 @@ function card(p, i = 0) {
         ${p.images[1] ? `<img class="b" src="${img(p.images[1])}" alt="" loading="lazy">` : ""}
       </a>
       <div class="tags">${tags}</div>
+      <button class="card-fav ${isFav ? "on" : ""}" data-act="fav" data-id="${p.id}" aria-label="Favoris">${I.heart}</button>
       ${total && !isSet(p) ? `<div class="quick"><div class="sz">${sizesOf(p).map(s => `<button data-act="quick" data-id="${p.id}" data-s="${s}" ${stockOf(p, s) ? "" : "disabled"} aria-label="Ajouter taille ${s}">${s}</button>`).join("")}</div></div>` : ""}
     </div>
     <a href="#/produit/${p.id}" class="meta"><h3 class="n">${esc(p.name)}<small>${esc(p.subtitle)}${p.tagline ? " · " + esc(p.tagline) : ""}</small></h3><span style="text-align:right;white-space:nowrap">${eur(p.price)}${c > p.price ? `<small style="text-decoration:line-through">${eur(c)}</small>` : ""}</span></a>
@@ -1158,7 +1769,38 @@ function pHome() {
     <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Sweat + jogging</div><h2 class="h2">Les ensembles</h2></div><a class="ulink" href="#/boutique?cat=ensemble">Tout voir</a></div>
     <div class="pgrid">${sets.map(card).join("")}</div>
   </section>` : ""}
-  <section class="sec wrap edito" ${sets.length ? 'style="padding-top:0"' : ""}>
+  
+  <section class="sec wrap atelier-sec" ${sets.length ? 'style="padding-top:0"' : ""}>
+    <div class="sec-hd rv"><div><div class="eyebrow" style="margin-bottom:12px">Matières &amp; Savoir-faire</div><h2 class="h2">L'Atelier WHITE SAYY</h2></div><a class="ulink" href="#/a-propos">En savoir plus</a></div>
+    <div class="atelier-grid">
+      <div class="atelier-card rv d1">
+        <div class="ac-num">01</div>
+        <h3>Jersey Lourd 240 GSM</h3>
+        <p>100% coton peigné haute densité. Un tombé franc qui ne plaque pas, résiste aux lavages et conserve sa tenue lavage après lavage. Col rond renforcé anti-déformation.</p>
+        <span class="ac-tag">T-shirts</span>
+      </div>
+      <div class="atelier-card rv d2">
+        <div class="ac-num">02</div>
+        <h3>Fleece Brossé 400 GSM</h3>
+        <p>Molleton gratté ultra-dense pour une chaleur thermique maximale et une structure sculptée spectaculaire. Finition intérieure brossée ultra-douce.</p>
+        <span class="ac-tag">Sweats &amp; Joggings</span>
+      </div>
+      <div class="atelier-card rv d3">
+        <div class="ac-num">03</div>
+        <h3>Coupe Ballon &amp; Oversize</h3>
+        <p>Volumes généreux dessinés à Paris et Amsterdam. Épaules tombantes sans tension et bas de jambe fuselé au-dessus de la sneaker.</p>
+        <span class="ac-tag">Design Brut</span>
+      </div>
+      <div class="atelier-card rv d4">
+        <div class="ac-num">04</div>
+        <h3>Sérigraphie Netherland Made</h3>
+        <p>Encres haute densité appliquées avec précision. Contrastes optiques éclatants (bleu électrique, blanc brut, noir profond) qui ne craquent pas.</p>
+        <span class="ac-tag">Finitions</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec wrap edito" style="padding-top:0">
     <div class="ph rv"><img src="${img("p_ha_b")}" alt="Sweat ART OF RICH, dos" loading="lazy"></div>
     <div>
       <div class="eyebrow rv">L'esprit WHITE SAYY</div>
@@ -1284,6 +1926,14 @@ function pProduct(id) {
         <div id="sizeSec">${sizeSection(p)}</div>
         <div class="stockmsg" id="stockmsg">${stockMsg(p)}</div>
         <button class="btn full lg" id="addBtn" data-act="add" data-id="${p.id}" ${total ? "" : "disabled"}>${addLabel(p)}</button>
+
+        <div class="p-reassure">
+          <div class="pr-item"><svg class="i" viewBox="0 0 24 24"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v4c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span>Expédition 24/48h</span></div>
+          <div class="pr-item"><svg class="i" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg><span>Retours 14 jours</span></div>
+          <div class="pr-item"><svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Paiement SSL sécurisé</span></div>
+          <div class="pr-item"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg><span>Atelier Paris &amp; Amsterdam</span></div>
+        </div>
+
         ${inSet ? `<a class="upsell" href="#/produit/${inSet.id}"><img src="${img(inSet.images[0])}" alt=""><span><b>Existe en ensemble</b>Sweat + jogging pour ${eur(inSet.price)} au lieu de ${eur(compareAt(inSet))}</span>${I.arrow}</a>` : ""}
         <div class="acc">
           <details open><summary>Détails &amp; matières</summary><div class="b"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join("")}</ul></div></details>
@@ -1322,7 +1972,11 @@ function mountProduct(p, frames) {
     renderMbar(p);
     const add = $("#addBtn");
     if ("IntersectionObserver" in window) {
-        const o = new IntersectionObserver(([e]) => $("#mbar").classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0));
+        const o = new IntersectionObserver(([e]) => {
+            const isShow = !e.isIntersecting && e.boundingClientRect.top < 0;
+            $("#mbar").classList.toggle("show", isShow);
+            document.body.classList.toggle("has-mbar", isShow);
+        });
         o.observe(add);
         teardown.push(() => o.disconnect());
     }
@@ -2474,12 +3128,18 @@ document.addEventListener("click", async (e) => {
             addToCart(el.dataset.id, el.dataset.s);
             break;
         case "fav": {
+            e.preventDefault();
+            e.stopPropagation();
             let f = read(K.favs, []);
             const id = el.dataset.id;
-            f = f.includes(id) ? f.filter(x => x !== id) : [...f, id];
+            const isAdded = !f.includes(id);
+            f = isAdded ? [...f, id] : f.filter(x => x !== id);
             write(K.favs, f);
-            el.classList.toggle("on", f.includes(id));
-            toast(f.includes(id) ? "Ajouté aux favoris" : "Retiré des favoris");
+            document.querySelectorAll('[data-act="fav"][data-id="' + id + '"]').forEach(btn => {
+                btn.classList.toggle("on", isAdded);
+            });
+            favBadge(true);
+            toast(isAdded ? "Ajouté aux favoris" : "Retiré des favoris");
             break;
         }
         case "avis":
